@@ -88,8 +88,8 @@ export const OFFICE_COPY: LandingCopy = {
       a: 'We start as soon as we can after a walkthrough and agreement. Same-day starts happen when capacity allows—they are not a guarantee.',
     },
     {
-      q: 'Do you serve schools or multifamily?',
-      a: 'This page is for office and corporate facilities. Other facility types can be noted on the form; we will route the inquiry appropriately.',
+      q: 'What if my facility is not a typical office suite?',
+      a: 'This page is for office and corporate facilities. Use Other on the form if you need to describe a different commercial space—we will review and route the inquiry.',
     },
   ],
   ctaTitle: 'Ready for a cleaner, more consistent office?',
