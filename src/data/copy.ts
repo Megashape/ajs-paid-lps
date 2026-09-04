@@ -34,37 +34,37 @@ export const OFFICE_COPY: LandingCopy = {
   variant: 'office',
   metaTitle: 'Office Cleaning — Peninsula Commercial Janitorial | AJS',
   metaDescription:
-    'Reliable weekly office cleaning for Peninsula workplaces. Smaller offices welcome. Local Redwood City team. Call 650-261-0723.',
-  badge: 'Office & Corporate Facilities',
-  headline: 'Stop settling for spotty office cleaning',
+    'Weekly office cleaning for Peninsula workplaces. Smaller offices welcome. Local Redwood City team. Call 650-261-0723.',
+  badge: 'Peninsula office & corporate facilities',
+  headline: 'Offices that look ready before your team walks in',
   subhead:
-    'Get a Peninsula crew that shows up on schedule—weekly is enough to qualify, and smaller offices are welcome. No square-footage gate. Request a walkthrough before another Monday opens to a half-cleaned floor.',
+    'Recurring commercial cleaning for Peninsula workplaces—so suites, floors, and shared spaces stay presentation-ready week after week. Weekly service qualifies. Smaller offices welcome.',
   bullets: [
-    'Weekly qualifies—scale to 2–3×, five-day, or weekend / 7-day when you need it',
-    'Smaller offices welcome—no hard square-footage minimum',
-    'Commercial specialist for suites and corporate facilities—not residential city pages',
+    'Show up to a workspace that already looks cared for—not a scramble after the fact',
+    'Weekly programs qualify; step up to multi-day or weekend / 7-day when the building needs it',
+    'Local Redwood City crew planning for offices—not house-cleaner city pages',
   ],
-  formTitle: 'Request a facility walkthrough',
-  formSubtitle: 'Tell us about your office. We’ll follow up to schedule a walkthrough when it works for you.',
-  whyTitle: 'Why Peninsula offices choose AJS',
+  formTitle: 'Get a facility walkthrough on the calendar',
+  formSubtitle: 'Takes a minute. We’ll follow up to schedule when it works for you.',
+  whyTitle: 'Why Peninsula offices switch to AJS',
   whyIntro:
-    'House-cleaner city pages and franchise scripts rarely fit corporate facilities. We plan recurring commercial service around your tenants, hours, and finish standards—including weekends when the building needs it.',
+    'Generic house-cleaner pages and franchise scripts rarely fit corporate facilities. We scope recurring commercial service around your hours, tenants, and finish standards—including weekends when the building needs it.',
   whyCards: [
     {
-      title: 'Commercial-first, not residential',
-      body: 'Scope, checklists, and staffing are built for offices and corporate facilities—not one-off house cleans.',
+      title: 'Built for offices, not homes',
+      body: 'Restrooms, kitchens, workstations, and common areas scoped like a business facility—not a one-off house clean.',
     },
     {
-      title: 'Weekly and beyond',
+      title: 'Weekly is enough to start',
       body: 'Weekly qualifies. Add 2–3×, five-day, or weekend / 7-day coverage when your facility needs it—not as a higher bar to talk to us.',
     },
     {
-      title: 'Local hub in Redwood City',
-      body: 'Peninsula coverage with on-the-ground coordination—not a distant franchise dispatcher.',
+      title: 'Local hub, real oversight',
+      body: 'Peninsula coverage coordinated from Redwood City—not a distant dispatcher reading a script.',
     },
     {
-      title: 'Screening available on request',
-      body: 'Live Scan and background checks can be arranged when your building or client requires them.',
+      title: 'Screening when you need it',
+      body: 'Background checks and Live Scan available on request when your building or client requires them.',
     },
   ],
   citiesTitle: 'Serving offices across the Peninsula & South Bay edge',
@@ -97,7 +97,7 @@ export const OFFICE_COPY: LandingCopy = {
       a: 'This page is for office and corporate facilities. Use Other on the form if you need to describe a different commercial space—we will review and route the inquiry.',
     },
   ],
-  ctaTitle: 'Ready for a cleaner, more consistent office?',
+  ctaTitle: 'Put a cleaner office on a reliable schedule',
   ctaBody: 'Request a walkthrough or call our Peninsula team at 650-261-0723.',
 }
 
@@ -106,24 +106,24 @@ export const RECURRING_COPY: LandingCopy = {
   metaTitle: 'Recurring Commercial Janitorial — Bay Area | AJS',
   metaDescription:
     'Recurring commercial janitorial for Peninsula businesses. Weekly and multi-day programs, weekends when needed. Local Redwood City hub. 650-261-0723.',
-  badge: 'Recurring Commercial Janitorial',
-  headline: 'Recurring janitorial that holds the standard every visit',
+  badge: 'Recurring commercial janitorial',
+  headline: 'Recurring janitorial that stays consistent—visit after visit',
   subhead:
-    'Standing schedules for Peninsula offices and commercial facilities—weekly qualifies. Lock in consistent service before another quarter of uneven cleans. Multi-day and weekend programs available when the facility needs them.',
+    'Standing commercial schedules for Peninsula offices and facilities. Weekly qualifies; multi-day and weekend programs when the building needs more.',
   bullets: [
-    'Weekly qualifies—add 2–3×, five-day, or weekend / 7-day as needed',
-    'No hard square-footage minimum; smaller commercial spaces welcome',
-    'Local Redwood City hub serving the approved city list',
+    'Same-standard results every visit—not a different crew reinventing the checklist',
+    'Weekly qualifies; scale to 2–3×, five-day, or weekend / 7-day as needed',
+    'Redwood City hub serving our approved Peninsula & South Bay cities',
   ],
   formTitle: 'Start a recurring service conversation',
   formSubtitle: 'Share frequency and location. We’ll confirm fit and schedule a walkthrough.',
   whyTitle: 'Built for recurring commercial work',
   whyIntro:
-    'One-off cleans and residential providers leave gaps. Recurring commercial janitorial needs the same crew rhythm, supply planning, and local oversight every visit.',
+    'One-off cleans leave gaps. Recurring commercial janitorial needs crew rhythm, supply planning, and local oversight every visit—so the facility looks the same when you open.',
   whyCards: [
     {
       title: 'Predictable schedules',
-      body: 'Weekly, 2–3×, five-day, or weekend / 7-day options so your facility looks the same when you open—not only after a scramble.',
+      body: 'Weekly, 2–3×, five-day, or weekend / 7-day options so your facility looks ready—not only after a scramble.',
     },
     {
       title: 'Commercial standards',
@@ -160,6 +160,6 @@ export const RECURRING_COPY: LandingCopy = {
       a: 'Ask during the walkthrough how your route would be staffed and supervised. We plan crews and oversight for commercial consistency—details depend on the facility.',
     },
   ],
-  ctaTitle: 'Put recurring janitorial on a reliable schedule',
+  ctaTitle: 'Lock in recurring janitorial you can count on',
   ctaBody: 'Request a walkthrough or call 650-261-0723.',
 }
