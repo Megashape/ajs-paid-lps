@@ -7,12 +7,11 @@ export const ROLES = [
   'Other',
 ] as const
 
+/** Shown on paid office/recurring LPs — School + Multifamily tiles hidden (route note kept on Other). */
 export const FACILITY_TYPES = [
   { value: 'Office / Corporate', win: true },
   { value: 'Medical / Professional suite', win: true },
   { value: 'Other commercial', win: true },
-  { value: 'School / Educational', win: false },
-  { value: 'Multifamily / Residential', win: false },
   { value: 'Other (describe later)', win: false },
 ] as const
 

@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { CheckCircle2 } from 'lucide-react'
 import type { LandingCopy } from '../data/copy'
 import { readUtmsFromLocation } from '../lib/utm'
+import { assetUrl } from '../lib/assetUrl'
 import { Header } from './Header'
 import { MobileCallBar } from './MobileCallBar'
 import { LeadForm } from './LeadForm'
@@ -32,17 +33,25 @@ export function LandingPage({ copy }: LandingPageProps) {
       <MobileCallBar />
 
       <section className="relative bg-navy-900 text-white pt-8 pb-16 lg:pt-14 lg:pb-24 overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-40"
-          style={{
-            background:
-              'radial-gradient(ellipse at 20% 20%, rgba(211,47,47,0.25), transparent 50%), radial-gradient(ellipse at 80% 0%, rgba(255,255,255,0.08), transparent 45%)',
-          }}
-          aria-hidden
-        />
+        <div className="absolute inset-0" aria-hidden>
+          <img
+            src={assetUrl('hero-office.webp')}
+            alt=""
+            className="h-full w-full object-cover object-center opacity-45"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-navy-900/95 via-navy-900/85 to-navy-900/70" />
+          <div
+            className="absolute inset-0 opacity-40"
+            style={{
+              background:
+                'radial-gradient(ellipse at 20% 20%, rgba(211,47,47,0.25), transparent 50%), radial-gradient(ellipse at 80% 0%, rgba(255,255,255,0.08), transparent 45%)',
+            }}
+          />
+        </div>
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
-            <div className="pt-2 lg:pt-6">
+            {/* Mobile: form first (order). Desktop: copy left, form right. */}
+            <div className="pt-2 lg:pt-6 order-2 lg:order-1">
               <span className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-red-200">
                 {copy.badge}
               </span>
@@ -60,15 +69,24 @@ export function LandingPage({ copy }: LandingPageProps) {
                   </li>
                 ))}
               </ul>
-              <a
-                href="#lead-form"
-                className="mt-8 inline-flex lg:hidden items-center justify-center rounded-xl bg-ajs-red hover:bg-ajs-red-dark font-bold px-5 h-12 w-full sm:w-auto"
-              >
-                Request a walkthrough
-              </a>
+
+              <div className="mt-8 grid grid-cols-2 gap-3 max-w-md">
+                <img
+                  src={assetUrl('office-interior.jpg')}
+                  alt="Clean commercial office interior"
+                  className="h-28 sm:h-32 w-full rounded-xl object-cover border border-white/15 shadow-lg"
+                  loading="lazy"
+                />
+                <img
+                  src={assetUrl('office-cleaning.webp')}
+                  alt="Bay Area mid-size office cleaning"
+                  className="h-28 sm:h-32 w-full rounded-xl object-cover border border-white/15 shadow-lg"
+                  loading="lazy"
+                />
+              </div>
             </div>
 
-            <div className="lg:pt-2">
+            <div className="lg:pt-2 order-1 lg:order-2">
               <LeadForm
                 title={copy.formTitle}
                 subtitle={copy.formSubtitle}

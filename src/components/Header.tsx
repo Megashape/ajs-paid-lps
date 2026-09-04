@@ -1,5 +1,7 @@
+import { Link } from 'react-router-dom'
 import { Phone } from 'lucide-react'
 import { PHONE_DISPLAY, PHONE_TEL } from '../lib/constants'
+import { assetUrl } from '../lib/assetUrl'
 
 interface HeaderProps {
   /** When true, header sits over dark hero and stays transparent-ish */
@@ -15,15 +17,15 @@ export function Header({ overHero = true }: HeaderProps) {
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="flex items-center justify-between gap-6 py-3 lg:py-4">
-          <a href="/" className="flex items-center gap-3 pt-1 shrink-0">
+          <Link to="/" className="flex items-center gap-3 pt-1 shrink-0">
             <img
-              src="/logo-white.png"
+              src={assetUrl('logo-white.png')}
               alt="All Janitorial Service"
               className="h-12 sm:h-14 w-auto object-contain"
               width={180}
               height={56}
             />
-          </a>
+          </Link>
 
           {/* Sparse header: phone only — school/multifamily nav intentionally hidden */}
           <a
