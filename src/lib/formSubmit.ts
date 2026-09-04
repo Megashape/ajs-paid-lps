@@ -18,6 +18,13 @@ export interface LeadPayload {
   utms: UtmFields
 }
 
+function splitName(fullName: string): { first: string; last: string } {
+  const parts = fullName.trim().split(/\s+/).filter(Boolean)
+  if (parts.length === 0) return { first: '', last: '' }
+  if (parts.length === 1) return { first: parts[0], last: '' }
+  return { first: parts[0], last: parts.slice(1).join(' ') }
+}
+
 export async function submitLead(payload: LeadPayload): Promise<void> {
   const endpoint = import.meta.env.VITE_FORM_ENDPOINT
 
@@ -31,10 +38,20 @@ export async function submitLead(payload: LeadPayload): Promise<void> {
     return
   }
 
+  const { first, last } = splitName(payload.fullName)
+
+  // Keep existing camelCase keys; also send GHL-friendly aliases Holly maps today
   const body = {
     ...payload,
     ...payload.utms,
     _subject: `AJS Lead — ${payload.variant} — ${payload.company}`,
+    Email: payload.email,
+    'First Name': first,
+    'Last Name': last,
+    Phone: payload.phone,
+    'Company Name': payload.company,
+    companyName: payload.company,
+    City: payload.city,
   }
 
   const res = await fetch(endpoint, {
