@@ -28,38 +28,39 @@ export interface LandingCopy {
  * - same-day as a guarantee
  * - Live Scan as default (available on request only)
  * - invented counts, ratings, review volumes
+ * - 10k / mid-size-only gates (Chris: smaller offices OK; weekly qualifies)
  */
 export const OFFICE_COPY: LandingCopy = {
   variant: 'office',
   metaTitle: 'Office Cleaning — Peninsula Commercial Janitorial | AJS',
   metaDescription:
-    'Weekly office and corporate facilities cleaning across the Peninsula. Local Redwood City team. Call 650-261-0723.',
+    'Weekly office and corporate facilities cleaning across the Peninsula. Smaller offices welcome. Local Redwood City team. Call 650-261-0723.',
   badge: 'Office & Corporate Facilities',
-  headline: 'Weekly office cleaning built for Peninsula workplaces',
+  headline: 'Weekly office cleaning for Peninsula workplaces',
   subhead:
-    'All Janitorial Service focuses on commercial facilities—not residential house-cleaner city pages, and not a national franchise script. Local crews based in Redwood City, scheduled for the way your office actually runs.',
+    'Qualified accounts are offices with at least weekly service—not five-day-only, and not a square-footage gate. Local Redwood City crews for suites and corporate facilities—not residential house-cleaner city pages.',
   bullets: [
-    'Weekly (and multi-day) office programs—not Mon–Fri only',
-    'Commercial specialist for suites, floors, and shared facilities',
-    'Local Peninsula team vs. franchise call centers',
+    'Weekly is enough to qualify—2–3×, five-day, or weekend/7-day when you need it',
+    'Smaller offices welcome—no hard square-footage minimum',
+    'Commercial specialist vs. house-cleaner city pages and franchise scripts',
   ],
   formTitle: 'Request a facility walkthrough',
   formSubtitle: 'Tell us about your office. We’ll follow up to schedule a walkthrough when it works for you.',
   whyTitle: 'Why Peninsula offices choose AJS',
   whyIntro:
-    'City pages for house cleaners and big-box franchises rarely fit corporate facilities. We plan recurring commercial service around your tenants, hours, and finish standards.',
+    'City pages for house cleaners and big-box franchises rarely fit corporate facilities. We plan recurring commercial service around your tenants, hours, and finish standards—including weekends when the building needs it.',
   whyCards: [
     {
       title: 'Commercial-first, not residential',
       body: 'Scope, checklists, and staffing are built for offices and corporate facilities—not one-off house cleans.',
     },
     {
-      title: 'Local hub in Redwood City',
-      body: 'Peninsula coverage with on-the-ground coordination—not a distant franchise dispatcher.',
+      title: 'Weekly and beyond',
+      body: 'Weekly qualifies. Add 2–3×, five-day, or weekend / 7-day coverage when your facility needs it—not as a higher bar to talk to us.',
     },
     {
-      title: 'Recurring programs that fit your week',
-      body: 'Weekly, a few times a week, or five-day schedules. We match frequency to your traffic and budget.',
+      title: 'Local hub in Redwood City',
+      body: 'Peninsula coverage with on-the-ground coordination—not a distant franchise dispatcher.',
     },
     {
       title: 'Screening available on request',
@@ -73,11 +74,15 @@ export const OFFICE_COPY: LandingCopy = {
   faqs: [
     {
       q: 'Do you only clean Monday through Friday?',
-      a: 'No. Many clients run a weekly program; others need 2–3× or five-day coverage. We set frequency around your facility—not a fixed Mon–Fri-only model.',
+      a: 'No. Weekly programs are common; others need 2–3×, five-day, or weekend / 7-day coverage. We set frequency around your facility—not a Mon–Fri-only model.',
     },
     {
       q: 'Is there a minimum square footage?',
-      a: 'There is no hard 10,000 sq ft gate. Share an approximate size (optional) and we’ll advise whether we are a fit.',
+      a: 'No hard minimum. Smaller offices are fine. Approximate size on the form is optional and only helps us scope.',
+    },
+    {
+      q: 'Do weekends or 7-day programs qualify me?',
+      a: 'No. Qualification is office + at least weekly. Weekends and 7-day are availability options when your facility needs them—not the entry requirement.',
     },
     {
       q: 'Are Live Scan / background checks included by default?',
@@ -100,14 +105,14 @@ export const RECURRING_COPY: LandingCopy = {
   variant: 'recurring',
   metaTitle: 'Recurring Commercial Janitorial — Bay Area | AJS',
   metaDescription:
-    'Recurring commercial janitorial for Peninsula businesses. Weekly and multi-day programs. Local Redwood City hub. 650-261-0723.',
+    'Recurring commercial janitorial for Peninsula businesses. Weekly and multi-day programs, weekends when needed. Local Redwood City hub. 650-261-0723.',
   badge: 'Recurring Commercial Janitorial',
   headline: 'Recurring commercial janitorial—consistent, local, accountable',
   subhead:
-    'Standing schedules for offices and commercial facilities on the Peninsula. A commercial specialist approach—not a house-cleaner marketplace page, and not a franchise playbook.',
+    'Standing schedules for offices and commercial facilities on the Peninsula. Weekly qualifies; we also run multi-day and weekend programs when the facility needs them.',
   bullets: [
-    'Standing weekly and multi-visit programs',
-    'Clear scope and supervisory follow-through',
+    'Weekly qualifies—add 2–3×, five-day, or weekend / 7-day as needed',
+    'No hard square-footage minimum; smaller commercial spaces welcome',
     'Local Redwood City hub serving the approved city list',
   ],
   formTitle: 'Start a recurring service conversation',
@@ -118,7 +123,7 @@ export const RECURRING_COPY: LandingCopy = {
   whyCards: [
     {
       title: 'Predictable schedules',
-      body: 'Weekly, 2–3×, or five-day options so your facility looks the same every open day—not only after a scramble.',
+      body: 'Weekly, 2–3×, five-day, or weekend / 7-day options so your facility looks the same when you open—not only after a scramble.',
     },
     {
       title: 'Commercial standards',
@@ -140,7 +145,11 @@ export const RECURRING_COPY: LandingCopy = {
   faqs: [
     {
       q: 'What frequencies do you offer?',
-      a: 'Weekly, 2–3 times per week, and five-day programs are common. Not sure yet? Say so on the form and we’ll recommend after the walkthrough.',
+      a: 'Weekly, 2–3 times per week, five-day, and weekend / 7-day programs. Not sure yet? Say so on the form—we’ll recommend after the walkthrough. Weekly is enough to qualify.',
+    },
+    {
+      q: 'Is square footage required?',
+      a: 'Optional. There is no hard minimum—approximate size helps us plan, that’s all. Smaller offices are welcome.',
     },
     {
       q: 'How fast can service begin?',
@@ -149,10 +158,6 @@ export const RECURRING_COPY: LandingCopy = {
     {
       q: 'How is my account staffed?',
       a: 'Ask during the walkthrough how your route would be staffed and supervised. We plan crews and oversight for commercial consistency—details depend on the facility.',
-    },
-    {
-      q: 'Is square footage required?',
-      a: 'Optional. There is no 10,000 sq ft hard gate—approximate size helps us plan, that’s all.',
     },
   ],
   ctaTitle: 'Put recurring janitorial on a reliable schedule',

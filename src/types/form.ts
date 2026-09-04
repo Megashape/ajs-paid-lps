@@ -19,6 +19,7 @@ export const FREQUENCIES = [
   { value: 'weekly', label: 'Weekly' },
   { value: '2-3x', label: '2–3× per week' },
   { value: '5-day', label: '5-day' },
+  { value: '7-day-weekends', label: '7-day / weekends' },
   { value: 'not-sure', label: 'Not sure yet' },
 ] as const
 

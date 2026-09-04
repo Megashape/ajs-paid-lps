@@ -312,7 +312,7 @@ export function LeadForm({ title, subtitle, variant }: LeadFormProps) {
             <Field
               label="Approximate sq ft (optional)"
               error={errors.sqFt}
-              hint="No minimum gate — helpful for scoping only."
+              hint="No hard minimum — smaller offices OK. Optional, for scoping only."
             >
               <input
                 className={inputClass(errors.sqFt)}

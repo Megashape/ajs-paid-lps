@@ -4,7 +4,7 @@ export function TrustBar() {
   const logos = [
     { src: assetUrl('bbb.png'), alt: 'BBB Accredited — A+ claim' },
     { src: assetUrl('usgbc.png'), alt: 'USGBC Member' },
-    { src: assetUrl('issa.avif'), alt: 'ISSA Member' },
+    { src: assetUrl('issa.png'), alt: 'ISSA Member' },
     { src: assetUrl('chamber.png'), alt: 'San Mateo Area Chamber of Commerce' },
   ]
 
@@ -20,7 +20,7 @@ export function TrustBar() {
               key={l.alt}
               src={l.src}
               alt={l.alt}
-              className="h-12 sm:h-14 w-auto object-contain opacity-90"
+              className="h-14 sm:h-16 w-auto object-contain"
               loading="lazy"
             />
           ))}

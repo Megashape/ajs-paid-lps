@@ -17,4 +17,14 @@
   body {
     @apply bg-white text-slate-800 font-sans antialiased;
   }
+  /* One type system — no serif/sans jump on headings */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-sans tracking-tight;
+    font-synthesis: none;
+  }
 }

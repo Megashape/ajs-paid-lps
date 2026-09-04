@@ -1,10 +1,8 @@
 import { Link } from 'react-router-dom'
-import { Phone } from 'lucide-react'
 import { PHONE_DISPLAY, PHONE_TEL } from '../lib/constants'
 import { assetUrl } from '../lib/assetUrl'
 
 interface HeaderProps {
-  /** When true, header sits over dark hero and stays transparent-ish */
   overHero?: boolean
 }
 
@@ -21,26 +19,18 @@ export function Header({ overHero = true }: HeaderProps) {
             <img
               src={assetUrl('logo-white.png')}
               alt="All Janitorial Service"
-              className="h-12 sm:h-14 w-auto object-contain"
+              className="h-11 sm:h-12 w-auto object-contain"
               width={180}
-              height={56}
+              height={48}
             />
           </Link>
 
-          {/* Sparse header: phone only — school/multifamily nav intentionally hidden */}
+          {/* Secondary only — primary CTA is form Continue */}
           <a
             href={`tel:${PHONE_TEL}`}
-            className="flex items-center gap-3 font-bold text-white hover:text-red-200 transition-colors"
+            className="text-sm sm:text-base font-medium text-white/80 hover:text-white underline-offset-4 hover:underline transition-colors"
           >
-            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center bg-white/15">
-              <Phone className="w-5 h-5" aria-hidden />
-            </div>
-            <div className="text-left hidden sm:block">
-              <div className="text-[11px] font-semibold uppercase tracking-wider text-white/70">
-                Direct commercial line
-              </div>
-              <div className="text-lg sm:text-xl tracking-tight">{PHONE_DISPLAY}</div>
-            </div>
+            Call {PHONE_DISPLAY}
           </a>
         </div>
       </div>
