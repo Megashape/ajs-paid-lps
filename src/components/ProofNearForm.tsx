@@ -1,22 +1,21 @@
 import { Star } from 'lucide-react'
 import { assetUrl } from '../lib/assetUrl'
 
-const STAR = 22
-const BADGE_H = 40
+const STAR = 28
+const BADGE_H = 52
 
 /** Logo + stars (no counts) + BBB A+ + certs — wraps so everything is visible at rest (no H-scroll). */
 export function ProofNearForm() {
   return (
-    <div className="rounded-xl border border-slate-200 bg-slate-50/80 px-3 py-3 sm:px-4">
-      <div className="flex flex-col gap-3">
-        {/* Row 1: logo + ratings + BBB claim */}
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+    <div className="rounded-xl border border-slate-200 bg-slate-50/90 px-3.5 py-3.5 sm:px-4 sm:py-4">
+      <div className="flex flex-col gap-3.5">
+        <div className="flex flex-wrap items-center gap-x-3.5 gap-y-2.5">
           <img
             src={assetUrl('logo-color.png')}
             alt="All Janitorial Service"
-            className="h-10 w-auto object-contain shrink-0"
-            width={40}
-            height={40}
+            className="h-12 sm:h-14 w-auto object-contain shrink-0"
+            width={56}
+            height={56}
           />
 
           <div className="flex items-center gap-1.5 shrink-0" title="5-star Google">
@@ -29,7 +28,9 @@ export function ProofNearForm() {
                 />
               ))}
             </div>
-            <span className="text-sm font-semibold text-slate-800 leading-none">Google</span>
+            <span className="text-sm sm:text-base font-semibold text-slate-800 leading-none">
+              Google
+            </span>
           </div>
 
           <div className="flex items-center gap-1.5 shrink-0" title="5-star Yelp">
@@ -42,16 +43,17 @@ export function ProofNearForm() {
                 />
               ))}
             </div>
-            <span className="text-sm font-semibold text-slate-800 leading-none">Yelp</span>
+            <span className="text-sm sm:text-base font-semibold text-slate-800 leading-none">
+              Yelp
+            </span>
           </div>
 
-          <span className="text-sm font-bold text-slate-900 whitespace-nowrap shrink-0 leading-none">
+          <span className="text-sm sm:text-base font-bold text-slate-900 whitespace-nowrap shrink-0 leading-none">
             BBB A+
           </span>
         </div>
 
-        {/* Row 2: cert badges — wrap, all visible at rest including Chamber */}
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+        <div className="flex flex-wrap items-center gap-x-3.5 gap-y-2.5">
           <img
             src={assetUrl('bbb.png')}
             alt="BBB Accredited"

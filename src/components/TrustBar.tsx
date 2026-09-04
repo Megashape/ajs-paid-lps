@@ -9,18 +9,18 @@ export function TrustBar() {
   ]
 
   return (
-    <section className="bg-white border-y border-slate-100 py-8">
+    <section className="bg-white border-y border-slate-100 py-9 sm:py-10">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <p className="text-center text-xs font-semibold uppercase tracking-wider text-slate-500 mb-5">
+        <p className="text-center text-xs font-semibold uppercase tracking-wider text-slate-500 mb-6">
           Certified &amp; accredited cleaning partner
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12">
+        <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-14">
           {logos.map((l) => (
             <img
               key={l.alt}
               src={l.src}
               alt={l.alt}
-              className="h-14 sm:h-16 w-auto object-contain"
+              className="h-[4.5rem] sm:h-24 w-auto object-contain"
               loading="lazy"
             />
           ))}

@@ -36,34 +36,34 @@ export function LandingPage({ copy }: LandingPageProps) {
           <img
             src={assetUrl('hero-office.webp')}
             alt=""
-            className="h-full w-full object-cover object-center opacity-45"
+            className="h-full w-full object-cover object-center opacity-60 sm:opacity-[0.62]"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-navy-900/95 via-navy-900/85 to-navy-900/70" />
+          <div className="absolute inset-0 bg-gradient-to-r from-navy-900/90 via-navy-900/72 to-navy-900/45" />
           <div
-            className="absolute inset-0 opacity-40"
+            className="absolute inset-0 opacity-35"
             style={{
               background:
-                'radial-gradient(ellipse at 20% 20%, rgba(211,47,47,0.25), transparent 50%), radial-gradient(ellipse at 80% 0%, rgba(255,255,255,0.08), transparent 45%)',
+                'radial-gradient(ellipse at 18% 15%, rgba(211,47,47,0.28), transparent 48%), radial-gradient(ellipse at 85% 0%, rgba(255,255,255,0.1), transparent 42%)',
             }}
           />
         </div>
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
             <div className="pt-2 lg:pt-6 order-2 lg:order-1">
-              <span className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-red-200">
+              <span className="inline-flex items-center rounded-full border border-white/25 bg-white/12 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-red-200">
                 {copy.badge}
               </span>
-              <h1 className="mt-4 text-3xl sm:text-4xl lg:text-[2.65rem] font-semibold leading-tight text-white">
+              <h1 className="mt-4 text-3xl sm:text-4xl lg:text-[2.75rem] font-semibold leading-[1.12] text-white tracking-tight">
                 {copy.headline}
               </h1>
-              <p className="mt-4 text-white/75 text-sm sm:text-base leading-relaxed max-w-xl font-normal">
+              <p className="mt-4 text-white/80 text-sm sm:text-base leading-relaxed max-w-xl font-normal">
                 {copy.subhead}
               </p>
               <ul className="mt-6 space-y-3">
                 {copy.bullets.map((b) => (
                   <li key={b} className="flex items-start gap-2.5 text-sm sm:text-base">
                     <CheckCircle2 className="w-5 h-5 text-ajs-red shrink-0 mt-0.5" aria-hidden />
-                    <span className="text-white/90 font-normal">{b}</span>
+                    <span className="text-white/95 font-normal">{b}</span>
                   </li>
                 ))}
               </ul>
@@ -79,13 +79,13 @@ export function LandingPage({ copy }: LandingPageProps) {
                 <img
                   src={assetUrl('office-interior.jpg')}
                   alt="Clean commercial office interior"
-                  className="h-28 sm:h-32 w-full rounded-xl object-cover border border-white/15 shadow-lg"
+                  className="h-32 sm:h-40 w-full rounded-xl object-cover border border-white/20 shadow-lg"
                   loading="lazy"
                 />
                 <img
                   src={assetUrl('office-cleaning.webp')}
                   alt="Bay Area commercial office cleaning"
-                  className="h-28 sm:h-32 w-full rounded-xl object-cover border border-white/15 shadow-lg"
+                  className="h-32 sm:h-40 w-full rounded-xl object-cover border border-white/20 shadow-lg"
                   loading="lazy"
                 />
               </div>
