@@ -11,7 +11,6 @@ import {
 } from '../types/form'
 import { fireConversion, submitLead } from '../lib/formSubmit'
 import { getStoredUtms } from '../lib/utm'
-import { ProofNearForm } from './ProofNearForm'
 import type { LandingVariant } from '../data/copy'
 
 interface LeadFormProps {
@@ -140,9 +139,6 @@ export function LeadForm({ title, subtitle, variant }: LeadFormProps) {
             <h2 className="text-lg sm:text-xl font-bold leading-snug">{title}</h2>
             <p className="text-slate-600 text-xs sm:text-sm mt-1">{subtitle}</p>
           </div>
-        </div>
-        <div className="mt-3 mb-1">
-          <ProofNearForm />
         </div>
         <div className="sm:hidden text-center text-xs font-bold text-ajs-red mb-1 mt-3">
           Step {step} of 3

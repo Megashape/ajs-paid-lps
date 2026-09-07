@@ -1,6 +1,11 @@
 import { PHONE_DISPLAY, PHONE_TEL, MAIN_SITE } from '../lib/constants'
 
-export function Footer() {
+interface FooterProps {
+  /** Hide the red Call slab so it never competes with Continue on funnel first screens. */
+  hideCallCta?: boolean
+}
+
+export function Footer({ hideCallCta = false }: FooterProps) {
   return (
     <footer className="bg-navy-900 text-white">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 py-12">
@@ -19,15 +24,16 @@ export function Footer() {
               Redwood City, CA
             </p>
           </div>
-          <a
-            href={`tel:${PHONE_TEL}`}
-            className="inline-flex items-center justify-center rounded-xl bg-ajs-red hover:bg-ajs-red-dark px-5 py-3 font-bold text-sm"
-          >
-            Call {PHONE_DISPLAY}
-          </a>
+          {!hideCallCta && (
+            <a
+              href={`tel:${PHONE_TEL}`}
+              className="inline-flex items-center justify-center rounded-xl bg-ajs-red hover:bg-ajs-red-dark px-5 py-3 font-bold text-sm"
+            >
+              Call {PHONE_DISPLAY}
+            </a>
+          )}
         </div>
 
-        {/* School / multifamily nav intentionally omitted */}
         <nav className="mt-8 flex flex-wrap gap-x-4 gap-y-2 text-xs text-white/60">
           <a
             href={`${MAIN_SITE}/about-us/`}

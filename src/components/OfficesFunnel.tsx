@@ -1,6 +1,6 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, CheckCircle2, Loader2 } from 'lucide-react'
+import { ArrowLeft, CheckCircle2, Loader2 } from 'lucide-react'
 import { CITY_OTHER, SERVICE_CITIES } from '../data/cities'
 import {
   FACILITY_TYPES,
@@ -74,17 +74,19 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
       setErrors((e) => ({ ...e, [key]: undefined }))
     }
 
+  /** Step 1 = company only */
   const validateStep1 = () => {
     const e: Partial<Record<keyof FormState, string>> = {}
     if (!data.company.trim()) e.company = 'Company name is required'
-    if (data.role === 'Other' && !data.customRole.trim()) e.customRole = 'Please specify your role'
-    if (!data.city) e.city = 'Select a city'
     setErrors(e)
     return Object.keys(e).length === 0
   }
 
+  /** Step 2 = role, city, facility, frequency */
   const validateStep2 = () => {
     const e: Partial<Record<keyof FormState, string>> = {}
+    if (data.role === 'Other' && !data.customRole.trim()) e.customRole = 'Please specify your role'
+    if (!data.city) e.city = 'Select a city'
     if (!data.facilityType) e.facilityType = 'Select a facility type'
     if (!data.frequency) e.frequency = 'Select a frequency'
     setErrors(e)
@@ -158,348 +160,363 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
     'Local Peninsula team coordinated from Redwood City',
   ]
 
+  const progressPct = Math.round((step / TOTAL_STEPS) * 100)
+
   return (
-    <div className="min-h-screen flex flex-col font-sans bg-slate-100">
-      <div className="bg-navy-900">
-        <Header overHero compact />
-      </div>
+    <div className="min-h-screen flex flex-col font-sans bg-navy-900">
+      {/* Stage: navy slab with subtle radial depth (AFHC craft) */}
+      <div
+        className="relative isolate"
+        style={{
+          background:
+            'radial-gradient(ellipse 90% 70% at 70% 0%, #1a2744 0%, #0a1128 55%, #070d1c 100%)',
+        }}
+      >
+        <Header overHero compact quietProof />
 
-      {/* First screen: navy hero + form. Desktop = two-column so Step 1 CTA is above fold. */}
-      <section className="bg-navy-900 text-white pb-5 sm:pb-6 lg:pb-10">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-3 sm:pt-4 lg:pt-5">
-          <div className="grid lg:grid-cols-2 gap-4 lg:gap-10 lg:items-start">
-            {/* LEFT — hero copy */}
-            <div className="text-center sm:text-left lg:pt-2 lg:pb-2 order-1">
-              <p className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-ajs-red">
-                Businesses only · Recurring office &amp; corporate
-              </p>
-              <h1 className="mt-1.5 sm:mt-2 text-[1.55rem] sm:text-3xl lg:text-[2.35rem] font-bold leading-[1.15] tracking-tight text-white">
-                {headline}
-              </h1>
-              <p className="mt-1.5 sm:mt-2 text-white/75 text-[13px] sm:text-sm lg:text-base leading-snug max-w-lg mx-auto sm:mx-0 line-clamp-2 lg:line-clamp-none">
-                {subhead}
-              </p>
-              {/* Phone already in header — hide on mobile/tablet to save fold height */}
-              <p className="mt-3 hidden lg:block text-sm text-white/60">
-                Prefer to talk?{' '}
-                <a
-                  href={`tel:${PHONE_TEL}`}
-                  className="text-white font-medium underline underline-offset-4"
-                >
-                  {PHONE_DISPLAY}
-                </a>
-              </p>
-              <ul className="mt-5 hidden lg:block space-y-2.5 text-sm text-white/90">
-                {bullets.map((line) => (
-                  <li key={line} className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-ajs-red shrink-0 mt-0.5" aria-hidden />
-                    <span>{line}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* RIGHT — form card */}
-            <div id="lead-form" className="order-2 -mt-0 lg:mt-0 relative z-10">
-              <div className="w-full bg-white rounded-xl sm:rounded-2xl shadow-2xl border border-slate-200 overflow-hidden text-slate-800">
-                <div className="pt-3.5 sm:pt-4 px-3.5 sm:px-5 lg:px-5">
-                  <div className="flex items-center justify-between gap-2 mb-0.5">
-                    <h2 className="text-base sm:text-lg font-bold leading-snug text-navy-900">
-                      Request a facility walkthrough
-                    </h2>
-                    <span className="shrink-0 text-[11px] sm:text-xs font-bold text-ajs-red tabular-nums">
-                      Step {step}/{TOTAL_STEPS}
-                    </span>
-                  </div>
-                  <p className="text-slate-600 text-[11px] sm:text-xs">
-                    A few details — we&apos;ll follow up to schedule.
-                  </p>
-
-                  <div className="mt-2 mb-0.5">
-                    <ProofNearForm compact />
-                  </div>
-
-                  <ol
-                    className="flex items-center gap-1 mt-2.5 mb-0.5"
-                    aria-label="Progress"
+        <section className="text-white pb-10 sm:pb-12 lg:pb-16">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-4 sm:pt-6 lg:pt-8">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 lg:items-start">
+              {/* LEFT — display-weight hero */}
+              <div className="text-center sm:text-left lg:pt-4 order-1">
+                <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.14em] text-ajs-red">
+                  Businesses only · Recurring office &amp; corporate
+                </p>
+                <h1 className="mt-3 sm:mt-4 text-[2rem] sm:text-4xl lg:text-[2.75rem] xl:text-[3.15rem] font-extrabold leading-[1.08] tracking-tight text-white">
+                  {headline}
+                </h1>
+                <p className="mt-3 sm:mt-4 text-white/70 text-sm sm:text-base leading-relaxed max-w-lg mx-auto sm:mx-0">
+                  {subhead}
+                </p>
+                <p className="mt-5 hidden lg:block text-sm text-white/55">
+                  Prefer to talk?{' '}
+                  <a
+                    href={`tel:${PHONE_TEL}`}
+                    className="text-white font-semibold underline underline-offset-4"
                   >
-                    {Array.from({ length: TOTAL_STEPS }, (_, i) => {
-                      const n = i + 1
-                      const active = step === n
-                      const done = step > n
-                      return (
-                        <li key={n} className="flex-1 flex items-center gap-1">
-                          <span
-                            className={`inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[10px] font-bold ${
-                              active || done
-                                ? 'bg-ajs-red text-white'
-                                : 'bg-slate-100 text-slate-500'
-                            }`}
-                          >
-                            {done ? <CheckCircle2 className="w-3 h-3" /> : n}
-                          </span>
-                          {n < TOTAL_STEPS && (
-                            <span
-                              className={`flex-1 h-0.5 rounded-full ${
-                                done ? 'bg-ajs-red' : 'bg-slate-200'
-                              }`}
-                            />
-                          )}
-                        </li>
-                      )
-                    })}
-                  </ol>
-                </div>
+                    {PHONE_DISPLAY}
+                  </a>
+                </p>
+                <ul className="mt-6 hidden lg:block space-y-3 text-[15px] text-white/85">
+                  {bullets.map((line) => (
+                    <li key={line} className="flex items-start gap-2.5">
+                      <CheckCircle2 className="w-5 h-5 text-ajs-red shrink-0 mt-0.5" aria-hidden />
+                      <span>{line}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-                <form
-                  onSubmit={onSubmit}
-                  className="px-3.5 sm:px-5 lg:px-5 pb-3.5 sm:pb-4 pt-3 space-y-3"
-                  noValidate
-                >
-                  <UtmHiddenFields />
+              {/* RIGHT — white form card (proof OUTSIDE card) */}
+              <div id="lead-form" className="order-2 relative z-10">
+                <div className="w-full bg-white rounded-2xl shadow-2xl border border-white/10 overflow-hidden text-slate-800">
+                  <div className="pt-5 sm:pt-6 px-5 sm:px-6 lg:px-7">
+                    {/* AFHC progress: STEP X OF 3 + % + thin bar */}
+                    <div className="flex items-center justify-between gap-3 mb-2">
+                      <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+                        Step {step} of {TOTAL_STEPS}
+                      </span>
+                      <span className="text-[11px] sm:text-xs font-semibold tabular-nums text-slate-400">
+                        {progressPct}%
+                      </span>
+                    </div>
+                    <div
+                      className="h-1 w-full rounded-full bg-slate-100 overflow-hidden"
+                      role="progressbar"
+                      aria-valuenow={progressPct}
+                      aria-valuemin={0}
+                      aria-valuemax={100}
+                    >
+                      <div
+                        className="h-full rounded-full bg-ajs-red transition-[width] duration-300 ease-out"
+                        style={{ width: `${progressPct}%` }}
+                      />
+                    </div>
+                  </div>
 
-                  {step === 1 && (
-                    <div className="space-y-3">
-                      <Field label="Company name *" error={errors.company}>
-                        <input
-                          className={inputClass(errors.company)}
-                          value={data.company}
-                          onChange={(e) => set('company')(e.target.value)}
-                          autoComplete="organization"
-                          placeholder="Acme Corp"
-                        />
-                      </Field>
+                  <form
+                    onSubmit={onSubmit}
+                    className="px-5 sm:px-6 lg:px-7 pb-5 sm:pb-6 pt-5 space-y-5"
+                    noValidate
+                  >
+                    <UtmHiddenFields />
 
-                      <Field label="Your role *" error={errors.role || errors.customRole}>
-                        <select
-                          className={inputClass(errors.role)}
-                          value={data.role}
-                          onChange={(e) => set('role')(e.target.value)}
-                        >
-                          {ROLES.map((r) => (
-                            <option key={r} value={r}>
-                              {r}
-                            </option>
-                          ))}
-                        </select>
-                        {data.role === 'Other' && (
+                    {step === 1 && (
+                      <div className="space-y-4">
+                        <div>
+                          <h2 className="text-lg sm:text-xl font-bold text-navy-900 leading-snug tracking-tight">
+                            What&apos;s your company name?
+                          </h2>
+                          <p className="mt-1.5 text-sm text-slate-500 leading-snug">
+                            We&apos;ll use this to prepare your facility walkthrough request.
+                          </p>
+                        </div>
+                        <Field label="Company name *" error={errors.company}>
                           <input
-                            className={`mt-2 ${inputClass(errors.customRole)}`}
-                            value={data.customRole}
-                            onChange={(e) => set('customRole')(e.target.value)}
-                            placeholder="Your title"
+                            className={inputClass(errors.company)}
+                            value={data.company}
+                            onChange={(e) => set('company')(e.target.value)}
+                            autoComplete="organization"
+                            placeholder="Acme Corp"
+                            autoFocus
                           />
-                        )}
-                      </Field>
+                        </Field>
+                      </div>
+                    )}
 
-                      <Field label="City *" error={errors.city}>
-                        <select
-                          className={inputClass(errors.city)}
-                          value={data.city}
-                          onChange={(e) => set('city')(e.target.value)}
-                        >
-                          <option value="">Select city</option>
-                          {SERVICE_CITIES.map((c) => (
-                            <option key={c} value={c}>
-                              {c}
-                              {c === 'Redwood City' ? ' (hub)' : ''}
-                            </option>
-                          ))}
-                          <option value={CITY_OTHER}>{CITY_OTHER}</option>
-                        </select>
-                      </Field>
-                    </div>
-                  )}
-
-                  {step === 2 && (
-                    <div className="space-y-3">
-                      <fieldset>
-                        <legend className="text-sm font-semibold text-slate-800 mb-1.5">
-                          Facility type *
-                        </legend>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                          {FACILITY_TYPES.map((ft) => {
-                            const selected = data.facilityType === ft.value
-                            return (
-                              <label
-                                key={ft.value}
-                                className={`relative flex items-start gap-2 rounded-lg border px-2.5 py-2 cursor-pointer text-sm transition ${
-                                  selected
-                                    ? 'border-ajs-red bg-red-50 ring-1 ring-ajs-red'
-                                    : 'border-slate-200 hover:border-slate-300'
-                                }`}
-                              >
-                                <input
-                                  type="radio"
-                                  name="facilityType"
-                                  className="mt-0.5 accent-[#d32f2f]"
-                                  checked={selected}
-                                  onChange={() => set('facilityType')(ft.value)}
-                                />
-                                <span className="font-medium text-slate-900">{ft.label}</span>
-                              </label>
-                            )
-                          })}
+                    {step === 2 && (
+                      <div className="space-y-4">
+                        <div>
+                          <h2 className="text-lg sm:text-xl font-bold text-navy-900 leading-snug tracking-tight">
+                            Tell us about the facility
+                          </h2>
+                          <p className="mt-1.5 text-sm text-slate-500 leading-snug">
+                            Role, city, facility type, and how often you need cleaning.
+                          </p>
                         </div>
-                        {errors.facilityType && (
-                          <p className="text-xs text-ajs-red mt-1">{errors.facilityType}</p>
-                        )}
-                      </fieldset>
 
-                      <fieldset>
-                        <legend className="text-sm font-semibold text-slate-800 mb-1.5">
-                          Cleaning frequency *
-                        </legend>
-                        <div className="grid grid-cols-2 gap-2">
-                          {FREQUENCIES.map((f) => {
-                            const selected = data.frequency === f.value
-                            return (
-                              <label
-                                key={f.value}
-                                className={`rounded-lg border px-2.5 py-2.5 text-sm font-semibold cursor-pointer text-center transition ${
-                                  selected
-                                    ? 'border-ajs-red bg-red-50 text-ajs-red ring-1 ring-ajs-red'
-                                    : 'border-slate-200 text-slate-700 hover:border-slate-300'
-                                }`}
-                              >
-                                <input
-                                  type="radio"
-                                  name="frequency"
-                                  className="sr-only"
-                                  checked={selected}
-                                  onChange={() => set('frequency')(f.value)}
-                                />
-                                {f.label}
-                              </label>
-                            )
-                          })}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                          <Field label="Your role *" error={errors.role || errors.customRole}>
+                            <select
+                              className={inputClass(errors.role)}
+                              value={data.role}
+                              onChange={(e) => set('role')(e.target.value)}
+                            >
+                              {ROLES.map((r) => (
+                                <option key={r} value={r}>
+                                  {r}
+                                </option>
+                              ))}
+                            </select>
+                            {data.role === 'Other' && (
+                              <input
+                                className={`mt-2 ${inputClass(errors.customRole)}`}
+                                value={data.customRole}
+                                onChange={(e) => set('customRole')(e.target.value)}
+                                placeholder="Your title"
+                              />
+                            )}
+                          </Field>
+
+                          <Field label="City *" error={errors.city}>
+                            <select
+                              className={inputClass(errors.city)}
+                              value={data.city}
+                              onChange={(e) => set('city')(e.target.value)}
+                            >
+                              <option value="">Select city</option>
+                              {SERVICE_CITIES.map((c) => (
+                                <option key={c} value={c}>
+                                  {c}
+                                  {c === 'Redwood City' ? ' (hub)' : ''}
+                                </option>
+                              ))}
+                              <option value={CITY_OTHER}>{CITY_OTHER}</option>
+                            </select>
+                          </Field>
                         </div>
-                        {errors.frequency && (
-                          <p className="text-xs text-ajs-red mt-1">{errors.frequency}</p>
-                        )}
-                      </fieldset>
-                    </div>
-                  )}
 
-                  {step === 3 && (
-                    <div className="space-y-3">
-                      <Field label="Full name *" error={errors.fullName}>
-                        <input
-                          className={inputClass(errors.fullName)}
-                          value={data.fullName}
-                          onChange={(e) => set('fullName')(e.target.value)}
-                          autoComplete="name"
-                        />
-                      </Field>
-                      <Field label="Phone *" error={errors.phone}>
-                        <input
-                          className={inputClass(errors.phone)}
-                          value={data.phone}
-                          onChange={(e) => set('phone')(e.target.value)}
-                          autoComplete="tel"
-                          inputMode="tel"
-                          placeholder="650-…"
-                        />
-                      </Field>
-                      <Field label="Work email *" error={errors.email}>
-                        <input
-                          className={inputClass(errors.email)}
-                          type="email"
-                          value={data.email}
-                          onChange={(e) => set('email')(e.target.value)}
-                          autoComplete="email"
-                        />
-                      </Field>
-                      <Field label="Preferred walkthrough time *" error={errors.preferredTime}>
-                        <select
-                          className={inputClass(errors.preferredTime)}
-                          value={data.preferredTime}
-                          onChange={(e) => set('preferredTime')(e.target.value)}
+                        <fieldset>
+                          <legend className="text-sm font-semibold text-slate-800 mb-2">
+                            Facility type *
+                          </legend>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            {FACILITY_TYPES.map((ft) => {
+                              const selected = data.facilityType === ft.value
+                              return (
+                                <label
+                                  key={ft.value}
+                                  className={`relative flex items-start gap-2 rounded-xl border px-3 py-2.5 cursor-pointer text-sm transition ${
+                                    selected
+                                      ? 'border-ajs-red bg-red-50 ring-1 ring-ajs-red'
+                                      : 'border-slate-200 hover:border-slate-300'
+                                  }`}
+                                >
+                                  <input
+                                    type="radio"
+                                    name="facilityType"
+                                    className="mt-0.5 accent-[#d32f2f]"
+                                    checked={selected}
+                                    onChange={() => set('facilityType')(ft.value)}
+                                  />
+                                  <span className="font-medium text-slate-900">{ft.label}</span>
+                                </label>
+                              )
+                            })}
+                          </div>
+                          {errors.facilityType && (
+                            <p className="text-xs text-ajs-red mt-1">{errors.facilityType}</p>
+                          )}
+                        </fieldset>
+
+                        <fieldset>
+                          <legend className="text-sm font-semibold text-slate-800 mb-2">
+                            Cleaning frequency *
+                          </legend>
+                          <div className="grid grid-cols-2 gap-2">
+                            {FREQUENCIES.map((f) => {
+                              const selected = data.frequency === f.value
+                              return (
+                                <label
+                                  key={f.value}
+                                  className={`rounded-xl border px-3 py-2.5 text-sm font-semibold cursor-pointer text-center transition ${
+                                    selected
+                                      ? 'border-ajs-red bg-red-50 text-ajs-red ring-1 ring-ajs-red'
+                                      : 'border-slate-200 text-slate-700 hover:border-slate-300'
+                                  }`}
+                                >
+                                  <input
+                                    type="radio"
+                                    name="frequency"
+                                    className="sr-only"
+                                    checked={selected}
+                                    onChange={() => set('frequency')(f.value)}
+                                  />
+                                  {f.label}
+                                </label>
+                              )
+                            })}
+                          </div>
+                          {errors.frequency && (
+                            <p className="text-xs text-ajs-red mt-1">{errors.frequency}</p>
+                          )}
+                        </fieldset>
+                      </div>
+                    )}
+
+                    {step === 3 && (
+                      <div className="space-y-4">
+                        <div>
+                          <h2 className="text-lg sm:text-xl font-bold text-navy-900 leading-snug tracking-tight">
+                            Schedule the walkthrough
+                          </h2>
+                          <p className="mt-1.5 text-sm text-slate-500 leading-snug">
+                            How we reach you and when to visit.
+                          </p>
+                        </div>
+                        <Field label="Full name *" error={errors.fullName}>
+                          <input
+                            className={inputClass(errors.fullName)}
+                            value={data.fullName}
+                            onChange={(e) => set('fullName')(e.target.value)}
+                            autoComplete="name"
+                          />
+                        </Field>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                          <Field label="Phone *" error={errors.phone}>
+                            <input
+                              className={inputClass(errors.phone)}
+                              value={data.phone}
+                              onChange={(e) => set('phone')(e.target.value)}
+                              autoComplete="tel"
+                              inputMode="tel"
+                              placeholder="650-…"
+                            />
+                          </Field>
+                          <Field label="Work email *" error={errors.email}>
+                            <input
+                              className={inputClass(errors.email)}
+                              type="email"
+                              value={data.email}
+                              onChange={(e) => set('email')(e.target.value)}
+                              autoComplete="email"
+                            />
+                          </Field>
+                        </div>
+                        <Field label="Preferred walkthrough time *" error={errors.preferredTime}>
+                          <select
+                            className={inputClass(errors.preferredTime)}
+                            value={data.preferredTime}
+                            onChange={(e) => set('preferredTime')(e.target.value)}
+                          >
+                            {PREFERRED_TIMES.map((t) => (
+                              <option key={t} value={t}>
+                                {t}
+                              </option>
+                            ))}
+                          </select>
+                        </Field>
+                        <Field label="Notes (optional)">
+                          <textarea
+                            className={`${inputClass()} min-h-[72px]`}
+                            value={data.notes}
+                            onChange={(e) => set('notes')(e.target.value)}
+                            placeholder="Hours, access, current vendor…"
+                          />
+                        </Field>
+                        {submitError && (
+                          <p className="text-sm text-ajs-red bg-red-50 border border-red-100 rounded-xl px-3 py-2">
+                            {submitError}
+                          </p>
+                        )}
+                      </div>
+                    )}
+
+                    <div className="flex items-center gap-3 pt-1">
+                      {step > 1 ? (
+                        <button
+                          type="button"
+                          onClick={back}
+                          className="inline-flex items-center justify-center gap-1.5 w-[30%] h-12 rounded-xl border border-slate-300 text-slate-700 font-semibold text-sm hover:bg-slate-50"
                         >
-                          {PREFERRED_TIMES.map((t) => (
-                            <option key={t} value={t}>
-                              {t}
-                            </option>
-                          ))}
-                        </select>
-                      </Field>
-                      <Field label="Notes (optional)">
-                        <textarea
-                          className={`${inputClass()} min-h-[64px]`}
-                          value={data.notes}
-                          onChange={(e) => set('notes')(e.target.value)}
-                          placeholder="Hours, access, current vendor…"
-                        />
-                      </Field>
-                      {submitError && (
-                        <p className="text-sm text-ajs-red bg-red-50 border border-red-100 rounded-lg px-3 py-2">
-                          {submitError}
-                        </p>
+                          <ArrowLeft className="w-4 h-4" /> Back
+                        </button>
+                      ) : null}
+
+                      {step < TOTAL_STEPS ? (
+                        <button
+                          type="button"
+                          onClick={next}
+                          className={`${
+                            step > 1 ? 'w-[70%]' : 'w-full'
+                          } bg-ajs-red hover:bg-ajs-red-dark text-white font-bold h-12 rounded-xl text-[15px] sm:text-base tracking-wide uppercase shadow-lg shadow-red-900/15 inline-flex items-center justify-center`}
+                        >
+                          Continue
+                        </button>
+                      ) : (
+                        <button
+                          type="submit"
+                          disabled={submitting}
+                          className="w-[70%] bg-ajs-red hover:bg-ajs-red-dark disabled:opacity-70 text-white font-bold h-12 rounded-xl text-[15px] sm:text-base tracking-wide uppercase shadow-lg shadow-red-900/15 inline-flex items-center justify-center gap-2"
+                        >
+                          {submitting ? (
+                            <>
+                              <Loader2 className="w-4 h-4 animate-spin" /> Sending…
+                            </>
+                          ) : (
+                            'Submit request'
+                          )}
+                        </button>
                       )}
                     </div>
-                  )}
 
-                  <div className="flex items-center gap-2 pt-1">
-                    {step > 1 ? (
-                      <button
-                        type="button"
-                        onClick={back}
-                        className="inline-flex items-center justify-center gap-1 w-1/3 h-11 rounded-xl border border-slate-300 text-slate-700 font-semibold text-sm hover:bg-slate-50"
-                      >
-                        <ArrowLeft className="w-4 h-4" /> Back
-                      </button>
-                    ) : null}
-
-                    {step < TOTAL_STEPS ? (
-                      <button
-                        type="button"
-                        onClick={next}
-                        className={`${
-                          step > 1 ? 'w-2/3' : 'w-full'
-                        } bg-ajs-red hover:bg-ajs-red-dark text-white font-bold h-11 rounded-xl text-[15px] sm:text-base shadow-xl shadow-red-900/10 inline-flex items-center justify-center gap-2`}
-                      >
-                        Continue <ArrowRight className="w-4 h-4" />
-                      </button>
-                    ) : (
-                      <button
-                        type="submit"
-                        disabled={submitting}
-                        className="w-2/3 bg-ajs-red hover:bg-ajs-red-dark disabled:opacity-70 text-white font-bold h-11 rounded-xl text-[15px] sm:text-base shadow-xl shadow-red-900/10 inline-flex items-center justify-center gap-2"
-                      >
-                        {submitting ? (
-                          <>
-                            <Loader2 className="w-4 h-4 animate-spin" /> Sending…
-                          </>
-                        ) : (
-                          'Submit request'
-                        )}
-                      </button>
-                    )}
-                  </div>
-
-                  <p className="text-[10px] sm:text-[11px] text-slate-500 text-center leading-snug pt-0.5">
-                    Background checks available on request when your building requires them.
-                  </p>
-                </form>
+                    <p className="text-[11px] text-slate-500 text-center leading-snug">
+                      Background checks available on request when your building requires them.
+                    </p>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
-      {/* Below-fold on mobile: benefit bullets (already shown left on desktop) */}
-      <main className="flex-1 mx-auto w-full max-w-6xl px-4 sm:px-6 py-6 lg:hidden">
-        <ul className="space-y-2 text-sm text-slate-700 px-1">
-          {bullets.map((line) => (
-            <li key={line} className="flex items-start gap-2">
-              <CheckCircle2 className="w-4 h-4 text-ajs-red shrink-0 mt-0.5" aria-hidden />
-              <span>{line}</span>
-            </li>
-          ))}
-        </ul>
+      {/* Below fold: certs + mobile bullets — not inside form */}
+      <main className="flex-1 bg-slate-50">
+        <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 py-8 sm:py-10">
+          <ProofNearForm />
+          <ul className="mt-8 lg:hidden space-y-2.5 text-sm text-slate-700">
+            {bullets.map((line) => (
+              <li key={line} className="flex items-start gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-ajs-red shrink-0 mt-0.5" aria-hidden />
+                <span>{line}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </main>
 
-      <Footer />
+      <Footer hideCallCta />
     </div>
   )
 }
@@ -525,8 +542,8 @@ function Field({
   children: ReactNode
 }) {
   return (
-    <div className="space-y-1">
-      <label className="text-[13px] sm:text-sm font-semibold text-slate-800 block">{label}</label>
+    <div className="space-y-1.5">
+      <label className="text-sm font-semibold text-slate-800 block">{label}</label>
       {children}
       {error && <p className="text-xs text-ajs-red">{error}</p>}
     </div>
@@ -534,7 +551,7 @@ function Field({
 }
 
 function inputClass(error?: string) {
-  return `w-full rounded-lg border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ajs-red/30 focus:border-ajs-red ${
-    error ? 'border-ajs-red' : 'border-slate-300'
+  return `w-full rounded-xl border bg-slate-50 px-3.5 py-3 text-[15px] outline-none focus:ring-2 focus:ring-ajs-red/30 focus:border-ajs-red focus:bg-white transition ${
+    error ? 'border-ajs-red' : 'border-slate-200'
   }`
 }
