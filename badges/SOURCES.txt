@@ -1,0 +1,8 @@
+Proud Member / main-site trust badges — scraped from https://alljanitorialservice.com/ (2026-09-07)
+- proud-smacc.jpg  <- /wp-content/uploads/2025/09/cropped-SMACC_Logo-1.jpg
+- proud-usgbc.jpg  <- /wp-content/uploads/2025/09/usgbc-membership-logo-small.jpg
+- proud-bbb.png    <- /wp-content/uploads/2025/09/ab-seal-blue-hero-657x414-1.png
+- usgbc.png        <- /wp-content/uploads/2025/09/USGBC.png
+- bbb-accredited.png <- /wp-content/uploads/2025/09/BBB-Acredited.png
+- chamber.png      <- /wp-content/uploads/2025/09/San-Mateo-Area-Chamber-of-Commerce.png
+- issa.avif/png    <- /wp-content/uploads/2025/03/ISSA-1.avif (converted to PNG)
