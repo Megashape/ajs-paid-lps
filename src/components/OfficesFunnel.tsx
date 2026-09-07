@@ -15,7 +15,7 @@ import { PHONE_DISPLAY, PHONE_TEL } from '../lib/constants'
 import { Header } from './Header'
 import { Footer } from './Footer'
 import { assetUrl } from '../lib/assetUrl'
-import { ProofNearForm } from './ProofNearForm'
+import { TrustMarquee } from './TrustMarquee'
 
 interface OfficesFunnelProps {
   /** Display city name; prefills city select and localizes hero. */
@@ -518,93 +518,25 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
         </section>
       </div>
 
-      {/* Dark trust strip — certs on navy, not washed grey boxes */}
-      <section
-        className="border-t border-white/10"
-        style={{
-          background:
-            'linear-gradient(180deg, #0a1128 0%, #0d1530 55%, #0a1128 100%)',
-        }}
-        aria-label="Certifications"
-      >
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 py-8 sm:py-10">
-          <p className="text-center text-[11px] sm:text-xs font-semibold uppercase tracking-[0.14em] text-white/55 mb-6">
-            Certified &amp; accredited
-          </p>
-          <ProofNearForm dark />
-        </div>
-      </section>
+      {/* WHITE trust marquee — CSS only, no observers */}
+      <TrustMarquee />
 
       <main className="flex-1 bg-white">
-        {/* Mobile hero bullets (desktop already shows them on stage) */}
-        <div className="lg:hidden mx-auto max-w-6xl px-4 sm:px-6 pt-8">
-          <ul className="space-y-2.5 text-sm text-slate-700">
-            {bullets.map((line) => (
-              <li key={line} className="flex items-start gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-ajs-red shrink-0 mt-0.5" aria-hidden />
-                <span>{line}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* WHY-US — Tess locked */}
-        <section className="py-14 sm:py-20">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 text-center sm:text-left">
-            <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.14em] text-ajs-red mb-3">
-              Why us
-            </p>
-            <h2 className="text-2xl sm:text-3xl lg:text-[2.15rem] font-extrabold text-navy-900 leading-tight tracking-tight">
-              The mid-size Peninsula office specialist
-            </h2>
-            <p className="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed">
-              National franchises run a script. Solo cleaners disappear when you need coverage.
-              We&apos;re the middle that facility managers actually want — big enough to staff your
-              suite reliably, small enough that Chris&apos;s team still walks the floor before you
-              sign. Walkthrough → written scope → recurring cadence you can defend to ownership.
-            </p>
-          </div>
-        </section>
-
-        {/* BIG BENEFITS — Tess exact 10 */}
-        <section className="bg-slate-50 py-14 sm:py-20 border-y border-slate-100">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6">
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight">
-              What you get with AJS
-            </h2>
-            <ul className="mt-10 space-y-5 sm:space-y-6">
-              {benefits.map((line) => (
-                <li
-                  key={line}
-                  className="flex items-start gap-3.5 sm:gap-4 text-base sm:text-lg text-slate-800 leading-snug"
-                >
-                  <CheckCircle2
-                    className="w-6 h-6 sm:w-7 sm:h-7 text-ajs-red shrink-0 mt-0.5"
-                    aria-hidden
-                  />
-                  <span className="font-medium">{line}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        {/* CHRIS + TRUCK — real asset, Vera crop */}
-        <section className="py-14 sm:py-20 bg-white">
+        {/* CHRIS + TRUCK — HIGH under trust logos, early below fold */}
+        <section className="pt-8 sm:pt-10 lg:pt-12 pb-10 sm:pb-14 bg-white">
           <div className="mx-auto max-w-5xl px-4 sm:px-6">
-            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <div className="grid lg:grid-cols-2 gap-6 lg:gap-10 items-center">
               <figure className="order-1">
                 <img
                   src={assetUrl('chris-truck-crop.jpg')}
                   alt="Chris Ramirez and a teammate with the branded All Janitorial Service van"
                   className="w-full rounded-2xl object-cover shadow-xl border border-slate-200"
-                  loading="lazy"
+                  loading="eager"
                   width={1022}
                   height={860}
                 />
                 <figcaption className="mt-3 text-sm text-slate-500 text-center sm:text-left">
-                  Chris Ramirez and the Peninsula team — commercial routes coordinated from Redwood
-                  City.
+                  Chris + team, Peninsula commercial.
                 </figcaption>
               </figure>
               <div className="order-2">
@@ -628,6 +560,62 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                     {PHONE_DISPLAY}
                   </a>
                 </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Mobile hero bullets (desktop already shows them on stage) */}
+        <div className="lg:hidden mx-auto max-w-6xl px-4 sm:px-6 pb-2">
+          <ul className="space-y-2.5 text-sm text-slate-700">
+            {bullets.map((line) => (
+              <li key={line} className="flex items-start gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-ajs-red shrink-0 mt-0.5" aria-hidden />
+                <span>{line}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* WHY-US (~40%) + BENEFITS (~60%) — one desktop row; mobile: benefits then why */}
+        <section className="py-12 sm:py-16 lg:py-20 border-t border-slate-100 bg-slate-50">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            <div className="grid lg:grid-cols-10 gap-10 lg:gap-12 lg:items-start">
+              {/* Why-us — ~40% desktop; second on mobile */}
+              <div className="lg:col-span-4 order-2 lg:order-1">
+                <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.14em] text-ajs-red mb-3">
+                  Why us
+                </p>
+                <h2 className="text-2xl sm:text-3xl lg:text-[1.85rem] xl:text-[2.05rem] font-extrabold text-navy-900 leading-tight tracking-tight">
+                  The mid-size Peninsula office specialist
+                </h2>
+                <p className="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed">
+                  National franchises run a script. Solo cleaners disappear when you need coverage.
+                  We&apos;re the middle that facility managers actually want — big enough to staff your
+                  suite reliably, small enough that Chris&apos;s team still walks the floor before you
+                  sign. Walkthrough → written scope → recurring cadence you can defend to ownership.
+                </p>
+              </div>
+
+              {/* Benefits — ~60% desktop; first on mobile */}
+              <div className="lg:col-span-6 order-1 lg:order-2">
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight">
+                  What you get with AJS
+                </h2>
+                <ul className="mt-6 sm:mt-8 space-y-3.5 sm:space-y-4">
+                  {benefits.map((line) => (
+                    <li
+                      key={line}
+                      className="flex items-start gap-3 text-[15px] sm:text-base text-slate-800 leading-snug"
+                    >
+                      <CheckCircle2
+                        className="w-5 h-5 sm:w-6 sm:h-6 text-ajs-red shrink-0 mt-0.5"
+                        aria-hidden
+                      />
+                      <span className="font-medium">{line}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>
