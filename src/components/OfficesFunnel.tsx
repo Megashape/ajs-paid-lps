@@ -242,7 +242,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                 </p>
                 <a
                   href={`tel:${PHONE_TEL}`}
-                  className="mt-5 inline-flex items-center justify-center gap-2 rounded-xl bg-ajs-red hover:bg-ajs-red-dark text-white font-bold text-sm sm:text-[15px] px-4 sm:px-5 py-2.5 sm:py-3 shadow-lg shadow-red-900/25 transition-colors"
+                  className="mt-5 inline-flex items-center justify-center gap-2 rounded-xl border-2 border-white bg-transparent hover:bg-white/10 text-white font-bold text-sm sm:text-[15px] px-4 sm:px-5 py-2.5 sm:py-3 transition-colors"
                 >
                   <Phone className="w-4 h-4" aria-hidden />
                   Call {PHONE_DISPLAY}
@@ -553,7 +553,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                   </p>
                   <a
                     href={`tel:${PHONE_TEL}`}
-                    className="lg:hidden inline-flex items-center justify-center gap-2 rounded-xl border border-white/30 hover:bg-white/10 text-white font-bold text-sm px-4 py-2.5 transition-colors"
+                    className="lg:hidden inline-flex items-center justify-center gap-2 rounded-xl border-2 border-white bg-transparent hover:bg-white/10 text-white font-bold text-sm px-4 py-2.5 transition-colors"
                   >
                     <Phone className="w-4 h-4" aria-hidden />
                     Call {PHONE_DISPLAY}
