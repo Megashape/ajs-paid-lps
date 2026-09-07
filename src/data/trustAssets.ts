@@ -31,13 +31,13 @@ export const REVIEW_LOGOS = [
     src: 'google-logo.svg',
     alt: 'Google',
     withStars: true,
-    className: 'h-7 sm:h-8 w-auto max-w-[7.5rem] sm:max-w-[9rem] object-contain',
+    className: 'h-10 sm:h-12 w-auto max-w-[9rem] sm:max-w-[11rem] object-contain',
   },
   {
     src: 'yelp-logo.svg',
     alt: 'Yelp',
     withStars: true,
-    className: 'h-8 sm:h-9 w-auto max-w-[5.5rem] sm:max-w-[6.5rem] object-contain',
+    className: 'h-10 sm:h-12 w-auto max-w-[6.5rem] sm:max-w-[7.5rem] object-contain',
   },
 ] as const
 
@@ -91,23 +91,23 @@ export const CITY_SEALS: Record<
   },
 }
 
-/** Commercial office photos already in public/ — no schools/homes. */
+/** Commercial office BUILDING exteriors in public/ — no interiors/schools/homes. */
 const OFFICE_PHOTOS = [
   {
-    src: 'hero-office.webp',
-    alt: 'Modern commercial office exterior',
+    src: 'office-exterior-a.jpg',
+    alt: 'Modern commercial office building exterior',
   },
   {
-    src: 'office-interior.jpg',
-    alt: 'Clean commercial office interior',
+    src: 'office-exterior-b.jpg',
+    alt: 'Glass commercial office towers',
   },
   {
-    src: 'office-cleaning.webp',
-    alt: 'Bay Area commercial office suite',
+    src: 'office-exterior-c.jpg',
+    alt: 'Contemporary commercial office building facade',
   },
   {
-    src: 'img-1396.jpg',
-    alt: 'Peninsula commercial office building',
+    src: 'office-exterior-d.jpg',
+    alt: 'Downtown commercial office skyline',
   },
 ] as const
 

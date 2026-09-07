@@ -604,7 +604,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                 <figcaption className="mt-2 text-xs text-slate-500 text-center lg:text-left">
                   {city
                     ? `Commercial offices in ${city} and across the Peninsula.`
-                    : 'Commercial office exteriors & interiors — Peninsula businesses.'}
+                    : 'Commercial office buildings — Peninsula businesses.'}
                 </figcaption>
               </figure>
               <div className="lg:col-span-7 max-w-2xl">
