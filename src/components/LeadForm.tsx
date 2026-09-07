@@ -254,7 +254,7 @@ export function LeadForm({ title, subtitle, variant }: LeadFormProps) {
                         onChange={() => set('facilityType')(ft.value)}
                       />
                       <span>
-                        <span className="font-medium text-slate-900 block">{ft.label ?? ft.value}</span>
+                        <span className="font-medium text-slate-900 block">{ft.label}</span>
                         {ft.win ? (
                           <span className="text-[11px] text-ajs-red font-semibold">Best fit</span>
                         ) : (

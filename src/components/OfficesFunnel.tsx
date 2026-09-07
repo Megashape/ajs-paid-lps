@@ -336,7 +336,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                                   checked={selected}
                                   onChange={() => set('facilityType')(ft.value)}
                                 />
-                                <span className="font-medium text-slate-900">{ft.label ?? ft.value}</span>
+                                <span className="font-medium text-slate-900">{ft.label}</span>
                               </label>
                             )
                           })}
