@@ -188,8 +188,30 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
       >
         <Header overHero compact quietProof />
 
+        {/* CHRIS + TRUCK — HIGH directly under Header logo chrome (before marquee / hero) */}
+        <section className="pb-5 sm:pb-6 lg:pb-8" aria-label="Chris Ramirez and team">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 pt-2 sm:pt-3">
+            <figure className="relative">
+              <img
+                src={assetUrl('chris-truck-crop.jpg')}
+                alt="Chris Ramirez and a teammate with the branded All Janitorial Service van"
+                className="w-full max-h-[42vh] sm:max-h-[38vh] lg:max-h-[320px] rounded-2xl object-cover object-center shadow-xl border border-white/15"
+                loading="eager"
+                width={1022}
+                height={860}
+              />
+              <figcaption className="mt-2.5 sm:mt-3 text-sm text-white/65 text-center sm:text-left">
+                Chris + team, Peninsula commercial.
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+
+        {/* BIG white trust marquee — AFTER Chris, under header logos */}
+        <TrustMarquee />
+
         <section className="text-white pb-10 sm:pb-12 lg:pb-16">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-4 sm:pt-6 lg:pt-8">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-6 sm:pt-8 lg:pt-10">
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 lg:items-start">
               {/* LEFT — display-weight hero */}
               <div className="text-center sm:text-left lg:pt-4 order-1">
@@ -518,67 +540,9 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
         </section>
       </div>
 
-      {/* WHITE trust marquee — CSS only, no observers */}
-      <TrustMarquee />
-
       <main className="flex-1 bg-white">
-        {/* CHRIS + TRUCK — HIGH under trust logos, early below fold */}
-        <section className="pt-8 sm:pt-10 lg:pt-12 pb-10 sm:pb-14 bg-white">
-          <div className="mx-auto max-w-5xl px-4 sm:px-6">
-            <div className="grid lg:grid-cols-2 gap-6 lg:gap-10 items-center">
-              <figure className="order-1">
-                <img
-                  src={assetUrl('chris-truck-crop.jpg')}
-                  alt="Chris Ramirez and a teammate with the branded All Janitorial Service van"
-                  className="w-full rounded-2xl object-cover shadow-xl border border-slate-200"
-                  loading="eager"
-                  width={1022}
-                  height={860}
-                />
-                <figcaption className="mt-3 text-sm text-slate-500 text-center sm:text-left">
-                  Chris + team, Peninsula commercial.
-                </figcaption>
-              </figure>
-              <div className="order-2">
-                <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.14em] text-ajs-red mb-3">
-                  Local ownership
-                </p>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight leading-tight">
-                  Chris Ramirez and the Peninsula team
-                </h2>
-                <p className="mt-4 text-base sm:text-[17px] text-slate-600 leading-relaxed">
-                  Not a distant franchise script. Chris and the crew run Peninsula commercial
-                  accounts from Redwood City — walk the floor, write the scope, and stay reachable
-                  when something&apos;s off. That&apos;s the truck you&apos;ll see on your block.
-                </p>
-                <p className="mt-5 text-sm text-slate-500">
-                  Prefer to talk first?{' '}
-                  <a
-                    href={`tel:${PHONE_TEL}`}
-                    className="font-semibold text-navy-900 underline underline-offset-4"
-                  >
-                    {PHONE_DISPLAY}
-                  </a>
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Mobile hero bullets (desktop already shows them on stage) */}
-        <div className="lg:hidden mx-auto max-w-6xl px-4 sm:px-6 pb-2">
-          <ul className="space-y-2.5 text-sm text-slate-700">
-            {bullets.map((line) => (
-              <li key={line} className="flex items-start gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-ajs-red shrink-0 mt-0.5" aria-hidden />
-                <span>{line}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
         {/* WHY-US (~40%) + BENEFITS (~60%) — one desktop row; mobile: benefits then why */}
-        <section className="py-12 sm:py-16 lg:py-20 border-t border-slate-100 bg-slate-50">
+        <section className="py-12 sm:py-16 lg:py-20 bg-slate-50">
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
             <div className="grid lg:grid-cols-10 gap-10 lg:gap-12 lg:items-start">
               {/* Why-us — ~40% desktop; second on mobile */}
@@ -626,6 +590,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
     </div>
   )
 }
+
 
 function UtmHiddenFields() {
   const utms = getStoredUtms()
