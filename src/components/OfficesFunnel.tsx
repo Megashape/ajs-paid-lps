@@ -15,7 +15,9 @@ import { PHONE_DISPLAY, PHONE_TEL } from '../lib/constants'
 import { Header } from './Header'
 import { Footer } from './Footer'
 import { assetUrl } from '../lib/assetUrl'
+import { officePhotoForCity } from '../data/trustAssets'
 import { TrustMarquee } from './TrustMarquee'
+import { StarRow } from './StarRow'
 
 interface OfficesFunnelProps {
   /** Display city name; prefills city select and localizes hero. */
@@ -513,13 +515,20 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                     </p>
                   </form>
                 </div>
+                {/* Under form: 5★ + Peninsula commercial cleaning — no Google/Yelp/BBB brand wording */}
+                <div className="mt-4 flex flex-col items-center gap-1.5 text-center">
+                  <StarRow size={14} className="text-amber-400" />
+                  <p className="text-[11px] sm:text-xs text-white/55 leading-none">
+                    Peninsula commercial cleaning
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </section>
       </div>
 
-      {/* Logo-only trust strip — after hero/form */}
+      {/* Trust: Google/Yelp+stars, Proud Member badges, city seals — after hero/form */}
       <TrustMarquee />
 
       <main className="flex-1 bg-white">
@@ -574,22 +583,46 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
           </div>
         </section>
 
-        {/* Why-us prose band */}
+        {/* Why-us — commercial office photo + prose (no schools/homes) */}
         <section className="py-12 sm:py-16 lg:py-20 bg-slate-50">
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
-            <div className="max-w-3xl">
-              <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.14em] text-ajs-red mb-3">
-                Why us
-              </p>
-              <h2 className="text-2xl sm:text-3xl lg:text-[1.85rem] xl:text-[2.05rem] font-extrabold text-navy-900 leading-tight tracking-tight">
-                The mid-size Peninsula office specialist
-              </h2>
-              <p className="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed">
-                National franchises run a script. Solo cleaners disappear when you need coverage.
-                We&apos;re the middle that facility managers actually want — big enough to staff your
-                suite reliably, small enough that Chris&apos;s team still walks the floor before you
-                sign. Walkthrough → written scope → recurring cadence you can defend to ownership.
-              </p>
+            <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 lg:items-center">
+              <figure className="lg:col-span-5">
+                <div className="relative overflow-hidden rounded-2xl border border-slate-200 shadow-lg bg-slate-100 aspect-[4/3]">
+                  <img
+                    src={assetUrl(officePhotoForCity(city).src)}
+                    alt={
+                      city
+                        ? `Commercial office building — ${city}`
+                        : officePhotoForCity(city).alt
+                    }
+                    className="absolute inset-0 w-full h-full object-cover"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <figcaption className="mt-2 text-xs text-slate-500 text-center lg:text-left">
+                  {city
+                    ? `Commercial offices in ${city} and across the Peninsula.`
+                    : 'Commercial office exteriors & interiors — Peninsula businesses.'}
+                </figcaption>
+              </figure>
+              <div className="lg:col-span-7 max-w-2xl">
+                <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.14em] text-ajs-red mb-3">
+                  Why us
+                </p>
+                <h2 className="text-2xl sm:text-3xl lg:text-[1.85rem] xl:text-[2.05rem] font-extrabold text-navy-900 leading-tight tracking-tight">
+                  {city
+                    ? `The mid-size ${city} office specialist`
+                    : 'The mid-size Peninsula office specialist'}
+                </h2>
+                <p className="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed">
+                  National franchises run a script. Solo cleaners disappear when you need coverage.
+                  We&apos;re the middle that facility managers actually want — big enough to staff your
+                  suite reliably, small enough that Chris&apos;s team still walks the floor before you
+                  sign. Walkthrough → written scope → recurring cadence you can defend to ownership.
+                </p>
+              </div>
             </div>
           </div>
         </section>
