@@ -9,18 +9,19 @@ export const ROLES = [
 
 /** Shown on paid office/recurring LPs — School + Multifamily tiles hidden (route note kept on Other). */
 export const FACILITY_TYPES = [
-  { value: 'Office / Corporate', win: true },
-  { value: 'Medical / Professional suite', win: true },
-  { value: 'Other commercial', win: true },
-  { value: 'Other (describe later)', win: false },
+  { value: 'Office', label: 'Office / Corporate', win: true },
+  { value: 'Medical / Professional suite', label: 'Medical / Professional suite', win: true },
+  { value: 'Other commercial', label: 'Other commercial', win: true },
+  { value: 'Other (describe later)', label: 'Other (describe later)', win: false },
 ] as const
 
+/** Values must match GHL CRM Facility/Frequency enums exactly. */
 export const FREQUENCIES = [
-  { value: 'weekly', label: 'Weekly' },
-  { value: '2-3x', label: '2–3× per week' },
+  { value: 'Weekly', label: 'Weekly' },
+  { value: '2–3× / week', label: '2–3× per week' },
   { value: '5-day', label: '5-day' },
-  { value: '7-day-weekends', label: '7-day / weekends' },
-  { value: 'not-sure', label: 'Not sure yet' },
+  { value: '7-day / weekends', label: '7-day / weekends' },
+  { value: 'Not sure', label: 'Not sure yet' },
 ] as const
 
 export const PREFERRED_TIMES = [

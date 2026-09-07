@@ -28,7 +28,7 @@ const initial = (city?: string): FormState => ({
   role: 'Facilities Manager',
   customRole: '',
   city: city ?? '',
-  facilityType: 'Office / Corporate',
+  facilityType: 'Office',
   frequency: '',
   sqFt: '',
   fullName: '',
@@ -336,7 +336,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                                   checked={selected}
                                   onChange={() => set('facilityType')(ft.value)}
                                 />
-                                <span className="font-medium text-slate-900">{ft.value}</span>
+                                <span className="font-medium text-slate-900">{ft.label ?? ft.value}</span>
                               </label>
                             )
                           })}
