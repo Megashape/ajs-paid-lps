@@ -4,18 +4,21 @@ import { SERVICE_CITIES } from '../data/cities'
 /**
  * BIG all-white auto-rotating trust marquee — CSS animation ONLY.
  * Bug Hunter hard rule: never wrap with IntersectionObserver / MutationObserver / ResizeObserver.
- * No invented review counts. Large panels (~h-16–20), not tiny pills/chips.
+ * No invented review counts. Large white card panels (≥140–160px), not tiny pills/chips.
  */
 type Slide =
   | { kind: 'stars'; label: string }
   | { kind: 'bbb' }
   | { kind: 'city'; name: string }
 
+const panelClass =
+  'trust-marquee-panel shrink-0 flex flex-col items-center justify-center gap-2.5 mx-3 sm:mx-4 px-8 sm:px-10 min-h-[140px] h-[140px] sm:min-h-[160px] sm:h-[160px] rounded-2xl border border-slate-200 bg-white shadow-md'
+
 function Stars() {
   return (
     <span className="flex text-amber-400" aria-hidden>
       {Array.from({ length: 5 }).map((_, i) => (
-        <Star key={i} className="fill-current shrink-0" style={{ width: 22, height: 22 }} />
+        <Star key={i} className="fill-current shrink-0" style={{ width: 26, height: 26 }} />
       ))}
     </span>
   )
@@ -24,9 +27,9 @@ function Stars() {
 function SlideItem({ item }: { item: Slide }) {
   if (item.kind === 'stars') {
     return (
-      <div className="trust-marquee-panel shrink-0 flex items-center gap-3 px-6 sm:px-8 h-16 sm:h-20">
+      <div className={panelClass}>
         <Stars />
-        <span className="text-lg sm:text-xl lg:text-2xl font-bold text-white tracking-tight whitespace-nowrap">
+        <span className="text-xl sm:text-2xl font-bold text-navy-900 tracking-tight whitespace-nowrap">
           {item.label} 5★
         </span>
       </div>
@@ -34,11 +37,11 @@ function SlideItem({ item }: { item: Slide }) {
   }
   if (item.kind === 'bbb') {
     return (
-      <div className="trust-marquee-panel shrink-0 flex items-center gap-3 px-6 sm:px-8 h-16 sm:h-20">
-        <span className="inline-flex items-center justify-center h-10 sm:h-12 min-w-[2.75rem] px-2.5 rounded-md border-2 border-white/90 text-white text-sm sm:text-base font-extrabold tracking-tight">
+      <div className={panelClass}>
+        <span className="inline-flex items-center justify-center h-12 min-w-[3rem] px-3 rounded-lg border-2 border-navy-900 text-navy-900 text-lg font-extrabold tracking-tight">
           A+
         </span>
-        <span className="text-lg sm:text-xl lg:text-2xl font-bold text-white tracking-tight whitespace-nowrap">
+        <span className="text-xl sm:text-2xl font-bold text-navy-900 tracking-tight whitespace-nowrap">
           BBB A+ Certified
         </span>
       </div>
@@ -46,8 +49,8 @@ function SlideItem({ item }: { item: Slide }) {
   }
   // City name plate — LARGE panel, not a pill chip
   return (
-    <div className="trust-marquee-panel shrink-0 flex items-center px-5 sm:px-7 h-16 sm:h-20">
-      <span className="inline-flex items-center h-12 sm:h-14 px-5 sm:px-7 rounded-xl border border-white/35 bg-white/10 text-base sm:text-lg lg:text-xl font-semibold text-white whitespace-nowrap backdrop-blur-[1px]">
+    <div className={panelClass}>
+      <span className="text-xl sm:text-2xl font-bold text-navy-900 tracking-tight whitespace-nowrap text-center">
         {item.name}
       </span>
     </div>
@@ -67,10 +70,10 @@ export function TrustMarquee() {
 
   return (
     <section
-      className="bg-navy-900 border-y border-white/10 overflow-hidden"
+      className="bg-white border-y border-slate-200 overflow-hidden"
       aria-label="Trust signals and service cities"
     >
-      <div className="py-4 sm:py-5 lg:py-6">
+      <div className="py-5 sm:py-6 lg:py-7">
         <div className="trust-marquee relative">
           <div className="trust-marquee-track flex items-center w-max">
             {track.map((item, i) => (
