@@ -45,7 +45,7 @@ export const OFFICE_COPY: LandingCopy = {
     'Commercial scope for suites and corporate facilities—not house-cleaner city pages',
   ],
   formTitle: 'Request a business facility walkthrough',
-  formSubtitle: 'For office and corporate accounts. We’ll follow up to schedule when it works for you.',
+  formSubtitle: 'For office and corporate accounts. We will follow up to schedule when it works for you.',
   whyTitle: 'Why Peninsula businesses choose AJS',
   whyIntro:
     'We specialize in commercial accounts: offices and corporate facilities with recurring needs. Franchise scripts and residential cleaners rarely fit business hours, tenants, and finish standards—including weekends when the building needs it.',
