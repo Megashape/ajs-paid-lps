@@ -36,8 +36,8 @@ export function ThankYouPage() {
             <Phone className="w-4 h-4" /> Call {PHONE_DISPLAY}
           </a>
           <div className="mt-6 flex flex-col sm:flex-row gap-2 justify-center text-sm">
-            <Link to="/office" className="text-ajs-red font-semibold hover:underline">
-              Office landing
+            <Link to="/" className="text-ajs-red font-semibold hover:underline">
+              Office cleaning
             </Link>
             <span className="hidden sm:inline text-slate-300">·</span>
             <Link to="/recurring" className="text-ajs-red font-semibold hover:underline">

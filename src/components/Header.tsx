@@ -25,7 +25,7 @@ export function Header({ overHero = true }: HeaderProps) {
             />
           </Link>
 
-          {/* Secondary only — primary CTA is form Continue. Full number, never truncated. */}
+          {/* Funnel: phone is secondary CTA; show full number on mobile (never truncated). */}
           <a
             href={`tel:${PHONE_TEL}`}
             className="shrink-0 whitespace-nowrap text-[13px] sm:text-base font-medium text-white/80 hover:text-white underline-offset-4 hover:underline transition-colors tabular-nums"
