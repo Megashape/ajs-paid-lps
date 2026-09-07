@@ -1,6 +1,22 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ArrowLeft, CheckCircle2, Loader2 } from 'lucide-react'
+import {
+  ArrowLeft,
+  Building2,
+  Calendar,
+  CheckCircle2,
+  ClipboardCheck,
+  FileText,
+  Headset,
+  Leaf,
+  Loader2,
+  MapPin,
+  Phone,
+  ShieldCheck,
+  UserCheck,
+  Wrench,
+  type LucideIcon,
+} from 'lucide-react'
 import { CITY_OTHER, SERVICE_CITIES } from '../data/cities'
 import {
   FACILITY_TYPES,
@@ -17,6 +33,7 @@ import { Footer } from './Footer'
 import { assetUrl } from '../lib/assetUrl'
 import { officePhotoForCity } from '../data/trustAssets'
 import { TrustMarquee } from './TrustMarquee'
+import { TrustSeparator } from './TrustSeparator'
 import { StarRow } from './StarRow'
 
 interface OfficesFunnelProps {
@@ -163,17 +180,32 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
     'Local Peninsula team coordinated from Redwood City',
   ]
 
-  const benefits = [
-    'Recurring plans that fit how offices actually run (weekly+; multi-day/weekends when needed)',
-    'Facility walkthrough before you commit',
-    'Written scope of work — not a vague verbal quote',
-    'Local Peninsula team coordinated from Redwood City',
-    'Licensed & insured commercial cleaning',
-    'Background checks available on request when your building requires them',
-    'Eco-friendly / EPA-conscious products',
-    "Dedicated point of contact (issues don't disappear into a call center)",
-    'Built for mid-size offices & corporate suites — not homes or events',
-    "Responsive when something's off — we fix it, we don't argue",
+  const benefits: { icon: LucideIcon; text: string }[] = [
+    {
+      icon: Calendar,
+      text: 'Recurring plans that fit how offices actually run (weekly+; multi-day/weekends when needed)',
+    },
+    { icon: ClipboardCheck, text: 'Facility walkthrough before you commit' },
+    { icon: FileText, text: 'Written scope of work — not a vague verbal quote' },
+    { icon: MapPin, text: 'Local Peninsula team coordinated from Redwood City' },
+    { icon: ShieldCheck, text: 'Licensed & insured commercial cleaning' },
+    {
+      icon: UserCheck,
+      text: 'Background checks available on request when your building requires them',
+    },
+    { icon: Leaf, text: 'Eco-friendly / EPA-conscious products' },
+    {
+      icon: Headset,
+      text: "Dedicated point of contact (issues don't disappear into a call center)",
+    },
+    {
+      icon: Building2,
+      text: 'Built for mid-size offices & corporate suites — not homes or events',
+    },
+    {
+      icon: Wrench,
+      text: "Responsive when something's off — we fix it, we don't argue",
+    },
   ]
 
   const progressPct = Math.round((step / TOTAL_STEPS) * 100)
@@ -188,7 +220,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
             'radial-gradient(ellipse 90% 70% at 70% 0%, #1a2744 0%, #0a1128 55%, #070d1c 100%)',
         }}
       >
-        <Header overHero compact quietProof />
+        <Header overHero compact />
 
         {/* HERO + FORM first — priority above Chris / trust strip */}
         <section className="text-white pb-10 sm:pb-12 lg:pb-16">
@@ -208,15 +240,13 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                 <p className="mt-3 sm:mt-4 text-white/70 text-sm sm:text-base leading-relaxed max-w-lg mx-auto sm:mx-0">
                   {subhead}
                 </p>
-                <p className="mt-5 hidden lg:block text-sm text-white/55">
-                  Prefer to talk?{' '}
-                  <a
-                    href={`tel:${PHONE_TEL}`}
-                    className="text-white font-semibold underline underline-offset-4"
-                  >
-                    {PHONE_DISPLAY}
-                  </a>
-                </p>
+                <a
+                  href={`tel:${PHONE_TEL}`}
+                  className="mt-5 inline-flex items-center justify-center gap-2 rounded-xl bg-ajs-red hover:bg-ajs-red-dark text-white font-bold text-sm sm:text-[15px] px-4 sm:px-5 py-2.5 sm:py-3 shadow-lg shadow-red-900/25 transition-colors"
+                >
+                  <Phone className="w-4 h-4" aria-hidden />
+                  Call {PHONE_DISPLAY}
+                </a>
                 <ul className="mt-6 hidden lg:block space-y-3 text-[15px] text-white/85">
                   {bullets.map((line) => (
                     <li key={line} className="flex items-start gap-2.5">
@@ -515,12 +545,19 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                     </p>
                   </form>
                 </div>
-                {/* Under form: 5★ + Peninsula commercial cleaning — no Google/Yelp/BBB brand wording */}
-                <div className="mt-4 flex flex-col items-center gap-1.5 text-center">
+                {/* Under form: 5★ + Peninsula line + phone CTA (no Google/Yelp/BBB brand wording) */}
+                <div className="mt-4 flex flex-col items-center gap-2.5 text-center">
                   <StarRow size={14} className="text-amber-400" />
                   <p className="text-[11px] sm:text-xs text-white/55 leading-none">
                     Peninsula commercial cleaning
                   </p>
+                  <a
+                    href={`tel:${PHONE_TEL}`}
+                    className="lg:hidden inline-flex items-center justify-center gap-2 rounded-xl border border-white/30 hover:bg-white/10 text-white font-bold text-sm px-4 py-2.5 transition-colors"
+                  >
+                    <Phone className="w-4 h-4" aria-hidden />
+                    Call {PHONE_DISPLAY}
+                  </a>
                 </div>
               </div>
             </div>
@@ -565,16 +602,15 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                   walks the floor before you sign.
                 </p>
                 <ul className="mt-6 sm:mt-7 space-y-3 sm:space-y-3.5">
-                  {benefits.map((line) => (
+                  {benefits.map(({ icon: Icon, text: line }) => (
                     <li
                       key={line}
                       className="flex items-start gap-3 text-[15px] sm:text-base text-slate-800 leading-snug"
                     >
-                      <CheckCircle2
-                        className="w-5 h-5 sm:w-5 sm:h-5 text-ajs-red shrink-0 mt-0.5"
-                        aria-hidden
-                      />
-                      <span className="font-medium">{line}</span>
+                      <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-red-50 text-ajs-red shrink-0 mt-0.5">
+                        <Icon className="w-[18px] h-[18px]" aria-hidden />
+                      </span>
+                      <span className="font-medium pt-1">{line}</span>
                     </li>
                   ))}
                 </ul>
@@ -582,6 +618,9 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
             </div>
           </div>
         </section>
+
+        {/* Reviews only — marquee already showed full set above Chris */}
+        <TrustSeparator variant="reviews" tone="light" />
 
         {/* Why-us — commercial office photo + prose (no schools/homes) */}
         <section className="py-12 sm:py-16 lg:py-20 bg-slate-50">
@@ -627,6 +666,9 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
           </div>
         </section>
       </main>
+
+      {/* Proud Member badges between Why Us and footer — no review dupes */}
+      <TrustSeparator variant="proud" tone="light" />
 
       <Footer hideCallCta />
     </div>

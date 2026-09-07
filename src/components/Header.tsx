@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Star } from 'lucide-react'
+import { Phone } from 'lucide-react'
 import { PHONE_DISPLAY, PHONE_TEL } from '../lib/constants'
 import { assetUrl } from '../lib/assetUrl'
 
@@ -7,14 +7,13 @@ interface HeaderProps {
   overHero?: boolean
   /** Tighter bar for above-the-fold funnels (smaller logo / padding). */
   compact?: boolean
-  /** Quiet chrome proof (AFHC-style) — one star row, no counts. */
+  /** @deprecated Stars removed from header — kept for call-site compat; no-op. */
   quietProof?: boolean
 }
 
 export function Header({
   overHero = true,
   compact = false,
-  quietProof = false,
 }: HeaderProps) {
   return (
     <header
@@ -42,50 +41,22 @@ export function Header({
             />
           </Link>
 
-          {quietProof && (
-            <div className="hidden md:flex flex-col items-center text-center min-w-0 px-2">
-              <div className="flex items-center gap-1.5 text-white">
-                <div className="flex text-amber-400" aria-hidden>
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star
-                      key={i}
-                      className="fill-current shrink-0"
-                      style={{ width: 14, height: 14 }}
-                    />
-                  ))}
-                </div>
-              </div>
-              <p className="mt-0.5 text-[10px] lg:text-[11px] text-white/50 leading-none">
-                Peninsula commercial cleaning
-              </p>
-            </div>
-          )}
-
           <a
             href={`tel:${PHONE_TEL}`}
-            className={`shrink-0 whitespace-nowrap font-semibold text-white hover:text-white/90 transition-colors tabular-nums ${
-              compact ? 'text-xs sm:text-sm' : 'text-[13px] sm:text-base'
+            className={`shrink-0 inline-flex items-center justify-center gap-2 rounded-xl bg-ajs-red hover:bg-ajs-red-dark text-white font-bold shadow-lg shadow-red-900/25 transition-colors tabular-nums ${
+              compact
+                ? 'text-xs sm:text-sm px-3 sm:px-4 py-2 sm:py-2.5'
+                : 'text-[13px] sm:text-base px-3.5 sm:px-5 py-2.5 sm:py-3'
             }`}
           >
+            <Phone
+              className={compact ? 'w-3.5 h-3.5 sm:w-4 sm:h-4' : 'w-4 h-4'}
+              aria-hidden
+            />
             <span className="sm:hidden">{PHONE_DISPLAY}</span>
-            <span className="hidden sm:inline">{PHONE_DISPLAY}</span>
+            <span className="hidden sm:inline">Call {PHONE_DISPLAY}</span>
           </a>
         </div>
-
-        {/* Mobile quiet proof — one line under bar, never a grey billboard */}
-        {quietProof && (
-          <div className="md:hidden flex items-center justify-center gap-1.5 pb-2.5 -mt-0.5">
-            <div className="flex text-amber-400" aria-hidden>
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star
-                  key={i}
-                  className="fill-current shrink-0"
-                  style={{ width: 12, height: 12 }}
-                />
-              ))}
-            </div>
-          </div>
-        )}
       </div>
     </header>
   )

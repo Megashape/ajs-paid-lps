@@ -6,22 +6,22 @@ export const PROUD_MEMBER_BADGES = [
   {
     src: 'badges/proud-bbb.png',
     alt: 'BBB Accredited Business',
-    className: 'h-11 sm:h-12 w-auto max-w-[5.5rem] object-contain',
+    className: 'h-12 sm:h-14 w-auto max-w-[6.5rem] object-contain',
   },
   {
     src: 'badges/proud-usgbc.jpg',
     alt: 'USGBC Member',
-    className: 'h-11 sm:h-12 w-auto max-w-[4.5rem] object-contain',
+    className: 'h-12 sm:h-14 w-auto max-w-[5.25rem] object-contain',
   },
   {
     src: 'badges/proud-smacc.jpg',
     alt: 'San Mateo Area Chamber of Commerce',
-    className: 'h-9 sm:h-10 w-auto max-w-[8.5rem] object-contain',
+    className: 'h-10 sm:h-12 w-auto max-w-[9.5rem] object-contain',
   },
   {
     src: 'badges/issa.png',
     alt: 'ISSA — Worldwide Cleaning Industry Association',
-    className: 'h-8 sm:h-9 w-auto max-w-[7rem] object-contain',
+    className: 'h-9 sm:h-11 w-auto max-w-[8rem] object-contain',
   },
 ] as const
 
@@ -31,13 +31,13 @@ export const REVIEW_LOGOS = [
     src: 'google-logo.svg',
     alt: 'Google',
     withStars: true,
-    className: 'h-10 sm:h-12 w-auto max-w-[9rem] sm:max-w-[11rem] object-contain',
+    className: 'h-12 sm:h-14 w-auto max-w-[10.5rem] sm:max-w-[13rem] object-contain',
   },
   {
     src: 'yelp-logo.svg',
     alt: 'Yelp',
     withStars: true,
-    className: 'h-10 sm:h-12 w-auto max-w-[6.5rem] sm:max-w-[7.5rem] object-contain',
+    className: 'h-12 sm:h-14 w-auto max-w-[7.5rem] sm:max-w-[9rem] object-contain',
   },
 ] as const
 

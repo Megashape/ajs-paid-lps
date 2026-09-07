@@ -13,8 +13,8 @@ type TrackItem =
   | { kind: 'city'; src: string; alt: string }
 
 /**
- * Trust strip — Google/Yelp (5★ under logos) + Proud Member badges + city seals.
- * One of each mark per set. No AJS logo (header/footer only). No invented marks.
+ * Dark trust strip — Google/Yelp (5★ under logos) + Proud Member badges + city seals.
+ * Bigger marks, black/navy band, CSS side-fade masks. One of each mark per set.
  * CSS animation ONLY — never IntersectionObserver / MutationObserver / ResizeObserver.
  */
 const TRACK: TrackItem[] = [
@@ -43,7 +43,7 @@ function TrackMark({ item, keyId }: { item: TrackItem; keyId: string }) {
     return (
       <div
         key={keyId}
-        className="shrink-0 flex flex-col items-center justify-center gap-1 mx-5 sm:mx-7 lg:mx-9"
+        className="shrink-0 flex flex-col items-center justify-center gap-1.5 mx-6 sm:mx-8 lg:mx-10"
       >
         <img
           src={assetUrl(item.src)}
@@ -52,7 +52,7 @@ function TrackMark({ item, keyId }: { item: TrackItem; keyId: string }) {
           loading="lazy"
           decoding="async"
         />
-        {item.withStars ? <StarRow size={11} /> : null}
+        {item.withStars ? <StarRow size={13} /> : null}
       </div>
     )
   }
@@ -60,7 +60,7 @@ function TrackMark({ item, keyId }: { item: TrackItem; keyId: string }) {
     return (
       <div
         key={keyId}
-        className="shrink-0 flex items-center justify-center mx-5 sm:mx-7 lg:mx-9 h-14 sm:h-16"
+        className="shrink-0 flex items-center justify-center mx-6 sm:mx-8 lg:mx-10 h-16 sm:h-[4.5rem]"
       >
         <img
           src={assetUrl(item.src)}
@@ -75,12 +75,12 @@ function TrackMark({ item, keyId }: { item: TrackItem; keyId: string }) {
   return (
     <div
       key={keyId}
-      className="shrink-0 flex items-center justify-center mx-4 sm:mx-6 lg:mx-8 h-14 sm:h-16"
+      className="shrink-0 flex items-center justify-center mx-5 sm:mx-7 lg:mx-9 h-16 sm:h-[4.5rem]"
     >
       <img
         src={assetUrl(item.src)}
         alt={item.alt}
-        className="h-11 sm:h-12 w-auto max-w-[3.25rem] sm:max-w-[3.75rem] object-contain"
+        className="h-12 sm:h-14 w-auto max-w-[3.75rem] sm:max-w-[4.25rem] object-contain"
         loading="lazy"
         decoding="async"
       />
@@ -94,15 +94,15 @@ export function TrustMarquee() {
 
   return (
     <section
-      className="bg-white border-y border-slate-200 overflow-hidden"
+      className="bg-[#050a16] border-y border-white/10 overflow-hidden"
       aria-label="Trusted brands, Proud Member badges, and Peninsula cities"
     >
-      <div className="pt-3 sm:pt-4 pb-1 text-center">
-        <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500">
+      <div className="pt-3.5 sm:pt-4 pb-1 text-center">
+        <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.14em] text-white/45">
           Proud Member of · Peninsula service cities
         </p>
       </div>
-      <div className="py-3 sm:py-4 lg:py-5">
+      <div className="py-4 sm:py-5 lg:py-6">
         <div className="trust-marquee relative">
           <div className="trust-marquee-track flex items-center w-max">
             {loop.map((item, i) => (
