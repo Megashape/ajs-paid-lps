@@ -32,27 +32,27 @@ export interface LandingCopy {
  */
 export const OFFICE_COPY: LandingCopy = {
   variant: 'office',
-  metaTitle: 'Office Cleaning — Peninsula Commercial Janitorial | AJS',
+  metaTitle: 'Commercial Office Cleaning — Peninsula Businesses | AJS',
   metaDescription:
-    'Weekly office cleaning for Peninsula workplaces. Smaller offices welcome. Local Redwood City team. Call 650-261-0723.',
-  badge: 'Peninsula office & corporate facilities',
-  headline: 'Offices that look ready before your team walks in',
+    'We specialize in supporting businesses with recurring office and corporate facility cleaning on the Peninsula. Weekly qualifies. Call 650-261-0723.',
+  badge: 'For businesses — office & corporate facilities',
+  headline: 'Commercial office cleaning built for businesses',
   subhead:
-    'Recurring commercial cleaning for Peninsula workplaces—so suites, floors, and shared spaces stay presentation-ready week after week. Weekly service qualifies. Smaller offices welcome.',
+    'All Janitorial Service specializes in supporting businesses—recurring cleaning for offices and corporate facilities across the Peninsula. Not residential homes, not events, not one-off cleans. Weekly service qualifies. Smaller offices welcome.',
   bullets: [
-    'Show up to a workspace that already looks cared for—not a scramble after the fact',
-    'Weekly programs qualify; step up to multi-day or weekend / 7-day when the building needs it',
-    'Local Redwood City crew planning for offices—not house-cleaner city pages',
+    'Recurring programs so your workplace looks presentation-ready when your team arrives',
+    'Weekly qualifies; add multi-day or weekend / 7-day when your facility needs it',
+    'Commercial scope for suites and corporate facilities—not house-cleaner city pages',
   ],
-  formTitle: 'Get a facility walkthrough on the calendar',
-  formSubtitle: 'Takes a minute. We’ll follow up to schedule when it works for you.',
-  whyTitle: 'Why Peninsula offices switch to AJS',
+  formTitle: 'Request a business facility walkthrough',
+  formSubtitle: 'For office and corporate accounts. We’ll follow up to schedule when it works for you.',
+  whyTitle: 'Why Peninsula businesses choose AJS',
   whyIntro:
-    'Generic house-cleaner pages and franchise scripts rarely fit corporate facilities. We scope recurring commercial service around your hours, tenants, and finish standards—including weekends when the building needs it.',
+    'We specialize in commercial accounts: offices and corporate facilities with recurring needs. Franchise scripts and residential cleaners rarely fit business hours, tenants, and finish standards—including weekends when the building needs it.',
   whyCards: [
     {
-      title: 'Built for offices, not homes',
-      body: 'Restrooms, kitchens, workstations, and common areas scoped like a business facility—not a one-off house clean.',
+      title: 'Businesses only — not homes or events',
+      body: 'Restrooms, kitchens, workstations, and common areas scoped like a commercial facility—not a residential clean or a one-off event tidy.',
     },
     {
       title: 'Weekly is enough to start',
@@ -60,17 +60,17 @@ export const OFFICE_COPY: LandingCopy = {
     },
     {
       title: 'Local hub, real oversight',
-      body: 'Peninsula coverage coordinated from Redwood City—not a distant dispatcher reading a script.',
+      body: 'Peninsula commercial coverage coordinated from Redwood City—not a distant dispatcher reading a script.',
     },
     {
       title: 'Screening when you need it',
       body: 'Background checks and Live Scan available on request when your building or client requires them.',
     },
   ],
-  citiesTitle: 'Serving offices across the Peninsula & South Bay edge',
+  citiesTitle: 'Commercial coverage across the Peninsula & South Bay edge',
   citiesIntro:
-    'Our hub is Redwood City. We actively support commercial accounts in these cities—ask us if yours is nearby.',
-  faqTitle: 'Office cleaning FAQs',
+    'Our hub is Redwood City. We support business accounts in these cities—ask us if yours is nearby.',
+  faqTitle: 'Commercial office cleaning FAQs',
   faqs: [
     {
       q: 'Do you only clean Monday through Friday?',
@@ -85,6 +85,10 @@ export const OFFICE_COPY: LandingCopy = {
       a: 'No. Qualification is office + at least weekly. Weekends and 7-day are availability options when your facility needs them—not the entry requirement.',
     },
     {
+      q: 'Do you clean homes or host events?',
+      a: 'No. This page is for businesses—office and corporate facilities on a recurring schedule. Residential and event cleaning are outside this service.',
+    },
+    {
       q: 'Are Live Scan / background checks included by default?',
       a: 'They are available on request when your property or compliance policy requires them—not assumed for every account.',
     },
@@ -92,13 +96,9 @@ export const OFFICE_COPY: LandingCopy = {
       q: 'Can you start same-day?',
       a: 'We start as soon as we can after a walkthrough and agreement. Same-day starts happen when capacity allows—they are not a guarantee.',
     },
-    {
-      q: 'What if my facility is not a typical office suite?',
-      a: 'This page is for office and corporate facilities. Use Other on the form if you need to describe a different commercial space—we will review and route the inquiry.',
-    },
   ],
-  ctaTitle: 'Put a cleaner office on a reliable schedule',
-  ctaBody: 'Request a walkthrough or call our Peninsula team at 650-261-0723.',
+  ctaTitle: 'Put your business on a reliable commercial schedule',
+  ctaBody: 'Request a facility walkthrough or call our Peninsula team at 650-261-0723.',
 }
 
 export const RECURRING_COPY: LandingCopy = {

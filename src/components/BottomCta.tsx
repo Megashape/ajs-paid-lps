@@ -17,7 +17,7 @@ export function BottomCta({ title, body }: BottomCtaProps) {
             href="#lead-form"
             className="w-full sm:w-auto inline-flex items-center justify-center rounded-xl bg-ajs-red hover:bg-ajs-red-dark text-white font-bold px-6 h-12"
           >
-            Fill out walkthrough form
+            Request a business walkthrough
           </a>
           <a
             href={`tel:${PHONE_TEL}`}
