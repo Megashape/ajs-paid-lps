@@ -14,6 +14,7 @@ import { getStoredUtms, readUtmsFromLocation } from '../lib/utm'
 import { PHONE_DISPLAY, PHONE_TEL } from '../lib/constants'
 import { Header } from './Header'
 import { Footer } from './Footer'
+import { assetUrl } from '../lib/assetUrl'
 import { ProofNearForm } from './ProofNearForm'
 
 interface OfficesFunnelProps {
@@ -160,6 +161,19 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
     'Local Peninsula team coordinated from Redwood City',
   ]
 
+  const benefits = [
+    'Recurring plans that fit how offices actually run (weekly+; multi-day/weekends when needed)',
+    'Facility walkthrough before you commit',
+    'Written scope of work — not a vague verbal quote',
+    'Local Peninsula team coordinated from Redwood City',
+    'Licensed & insured commercial cleaning',
+    'Background checks available on request when your building requires them',
+    'Eco-friendly / EPA-conscious products',
+    "Dedicated point of contact (issues don't disappear into a call center)",
+    'Built for mid-size offices & corporate suites — not homes or events',
+    "Responsive when something's off — we fix it, we don't argue",
+  ]
+
   const progressPct = Math.round((step / TOTAL_STEPS) * 100)
 
   return (
@@ -179,8 +193,11 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 lg:items-start">
               {/* LEFT — display-weight hero */}
               <div className="text-center sm:text-left lg:pt-4 order-1">
-                <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.14em] text-ajs-red">
-                  Businesses only · Recurring office &amp; corporate
+                <p className="inline-flex flex-col items-center sm:items-start gap-1.5">
+                  <span className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.14em] text-[#f3e6d8]">
+                    Businesses only · Recurring office &amp; corporate
+                  </span>
+                  <span className="block h-px w-14 bg-ajs-red/90" aria-hidden />
                 </p>
                 <h1 className="mt-3 sm:mt-4 text-[2rem] sm:text-4xl lg:text-[2.75rem] xl:text-[3.15rem] font-extrabold leading-[1.08] tracking-tight text-white">
                   {headline}
@@ -501,11 +518,27 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
         </section>
       </div>
 
-      {/* Below fold: certs + mobile bullets — not inside form */}
-      <main className="flex-1 bg-slate-50">
-        <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 py-8 sm:py-10">
-          <ProofNearForm />
-          <ul className="mt-8 lg:hidden space-y-2.5 text-sm text-slate-700">
+      {/* Dark trust strip — certs on navy, not washed grey boxes */}
+      <section
+        className="border-t border-white/10"
+        style={{
+          background:
+            'linear-gradient(180deg, #0a1128 0%, #0d1530 55%, #0a1128 100%)',
+        }}
+        aria-label="Certifications"
+      >
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 py-8 sm:py-10">
+          <p className="text-center text-[11px] sm:text-xs font-semibold uppercase tracking-[0.14em] text-white/55 mb-6">
+            Certified &amp; accredited
+          </p>
+          <ProofNearForm dark />
+        </div>
+      </section>
+
+      <main className="flex-1 bg-white">
+        {/* Mobile hero bullets (desktop already shows them on stage) */}
+        <div className="lg:hidden mx-auto max-w-6xl px-4 sm:px-6 pt-8">
+          <ul className="space-y-2.5 text-sm text-slate-700">
             {bullets.map((line) => (
               <li key={line} className="flex items-start gap-2.5">
                 <CheckCircle2 className="w-4 h-4 text-ajs-red shrink-0 mt-0.5" aria-hidden />
@@ -514,6 +547,91 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
             ))}
           </ul>
         </div>
+
+        {/* WHY-US — Tess locked */}
+        <section className="py-14 sm:py-20">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 text-center sm:text-left">
+            <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.14em] text-ajs-red mb-3">
+              Why us
+            </p>
+            <h2 className="text-2xl sm:text-3xl lg:text-[2.15rem] font-extrabold text-navy-900 leading-tight tracking-tight">
+              The mid-size Peninsula office specialist
+            </h2>
+            <p className="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed">
+              National franchises run a script. Solo cleaners disappear when you need coverage.
+              We&apos;re the middle that facility managers actually want — big enough to staff your
+              suite reliably, small enough that Chris&apos;s team still walks the floor before you
+              sign. Walkthrough → written scope → recurring cadence you can defend to ownership.
+            </p>
+          </div>
+        </section>
+
+        {/* BIG BENEFITS — Tess exact 10 */}
+        <section className="bg-slate-50 py-14 sm:py-20 border-y border-slate-100">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight">
+              What you get with AJS
+            </h2>
+            <ul className="mt-10 space-y-5 sm:space-y-6">
+              {benefits.map((line) => (
+                <li
+                  key={line}
+                  className="flex items-start gap-3.5 sm:gap-4 text-base sm:text-lg text-slate-800 leading-snug"
+                >
+                  <CheckCircle2
+                    className="w-6 h-6 sm:w-7 sm:h-7 text-ajs-red shrink-0 mt-0.5"
+                    aria-hidden
+                  />
+                  <span className="font-medium">{line}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        {/* CHRIS + TRUCK — real asset, Vera crop */}
+        <section className="py-14 sm:py-20 bg-white">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              <figure className="order-1">
+                <img
+                  src={assetUrl('chris-truck-crop.jpg')}
+                  alt="Chris Ramirez and a teammate with the branded All Janitorial Service van"
+                  className="w-full rounded-2xl object-cover shadow-xl border border-slate-200"
+                  loading="lazy"
+                  width={1022}
+                  height={860}
+                />
+                <figcaption className="mt-3 text-sm text-slate-500 text-center sm:text-left">
+                  Chris Ramirez and the Peninsula team — commercial routes coordinated from Redwood
+                  City.
+                </figcaption>
+              </figure>
+              <div className="order-2">
+                <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.14em] text-ajs-red mb-3">
+                  Local ownership
+                </p>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight leading-tight">
+                  Chris Ramirez and the Peninsula team
+                </h2>
+                <p className="mt-4 text-base sm:text-[17px] text-slate-600 leading-relaxed">
+                  Not a distant franchise script. Chris and the crew run Peninsula commercial
+                  accounts from Redwood City — walk the floor, write the scope, and stay reachable
+                  when something&apos;s off. That&apos;s the truck you&apos;ll see on your block.
+                </p>
+                <p className="mt-5 text-sm text-slate-500">
+                  Prefer to talk first?{' '}
+                  <a
+                    href={`tel:${PHONE_TEL}`}
+                    className="font-semibold text-navy-900 underline underline-offset-4"
+                  >
+                    {PHONE_DISPLAY}
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
 
       <Footer hideCallCta />
