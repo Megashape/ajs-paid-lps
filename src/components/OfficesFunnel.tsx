@@ -188,30 +188,9 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
       >
         <Header overHero compact quietProof />
 
-        {/* CHRIS + TRUCK — HIGH directly under Header logo chrome (before marquee / hero) */}
-        <section className="pb-5 sm:pb-6 lg:pb-8" aria-label="Chris Ramirez and team">
-          <div className="mx-auto max-w-5xl px-4 sm:px-6 pt-2 sm:pt-3">
-            <figure className="relative">
-              <img
-                src={assetUrl('chris-truck-crop.jpg')}
-                alt="Chris Ramirez and a teammate with the branded All Janitorial Service van"
-                className="w-full max-h-[42vh] sm:max-h-[38vh] lg:max-h-[320px] rounded-2xl object-cover object-center shadow-xl border border-white/15"
-                loading="eager"
-                width={1022}
-                height={860}
-              />
-              <figcaption className="mt-2.5 sm:mt-3 text-sm text-white/65 text-center sm:text-left">
-                Chris + team, Peninsula commercial.
-              </figcaption>
-            </figure>
-          </div>
-        </section>
-
-        {/* BIG white trust marquee — AFTER Chris, under header logos */}
-        <TrustMarquee />
-
+        {/* HERO + FORM first — priority above Chris / trust strip */}
         <section className="text-white pb-10 sm:pb-12 lg:pb-16">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-6 sm:pt-8 lg:pt-10">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-4 sm:pt-6 lg:pt-8">
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 lg:items-start">
               {/* LEFT — display-weight hero */}
               <div className="text-center sm:text-left lg:pt-4 order-1">
@@ -540,40 +519,50 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
         </section>
       </div>
 
-      <main className="flex-1 bg-white">
-        {/* WHY-US (~40%) + BENEFITS (~60%) — one desktop row; mobile: benefits then why */}
-        <section className="py-12 sm:py-16 lg:py-20 bg-slate-50">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6">
-            <div className="grid lg:grid-cols-10 gap-10 lg:gap-12 lg:items-start">
-              {/* Why-us — ~40% desktop; second on mobile */}
-              <div className="lg:col-span-4 order-2 lg:order-1">
-                <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.14em] text-ajs-red mb-3">
-                  Why us
-                </p>
-                <h2 className="text-2xl sm:text-3xl lg:text-[1.85rem] xl:text-[2.05rem] font-extrabold text-navy-900 leading-tight tracking-tight">
-                  The mid-size Peninsula office specialist
-                </h2>
-                <p className="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed">
-                  National franchises run a script. Solo cleaners disappear when you need coverage.
-                  We&apos;re the middle that facility managers actually want — big enough to staff your
-                  suite reliably, small enough that Chris&apos;s team still walks the floor before you
-                  sign. Walkthrough → written scope → recurring cadence you can defend to ownership.
-                </p>
-              </div>
+      {/* Logo-only trust strip — after hero/form */}
+      <TrustMarquee />
 
-              {/* Benefits — ~60% desktop; first on mobile */}
-              <div className="lg:col-span-6 order-1 lg:order-2">
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight">
-                  What you get with AJS
+      <main className="flex-1 bg-white">
+        {/* Chris square crop + short copy + Tess benefits — AFTER logo strip */}
+        <section className="py-10 sm:py-12 lg:py-14 bg-white" aria-label="Chris Ramirez and team">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 lg:items-start">
+              <figure className="lg:col-span-4 flex flex-col items-center lg:items-start gap-3">
+                <div className="relative w-44 h-44 sm:w-52 sm:h-52 lg:w-56 lg:h-56 shrink-0 overflow-hidden rounded-2xl border border-slate-200 shadow-lg bg-slate-100">
+                  <img
+                    src={assetUrl('chris-truck-crop.jpg')}
+                    alt="Chris Ramirez and a teammate with the branded All Janitorial Service van"
+                    className="absolute inset-0 w-full h-full object-cover object-[center_12%]"
+                    loading="lazy"
+                    width={1022}
+                    height={860}
+                  />
+                </div>
+                <figcaption className="text-sm text-slate-500 text-center lg:text-left">
+                  Chris + team, Peninsula commercial.
+                </figcaption>
+              </figure>
+
+              <div className="lg:col-span-8">
+                <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.14em] text-ajs-red mb-2">
+                  Local Peninsula team
+                </p>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight leading-tight">
+                  Real oversight — not a franchise script
                 </h2>
-                <ul className="mt-6 sm:mt-8 space-y-3.5 sm:space-y-4">
+                <p className="mt-3 sm:mt-4 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl">
+                  Mid-size offices get a walkthrough, a written scope, and a dedicated point of contact.
+                  Big enough to staff your suite reliably — small enough that Chris&apos;s team still
+                  walks the floor before you sign.
+                </p>
+                <ul className="mt-6 sm:mt-7 space-y-3 sm:space-y-3.5">
                   {benefits.map((line) => (
                     <li
                       key={line}
                       className="flex items-start gap-3 text-[15px] sm:text-base text-slate-800 leading-snug"
                     >
                       <CheckCircle2
-                        className="w-5 h-5 sm:w-6 sm:h-6 text-ajs-red shrink-0 mt-0.5"
+                        className="w-5 h-5 sm:w-5 sm:h-5 text-ajs-red shrink-0 mt-0.5"
                         aria-hidden
                       />
                       <span className="font-medium">{line}</span>
@@ -581,6 +570,26 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                   ))}
                 </ul>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Why-us prose band */}
+        <section className="py-12 sm:py-16 lg:py-20 bg-slate-50">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            <div className="max-w-3xl">
+              <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.14em] text-ajs-red mb-3">
+                Why us
+              </p>
+              <h2 className="text-2xl sm:text-3xl lg:text-[1.85rem] xl:text-[2.05rem] font-extrabold text-navy-900 leading-tight tracking-tight">
+                The mid-size Peninsula office specialist
+              </h2>
+              <p className="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed">
+                National franchises run a script. Solo cleaners disappear when you need coverage.
+                We&apos;re the middle that facility managers actually want — big enough to staff your
+                suite reliably, small enough that Chris&apos;s team still walks the floor before you
+                sign. Walkthrough → written scope → recurring cadence you can defend to ownership.
+              </p>
             </div>
           </div>
         </section>

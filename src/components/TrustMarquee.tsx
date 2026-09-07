@@ -1,83 +1,53 @@
-import { Star } from 'lucide-react'
-import { SERVICE_CITIES } from '../data/cities'
+import { assetUrl } from '../lib/assetUrl'
 
 /**
- * BIG all-white auto-rotating trust marquee — CSS animation ONLY.
- * Bug Hunter hard rule: never wrap with IntersectionObserver / MutationObserver / ResizeObserver.
- * No invented review counts. Large white card panels (≥140–160px), not tiny pills/chips.
+ * Logo-only trust strip — official brand marks only.
+ * No city names. No "Google" / "Yelp" / "BBB" text labels. No invented review counts.
+ * CSS animation ONLY — never wrap with IntersectionObserver / MutationObserver / ResizeObserver.
  */
-type Slide =
-  | { kind: 'stars'; label: string }
-  | { kind: 'bbb' }
-  | { kind: 'city'; name: string }
-
-const panelClass =
-  'trust-marquee-panel shrink-0 flex flex-col items-center justify-center gap-2.5 mx-3 sm:mx-4 px-8 sm:px-10 min-h-[140px] h-[140px] sm:min-h-[160px] sm:h-[160px] rounded-2xl border border-slate-200 bg-white shadow-md'
-
-function Stars() {
-  return (
-    <span className="flex text-amber-400" aria-hidden>
-      {Array.from({ length: 5 }).map((_, i) => (
-        <Star key={i} className="fill-current shrink-0" style={{ width: 26, height: 26 }} />
-      ))}
-    </span>
-  )
-}
-
-function SlideItem({ item }: { item: Slide }) {
-  if (item.kind === 'stars') {
-    return (
-      <div className={panelClass}>
-        <Stars />
-        <span className="text-xl sm:text-2xl font-bold text-navy-900 tracking-tight whitespace-nowrap">
-          {item.label} 5★
-        </span>
-      </div>
-    )
-  }
-  if (item.kind === 'bbb') {
-    return (
-      <div className={panelClass}>
-        <span className="inline-flex items-center justify-center h-12 min-w-[3rem] px-3 rounded-lg border-2 border-navy-900 text-navy-900 text-lg font-extrabold tracking-tight">
-          A+
-        </span>
-        <span className="text-xl sm:text-2xl font-bold text-navy-900 tracking-tight whitespace-nowrap">
-          BBB A+ Certified
-        </span>
-      </div>
-    )
-  }
-  // City name plate — LARGE panel, not a pill chip
-  return (
-    <div className={panelClass}>
-      <span className="text-xl sm:text-2xl font-bold text-navy-900 tracking-tight whitespace-nowrap text-center">
-        {item.name}
-      </span>
-    </div>
-  )
-}
+const LOGOS = [
+  {
+    src: 'google-logo.svg',
+    alt: 'Google',
+    className: 'h-7 sm:h-8 w-auto max-w-[7.5rem] sm:max-w-[9rem] object-contain',
+  },
+  {
+    src: 'yelp-logo.svg',
+    alt: 'Yelp',
+    className: 'h-8 sm:h-9 w-auto max-w-[5.5rem] sm:max-w-[6.5rem] object-contain',
+  },
+  {
+    src: 'bbb.png',
+    alt: 'BBB Accredited Business',
+    className: 'h-12 sm:h-14 w-auto max-w-[3.5rem] sm:max-w-[4rem] object-contain',
+  },
+] as const
 
 export function TrustMarquee() {
-  const slides: Slide[] = [
-    { kind: 'stars', label: 'Google' },
-    { kind: 'stars', label: 'Yelp' },
-    { kind: 'bbb' },
-    ...SERVICE_CITIES.map((name) => ({ kind: 'city' as const, name })),
-  ]
-
-  // Duplicate for seamless CSS loop — no JS observers
-  const track = [...slides, ...slides]
+  // Duplicate set for seamless CSS loop — no JS observers
+  const track = [...LOGOS, ...LOGOS, ...LOGOS, ...LOGOS]
 
   return (
     <section
       className="bg-white border-y border-slate-200 overflow-hidden"
-      aria-label="Trust signals and service cities"
+      aria-label="Trusted brands"
     >
-      <div className="py-5 sm:py-6 lg:py-7">
+      <div className="py-4 sm:py-5 lg:py-6">
         <div className="trust-marquee relative">
           <div className="trust-marquee-track flex items-center w-max">
-            {track.map((item, i) => (
-              <SlideItem key={`${item.kind}-${i}`} item={item} />
+            {track.map((logo, i) => (
+              <div
+                key={`${logo.src}-${i}`}
+                className="shrink-0 flex items-center justify-center mx-5 sm:mx-8 lg:mx-10 h-14 sm:h-16"
+              >
+                <img
+                  src={assetUrl(logo.src)}
+                  alt={logo.alt}
+                  className={logo.className}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
             ))}
           </div>
         </div>

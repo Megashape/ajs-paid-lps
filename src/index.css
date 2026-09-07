@@ -57,7 +57,7 @@
 }
 
 .trust-marquee-track {
-  animation: trust-marquee-scroll 42s linear infinite;
+  animation: trust-marquee-scroll 28s linear infinite;
   will-change: transform;
 }
 
