@@ -54,9 +54,6 @@ export function Header({
                     />
                   ))}
                 </div>
-                <span className="text-[11px] lg:text-xs font-semibold tracking-wide text-white/90 whitespace-nowrap">
-                  Google · Yelp · BBB A+
-                </span>
               </div>
               <p className="mt-0.5 text-[10px] lg:text-[11px] text-white/50 leading-none">
                 Peninsula commercial cleaning
@@ -87,9 +84,6 @@ export function Header({
                 />
               ))}
             </div>
-            <span className="text-[11px] font-medium tracking-wide text-white/80">
-              Google · Yelp · BBB A+
-            </span>
           </div>
         )}
       </div>
