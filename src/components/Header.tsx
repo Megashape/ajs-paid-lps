@@ -4,9 +4,11 @@ import { assetUrl } from '../lib/assetUrl'
 
 interface HeaderProps {
   overHero?: boolean
+  /** Tighter bar for above-the-fold funnels (smaller logo / padding). */
+  compact?: boolean
 }
 
-export function Header({ overHero = true }: HeaderProps) {
+export function Header({ overHero = true, compact = false }: HeaderProps) {
   return (
     <header
       className={`relative z-40 ${
@@ -14,12 +16,20 @@ export function Header({ overHero = true }: HeaderProps) {
       }`}
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="flex items-center justify-between gap-3 sm:gap-6 py-3 lg:py-4">
+        <div
+          className={`flex items-center justify-between gap-3 sm:gap-6 ${
+            compact ? 'py-2 lg:py-2.5' : 'py-3 lg:py-4'
+          }`}
+        >
           <Link to="/" className="flex items-center gap-3 pt-0.5 min-w-0 shrink">
             <img
               src={assetUrl('logo-white.png')}
               alt="All Janitorial Service"
-              className="h-12 sm:h-16 lg:h-[4.25rem] w-auto max-w-[min(42vw,11rem)] sm:max-w-none object-contain object-left"
+              className={
+                compact
+                  ? 'h-9 sm:h-11 lg:h-12 w-auto max-w-[min(40vw,9.5rem)] sm:max-w-none object-contain object-left'
+                  : 'h-12 sm:h-16 lg:h-[4.25rem] w-auto max-w-[min(42vw,11rem)] sm:max-w-none object-contain object-left'
+              }
               width={220}
               height={68}
             />
@@ -28,7 +38,9 @@ export function Header({ overHero = true }: HeaderProps) {
           {/* Funnel: phone is secondary CTA; show full number on mobile (never truncated). */}
           <a
             href={`tel:${PHONE_TEL}`}
-            className="shrink-0 whitespace-nowrap text-[13px] sm:text-base font-medium text-white/80 hover:text-white underline-offset-4 hover:underline transition-colors tabular-nums"
+            className={`shrink-0 whitespace-nowrap font-medium text-white/80 hover:text-white underline-offset-4 hover:underline transition-colors tabular-nums ${
+              compact ? 'text-xs sm:text-sm' : 'text-[13px] sm:text-base'
+            }`}
           >
             <span className="sm:hidden">{PHONE_DISPLAY}</span>
             <span className="hidden sm:inline">Call {PHONE_DISPLAY}</span>
