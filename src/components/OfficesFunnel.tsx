@@ -607,6 +607,29 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
       </div>
 
       <main className="flex-1 bg-white">
+        <section className="ajs-office-band border-b border-slate-200 bg-slate-50/50" aria-label="Built around your office">
+          <div className="ajs-container">
+            <dl className="ajs-office-highlights">
+              <div>
+                <dt>Clear scope</dt>
+                <dd>Know what gets cleaned, with a written cleaning plan tailored to your office.</dd>
+              </div>
+              <div>
+                <dt>Your hours</dt>
+                <dd>Weekly, multi-day, or weekend cleaning built around your office&apos;s schedule.</dd>
+              </div>
+              <div>
+                <dt>1 contact</dt>
+                <dd>A dedicated point of contact for requests, schedule changes, and follow-through.</dd>
+              </div>
+              <div>
+                <dt>Insured</dt>
+                <dd>Licensed and insured commercial cleaning. Background checks available on request.</dd>
+              </div>
+            </dl>
+          </div>
+        </section>
+
         {/* Local team and four office-focused benefits */}
         <section className="py-10 sm:py-12 lg:py-14 bg-white" aria-label="Chris Ramirez and team">
           <div className="ajs-container">
