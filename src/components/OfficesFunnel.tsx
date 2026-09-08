@@ -27,6 +27,7 @@ import { Footer } from './Footer'
 import { assetUrl } from '../lib/assetUrl'
 import { officePhotoForCity, REVIEW_LOGOS } from '../data/trustAssets'
 import { TrustMarquee } from './TrustMarquee'
+import { StarRow } from './StarRow'
 
 interface OfficesFunnelProps {
   /** Display city name; prefills city select and localizes hero. */
@@ -598,16 +599,20 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                 </div>
                 {/* Compact proof beneath the form */}
                 <div className="mt-4 flex flex-col items-center gap-2.5 text-center">
-                  <div className="inline-flex max-w-full items-center justify-center gap-5 rounded-xl bg-white px-5 py-2.5" aria-label="Google and Yelp">
-                    {REVIEW_LOGOS.map((logo) => (
-                      <img
-                        key={logo.src}
-                        src={assetUrl(logo.src)}
-                        alt={logo.alt}
-                        className="h-9 w-24 min-w-0 object-contain"
-                        decoding="async"
-                      />
-                    ))}
+                  <div className="flex max-w-full flex-col items-center gap-3 rounded-xl bg-slate-950/60 px-5 py-3.5" aria-label="Google and Yelp">
+                    <div className="flex max-w-full items-center justify-center gap-5">
+                      {REVIEW_LOGOS.map((logo) => (
+                        <img
+                          key={logo.src}
+                          src={assetUrl(logo.src)}
+                          alt={logo.alt}
+                          className="h-9 w-24 min-w-0 object-contain mix-blend-screen"
+                          style={{ filter: 'grayscale(1) invert(1) brightness(4)' }}
+                          decoding="async"
+                        />
+                      ))}
+                    </div>
+                    <StarRow size={17} className="gap-1 text-amber-400" />
                   </div>
                   <p className="text-[0.6875rem] sm:text-xs text-white/55 leading-none">
                     Peninsula commercial cleaning

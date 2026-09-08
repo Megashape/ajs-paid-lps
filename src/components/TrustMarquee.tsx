@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { Pause, Play } from 'lucide-react'
 import { assetUrl } from '../lib/assetUrl'
-import { PROUD_MEMBER_BADGES } from '../data/trustAssets'
+import { CITY_SEALS, PROUD_MEMBER_BADGES } from '../data/trustAssets'
+import { SERVICE_CITIES } from '../data/cities'
 
 /**
  * Continuous leftward logo strip with a hidden duplicate for a seamless loop.
@@ -11,6 +12,10 @@ const LOGOS = [
     src: l.src,
     alt: l.alt,
   })),
+  ...SERVICE_CITIES.map((city) => ({
+    src: CITY_SEALS[city].src,
+    alt: CITY_SEALS[city].alt,
+  })),
 ]
 
 export function TrustMarquee() {
@@ -18,13 +23,13 @@ export function TrustMarquee() {
   return (
     <section
       className="bg-white border-y border-slate-200"
-      aria-label="Professional memberships and accreditations"
+      aria-label="Professional memberships and Peninsula service cities"
     >
       <div className="py-[20px] sm:py-[24px] lg:py-[28px]">
         <div className="ajs-container">
         <div className="relative mb-4 sm:mb-5 px-10">
           <p className="wrap-anywhere text-center text-[0.625rem] sm:text-[0.6875rem] font-bold uppercase tracking-[0.18em] text-slate-400">
-            Professional memberships &amp; accreditations
+            Professional memberships · Peninsula service cities
           </p>
           <button
             type="button"
