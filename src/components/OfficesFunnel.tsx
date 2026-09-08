@@ -27,13 +27,12 @@ import {
 } from '../types/form'
 import { fireConversion, submitLead } from '../lib/formSubmit'
 import { getStoredUtms, readUtmsFromLocation } from '../lib/utm'
-import { PHONE_DISPLAY, PHONE_TEL } from '../lib/constants'
+import { MAIN_SITE, PHONE_DISPLAY, PHONE_TEL } from '../lib/constants'
 import { Header } from './Header'
 import { Footer } from './Footer'
 import { assetUrl } from '../lib/assetUrl'
 import { officePhotoForCity } from '../data/trustAssets'
 import { TrustMarquee } from './TrustMarquee'
-import { TrustSeparator } from './TrustSeparator'
 import { StarRow } from './StarRow'
 
 interface OfficesFunnelProps {
@@ -565,7 +564,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
         </section>
       </div>
 
-      {/* Trust: Google/Yelp+stars, Proud Member badges, city seals — after hero/form */}
+      {/* Proud Member carrier — directly under intro/form fold (white mono row) */}
       <TrustMarquee />
 
       <main className="flex-1 bg-white">
@@ -574,19 +573,32 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
             <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 lg:items-start">
               <figure className="lg:col-span-4 flex flex-col items-center lg:items-start gap-3">
-                <div className="relative w-44 h-44 sm:w-52 sm:h-52 lg:w-56 lg:h-56 shrink-0 overflow-hidden rounded-2xl border border-slate-200 shadow-lg bg-slate-100">
+                <div className="relative w-[16.5rem] h-[16.5rem] sm:w-[19.5rem] sm:h-[19.5rem] lg:w-[21rem] lg:h-[21rem] max-w-full shrink-0 overflow-hidden rounded-2xl border border-slate-200 shadow-lg bg-slate-100">
                   <img
                     src={assetUrl('chris-truck-crop.jpg')}
-                    alt="Chris Ramirez and a teammate with the branded All Janitorial Service van"
+                    alt="Chris Ramirez, Owner — All Janitorial Service Inc."
                     className="absolute inset-0 w-full h-full object-cover object-[center_12%]"
                     loading="lazy"
                     width={1022}
                     height={860}
                   />
                 </div>
-                <figcaption className="text-sm text-slate-500 text-center lg:text-left">
-                  Chris + team, Peninsula commercial.
+                <figcaption className="text-sm text-slate-600 text-center lg:text-left leading-snug max-w-xs sm:max-w-sm">
+                  <span className="block font-semibold text-navy-900">
+                    Chris Ramirez, Owner — All Janitorial Service Inc.
+                  </span>
+                  <span className="block mt-1 text-slate-500">
+                    Peninsula commercial cleaning for offices &amp; corporate suites.
+                  </span>
                 </figcaption>
+                <a
+                  href={MAIN_SITE}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.14em] text-ajs-red hover:text-ajs-red-dark transition-colors"
+                >
+                  Read more about AJS
+                </a>
               </figure>
 
               <div className="lg:col-span-8">
@@ -619,8 +631,6 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
           </div>
         </section>
 
-        {/* Reviews only — marquee already showed full set above Chris */}
-        <TrustSeparator variant="reviews" tone="light" />
 
         {/* Why-us — commercial office photo + prose (no schools/homes) */}
         <section className="py-12 sm:py-16 lg:py-20 bg-slate-50">
@@ -667,8 +677,6 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
         </section>
       </main>
 
-      {/* Proud Member badges between Why Us and footer — no review dupes */}
-      <TrustSeparator variant="proud" tone="light" />
 
       <Footer hideCallCta />
     </div>
