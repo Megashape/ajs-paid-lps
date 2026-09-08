@@ -18,7 +18,7 @@ export const FACILITY_TYPES = [
 /** Values must match GHL CRM Facility/Frequency enums exactly. */
 export const FREQUENCIES = [
   { value: 'Weekly', label: 'Weekly' },
-  { value: '2–3× / week', label: '2–3× per week' },
+  { value: '2–3× / week', label: '2-3× per week' },
   { value: '5-day', label: '5-day' },
   { value: '7-day / weekends', label: '7-day / weekends' },
   { value: 'Not sure', label: 'Not sure yet' },

@@ -91,7 +91,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
 
   useEffect(() => {
     readUtmsFromLocation()
-    const titleCity = city ? ` in ${city}` : ' — Peninsula'
+    const titleCity = city ? ` in ${city}` : ', Peninsula'
     document.title = `Office Cleaning${titleCity} | All Janitorial Service`
     const meta = document.querySelector('meta[name="description"]')
     if (meta) {
@@ -204,12 +204,12 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
     ? `Office cleaning in ${city}`
     : 'Office cleaning for Peninsula businesses'
   const subhead = city
-    ? `Recurring commercial cleaning for offices in ${city}. Businesses only — not homes or events.`
-    : 'Recurring commercial cleaning for Peninsula offices. Businesses only — not homes or events.'
+    ? `Recurring commercial cleaning for offices in ${city}. Businesses only. No homes or events.`
+    : 'Recurring commercial cleaning for Peninsula offices. Businesses only. No homes or events.'
 
   const bullets = [
-    'Weekly qualifies — add multi-day or weekends when needed',
-    'Commercial offices & corporate suites — not residential or events',
+    'Weekly qualifies. Add multi-day or weekends when needed',
+    'Commercial offices & corporate suites, not residential or events',
     'Local Peninsula team coordinated from Redwood City',
   ]
 
@@ -219,7 +219,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
       text: 'Recurring plans that fit how offices actually run (weekly+; multi-day/weekends when needed)',
     },
     { icon: ClipboardCheck, text: 'Facility walkthrough before you commit' },
-    { icon: FileText, text: 'Written scope of work — not a vague verbal quote' },
+    { icon: FileText, text: 'Written scope of work, not a vague verbal quote' },
     { icon: MapPin, text: 'Local Peninsula team coordinated from Redwood City' },
     { icon: ShieldCheck, text: 'Licensed & insured commercial cleaning' },
     {
@@ -233,11 +233,11 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
     },
     {
       icon: Building2,
-      text: 'Built for mid-size offices & corporate suites — not homes or events',
+      text: 'Built for mid-size offices & corporate suites, not homes or events',
     },
     {
       icon: Wrench,
-      text: "Responsive when something's off — we fix it, we don't argue",
+      text: "Responsive when something's off. We fix it, we don't argue",
     },
   ]
 
@@ -398,7 +398,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                                   {c === 'Redwood City' ? ' (hub)' : ''}
                                 </option>
                               ))}
-                              <option value={CITY_OTHER}>{CITY_OTHER}</option>
+                              <option value={CITY_OTHER}>Other (we may not serve this area)</option>
                             </select>
                           </Field>
                         </div>
@@ -519,7 +519,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                           >
                             {PREFERRED_TIMES.map((t) => (
                               <option key={t} value={t}>
-                                {t}
+                                {t.replaceAll('\u2013', ' to ')}
                               </option>
                             ))}
                           </select>
@@ -615,7 +615,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                 <div className="relative w-[16.5rem] h-[16.5rem] sm:w-[19.5rem] sm:h-[19.5rem] lg:w-[21rem] lg:h-[21rem] max-w-full shrink-0 overflow-hidden rounded-2xl border border-slate-200 shadow-lg bg-slate-100">
                   <img
                     src={assetUrl('chris-truck-crop.jpg')}
-                    alt="Chris Ramirez, Owner — All Janitorial Service Inc."
+                    alt="Chris Ramirez, Owner, All Janitorial Service Inc."
                     className="absolute inset-0 w-full h-full object-cover object-[center_12%]"
                     loading="lazy"
                     width={1022}
@@ -624,7 +624,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                 </div>
                 <figcaption className="text-sm text-slate-600 text-center lg:text-left leading-snug max-w-xs sm:max-w-sm">
                   <span className="block font-semibold text-navy-900">
-                    Chris Ramirez, Owner — All Janitorial Service Inc.
+                    Chris Ramirez, Owner, All Janitorial Service Inc.
                   </span>
                   <span className="block mt-1 text-slate-500">
                     Peninsula commercial cleaning for offices &amp; corporate suites.
@@ -645,11 +645,11 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                   Local Peninsula team
                 </p>
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight leading-tight">
-                  Real oversight — not a franchise script
+                  Real oversight, without a franchise script
                 </h2>
                 <p className="mt-3 sm:mt-4 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl">
                   Mid-size offices get a walkthrough, a written scope, and a dedicated point of contact.
-                  Big enough to staff your suite reliably — small enough that Chris&apos;s team still
+                  Big enough to staff your suite reliably, small enough that Chris&apos;s team still
                   walks the floor before you sign.
                 </p>
                 <ul className="mt-6 sm:mt-7 space-y-3 sm:space-y-3.5">
@@ -681,7 +681,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                     src={assetUrl(officePhotoForCity(city).src)}
                     alt={
                       city
-                        ? `Commercial office building — ${city}`
+                        ? `Commercial office building, ${city}`
                         : officePhotoForCity(city).alt
                     }
                     className="absolute inset-0 w-full h-full object-cover"
@@ -692,7 +692,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                 <figcaption className="mt-2 text-xs text-slate-500 text-center lg:text-left">
                   {city
                     ? `Commercial offices in ${city} and across the Peninsula.`
-                    : 'Commercial office buildings — Peninsula businesses.'}
+                    : 'Commercial office buildings, Peninsula businesses.'}
                 </figcaption>
               </figure>
               <div className="lg:col-span-7 max-w-2xl">
@@ -706,7 +706,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                 </h2>
                 <p className="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed">
                   National franchises run a script. Solo cleaners disappear when you need coverage.
-                  We&apos;re the middle that facility managers actually want — big enough to staff your
+                  We&apos;re the middle that facility managers actually want, big enough to staff your
                   suite reliably, small enough that Chris&apos;s team still walks the floor before you
                   sign. Walkthrough → written scope → recurring cadence you can defend to ownership.
                 </p>

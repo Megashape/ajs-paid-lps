@@ -42,7 +42,7 @@ export function Cities({ title, intro }: CitiesProps) {
           <a href={`tel:${PHONE_TEL}`} className="font-bold text-ajs-red hover:underline">
             {PHONE_DISPLAY}
           </a>{' '}
-          or choose &quot;Other&quot; on the form — we may not serve every area.
+          or choose &quot;Other&quot; on the form, we may not serve every area.
         </p>
       </div>
     </section>

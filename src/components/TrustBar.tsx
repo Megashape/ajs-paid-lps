@@ -2,7 +2,7 @@ import { assetUrl } from '../lib/assetUrl'
 
 export function TrustBar() {
   const logos = [
-    { src: assetUrl('bbb.png'), alt: 'BBB Accredited — A+ claim' },
+    { src: assetUrl('bbb.png'), alt: 'BBB Accredited, A+ claim' },
     { src: assetUrl('usgbc.png'), alt: 'USGBC Member' },
     { src: assetUrl('issa.png'), alt: 'ISSA Member' },
     { src: assetUrl('chamber.png'), alt: 'San Mateo Area Chamber of Commerce' },

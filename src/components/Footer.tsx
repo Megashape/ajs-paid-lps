@@ -20,7 +20,7 @@ export function Footer({ hideCallCta = false }: FooterProps) {
               height={68}
             />
             <p className="mt-3 text-sm text-white/70 max-w-sm leading-relaxed">
-              Peninsula commercial cleaning — offices &amp; corporate suites.
+              Peninsula commercial cleaning for offices &amp; corporate suites.
               Coordinated from Redwood City, CA.
             </p>
             <p className="mt-3 text-sm text-white/70">

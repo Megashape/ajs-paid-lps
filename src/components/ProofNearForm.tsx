@@ -28,7 +28,7 @@ export function ProofNearForm({
     },
     {
       src: assetUrl('issa.png'),
-      alt: 'ISSA — Worldwide Cleaning Industry Association',
+      alt: 'ISSA, Worldwide Cleaning Industry Association',
       // ISSA wordmark is wider/shorter; optical match slightly shorter
       h: Math.round(badgeH * 0.85),
     },

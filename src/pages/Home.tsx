@@ -17,7 +17,7 @@ export function HomePage() {
       </div>
       <main className="flex-1 mx-auto max-w-2xl w-full px-4 py-14">
         <p className="text-xs font-bold uppercase tracking-wider text-ajs-red">Staging index</p>
-        <h1 className="mt-2 text-3xl font-bold text-navy-900">All Janitorial Service — paid LPs</h1>
+        <h1 className="mt-2 text-3xl font-bold text-navy-900">All Janitorial Service, paid LPs</h1>
         <p className="mt-3 text-slate-600 text-sm">
           Internal index for preview. Production ads should deep-link to a specific route.
         </p>
@@ -28,7 +28,7 @@ export function HomePage() {
           >
             <span className="text-xs font-bold text-ajs-red uppercase">/office</span>
             <h2 className="mt-1 font-bold text-navy-900 text-lg">Office / Corporate Facilities</h2>
-            <p className="mt-1 text-sm text-slate-600">Weekly office cleaning — commercial specialist angle.</p>
+            <p className="mt-1 text-sm text-slate-600">Weekly office cleaning, commercial specialist angle.</p>
           </Link>
           <Link
             to="/recurring"
@@ -42,7 +42,7 @@ export function HomePage() {
             to="/thank-you"
             className="block rounded-2xl border border-dashed border-slate-300 bg-white p-5 text-sm text-slate-600 hover:border-ajs-red"
           >
-            /thank-you — post-submit confirmation
+            /thank-you, post-submit confirmation
           </Link>
         </div>
         <p className="mt-8 text-sm text-slate-500">

@@ -20,7 +20,7 @@ export const PROUD_MEMBER_BADGES = [
   },
   {
     src: 'badges/issa.png',
-    alt: 'ISSA — Worldwide Cleaning Industry Association',
+    alt: 'ISSA, Worldwide Cleaning Industry Association',
     className: 'h-9 sm:h-11 w-auto max-w-[8rem] object-contain',
   },
 ] as const

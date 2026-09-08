@@ -13,7 +13,7 @@ export function ThankYouPage() {
       : ''
 
   useEffect(() => {
-    document.title = 'Thank you — All Janitorial Service'
+    document.title = 'Thank you, All Janitorial Service'
   }, [])
 
   return (
@@ -27,7 +27,7 @@ export function ThankYouPage() {
           <h1 className="mt-4 text-2xl font-bold text-navy-900">Thank you{company ? `, ${company}` : ''}</h1>
           <p className="mt-3 text-slate-600 text-sm leading-relaxed">
             We received your walkthrough request. A member of our Peninsula team will follow up
-            shortly. Same-day contact happens when we can — it is not a guarantee.
+            shortly. Same-day contact happens when we can. It is not a guarantee.
           </p>
           <a
             href={`tel:${PHONE_TEL}`}

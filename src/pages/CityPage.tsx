@@ -10,7 +10,7 @@ export function CityPage() {
   const city = fromSlug(citySlug)
 
   useEffect(() => {
-    if (!city) document.title = 'Page not found — All Janitorial Service'
+    if (!city) document.title = 'Page not found, All Janitorial Service'
   }, [city])
 
   if (!city) {

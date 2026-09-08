@@ -222,7 +222,7 @@ export function LeadForm({ title, subtitle, variant }: LeadFormProps) {
                     {c === 'Redwood City' ? ' (hub)' : ''}
                   </option>
                 ))}
-                <option value={CITY_OTHER}>{CITY_OTHER}</option>
+                <option value={CITY_OTHER}>Other (we may not serve this area)</option>
               </select>
             </Field>
 
@@ -308,7 +308,7 @@ export function LeadForm({ title, subtitle, variant }: LeadFormProps) {
             <Field
               label="Approximate sq ft (optional)"
               error={errors.sqFt}
-              hint="No hard minimum — smaller offices OK. Optional, for scoping only."
+              hint="No hard minimum, smaller offices OK. Optional, for scoping only."
             >
               <input
                 className={inputClass(errors.sqFt)}
@@ -367,7 +367,7 @@ export function LeadForm({ title, subtitle, variant }: LeadFormProps) {
               >
                 {PREFERRED_TIMES.map((t) => (
                   <option key={t} value={t}>
-                    {t}
+                    {t.replaceAll('\u2013', ' to ')}
                   </option>
                 ))}
               </select>
