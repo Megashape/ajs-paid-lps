@@ -41,7 +41,7 @@
 .ajs-logo-track {
   display: flex;
   width: max-content;
-  animation: ajs-logos-left 55s linear infinite;
+  animation: ajs-logos-left 32s linear infinite;
 }
 
 .ajs-logo-group {
@@ -113,7 +113,7 @@
 
 .ajs-office-highlights {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 2rem 1.25rem;
   padding-block: clamp(2rem, 3vw, 3rem);
   text-align: center;
@@ -136,9 +136,54 @@
   overflow-wrap: anywhere;
 }
 
-@container (max-width: 20rem) {
+.ajs-benefit-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+  border-radius: 0.5rem;
+}
+
+.ajs-benefit-icon {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--color-slate-200);
+  border-radius: 50%;
+  background: white;
+  color: var(--color-ajs-red);
+  transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease;
+}
+
+.ajs-benefit-icon svg {
+  width: 1.375rem;
+  height: 1.375rem;
+}
+
+.ajs-benefit-link:is(:hover, :focus-visible) .ajs-benefit-icon {
+  transform: translateY(-3px);
+  background: var(--color-red-50);
+  border-color: var(--color-red-200);
+}
+
+.ajs-benefit-link:focus-visible {
+  outline: 2px solid var(--color-ajs-red);
+  outline-offset: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ajs-benefit-icon { transition: none; }
+  .ajs-benefit-link:is(:hover, :focus-visible) .ajs-benefit-icon { transform: none; }
+}
+
+@container (min-width: 42rem) {
   .ajs-office-highlights {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem;
   }
 }
 
@@ -154,11 +199,6 @@
 }
 
 @media (min-width: 64rem) {
-  .ajs-office-highlights {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 2rem;
-  }
-
   .ajs-hero-grid {
     grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
   }

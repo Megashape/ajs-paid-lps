@@ -18,10 +18,6 @@ const LOGOS = [
   })),
 ]
 
-/** Preserve light backgrounds inside raster badges so their details stay readable. */
-const MONO =
-  'grayscale opacity-[0.85] hover:opacity-100 transition-opacity'
-
 export function TrustMarquee() {
   const [paused, setPaused] = useState(false)
   return (
@@ -50,12 +46,12 @@ export function TrustMarquee() {
                 {LOGOS.map((l) => (
                   <div
                     key={l.src}
-                    className="flex shrink-0 items-center justify-center h-16"
+                    className="flex shrink-0 items-center justify-center h-20"
                   >
                     <img
                       src={assetUrl(l.src)}
                       alt={l.alt}
-                      className={`h-16 w-auto max-w-48 object-contain ${MONO}`}
+                      className="h-20 w-auto max-w-56 object-contain"
                       decoding="async"
                     />
                   </div>

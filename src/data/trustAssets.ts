@@ -19,8 +19,9 @@ export const PROUD_MEMBER_BADGES = [
     className: 'h-10 sm:h-12 w-auto max-w-[9.5rem] object-contain',
   },
   {
-    src: 'badges/issa.png',
-    alt: 'ISSA, Worldwide Cleaning Industry Association',
+    // Official artwork verified 2026-09-08: https://www.issa.com/wp-content/uploads/2025/11/New-ISSA-Logo-Centered-Tagline-RGB-Full-Color.png
+    src: 'badges/issa-official.png',
+    alt: 'ISSA, The Association for Cleaning and Facility Solutions',
     className: 'h-9 sm:h-11 w-auto max-w-[8rem] object-contain',
   },
 ] as const

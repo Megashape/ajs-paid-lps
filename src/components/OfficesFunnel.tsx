@@ -234,23 +234,27 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
     'Local Peninsula team coordinated from Redwood City',
   ]
 
-  const benefits: { icon: LucideIcon; title: string; text: string }[] = [
+  const benefits: { id: string; icon: LucideIcon; title: string; text: string }[] = [
     {
+      id: 'office-cleaning-scope',
       icon: ClipboardCheck,
       title: 'Consistent cleaning, clearly defined',
       text: 'A walkthrough and written scope set expectations for your restrooms, kitchens, workstations, and common areas.',
     },
     {
+      id: 'office-cleaning-schedule',
       icon: Calendar,
       title: 'A schedule that fits your office',
       text: 'Start with weekly service. Add multi-day or weekend cleaning around your facility’s needs.',
     },
     {
+      id: 'office-cleaning-contact',
       icon: Headset,
       title: 'One contact who owns the follow-through',
       text: 'A dedicated point of contact makes it clear who to reach when priorities change or something needs attention.',
     },
     {
+      id: 'office-cleaning-insurance',
       icon: ShieldCheck,
       title: 'Confidence in who enters your building',
       text: 'Licensed and insured commercial cleaning, with background checks available on request when your building requires them.',
@@ -611,20 +615,31 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
           <div className="ajs-container">
             <dl className="ajs-office-highlights">
               <div>
-                <dt>Clear scope</dt>
+                <dt>
+                  <a className="ajs-benefit-link" href="#office-cleaning-scope">
+                    <span className="ajs-benefit-icon"><ClipboardCheck aria-hidden strokeWidth={1.5} /></span>
+                    <span>Clear scope</span>
+                  </a>
+                </dt>
                 <dd>Know what gets cleaned, with a written cleaning plan tailored to your office.</dd>
               </div>
               <div>
-                <dt>Your hours</dt>
+                <dt>
+                  <a className="ajs-benefit-link" href="#office-cleaning-schedule">
+                    <span className="ajs-benefit-icon"><Calendar aria-hidden strokeWidth={1.5} /></span>
+                    <span>Your hours</span>
+                  </a>
+                </dt>
                 <dd>Weekly, multi-day, or weekend cleaning built around your office&apos;s schedule.</dd>
               </div>
               <div>
-                <dt>1 contact</dt>
+                <dt>
+                  <a className="ajs-benefit-link" href="#office-cleaning-contact">
+                    <span className="ajs-benefit-icon"><Headset aria-hidden strokeWidth={1.5} /></span>
+                    <span>1 contact</span>
+                  </a>
+                </dt>
                 <dd>A dedicated point of contact for requests, schedule changes, and follow-through.</dd>
-              </div>
-              <div>
-                <dt>Insured</dt>
-                <dd>Licensed and insured commercial cleaning. Background checks available on request.</dd>
               </div>
             </dl>
           </div>
@@ -675,10 +690,11 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                   cleaning plan around your space, schedule, and priorities. Smaller offices welcome.
                 </p>
                 <ul className="mt-6 sm:mt-7 space-y-3 sm:space-y-3.5">
-                  {benefits.map(({ icon: Icon, title, text: line }) => (
+                  {benefits.map(({ id, icon: Icon, title, text: line }) => (
                     <li
                       key={title}
-                      className="flex items-start gap-3 text-[0.9375rem] sm:text-base text-slate-800 leading-snug"
+                      id={id}
+                      className="scroll-mt-6 flex items-start gap-3 text-[0.9375rem] sm:text-base text-slate-800 leading-snug"
                     >
                       <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-red-50 text-ajs-red shrink-0 mt-0.5">
                         <Icon className="w-[1.125rem] h-[1.125rem]" aria-hidden />
