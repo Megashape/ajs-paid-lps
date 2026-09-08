@@ -48,12 +48,12 @@ export function TrustMarquee() {
                 {LOGOS.map((l) => (
                   <div
                     key={l.src}
-                    className="flex shrink-0 items-center justify-center h-22"
+                    className="flex shrink-0 items-center justify-center h-26"
                   >
                     <img
                       src={assetUrl(l.src)}
                       alt={l.alt}
-                      className="ajs-trust-logo h-22 w-auto max-w-60 object-contain"
+                      className="ajs-trust-logo h-26 w-auto max-w-60 object-contain"
                       decoding="async"
                     />
                   </div>
