@@ -29,8 +29,36 @@
   }
 }
 
+.ajs-logo-window {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 24px, black calc(100% - 24px), transparent);
+}
+
+.ajs-logo-track {
+  display: flex;
+  width: max-content;
+  animation: ajs-logos-left 55s linear infinite;
+}
+
+.ajs-logo-group {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 1.75rem;
+  padding-right: 1.75rem;
+}
+
+@keyframes ajs-logos-left {
+  to { transform: translateX(-50%); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
+  .ajs-logo-window { mask-image: none; }
+  .ajs-logo-track { width: auto; animation: none; }
+  .ajs-logo-group { flex-wrap: wrap; justify-content: center; flex-shrink: 1; padding-right: 0; }
+  .ajs-logo-group[aria-hidden="true"],
+  .ajs-logo-motion-control { display: none; }
 }
