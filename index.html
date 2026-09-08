@@ -16,20 +16,24 @@
       name="description"
       content="Professional commercial janitorial for Peninsula offices. Weekly cleaning, local Redwood City team. Call 650-261-0723."
     />
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16700423105"></script>
+    <!-- AJS production tags only. Local previews never pollute live reporting. -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'AW-16700423105');
-    </script>
-    <script>
-      window.gtagFormConversion = function () {
-        gtag('event', 'conversion', {
-          send_to: 'AW-16700423105/UFUECLuEnJkbEMH3sJs-',
-        });
-      };
+      if (window.location.hostname === 'offices.alljanitorialservice.com') {
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () { window.dataLayer.push(arguments); };
+        gtag('js', new Date());
+        gtag('config', 'AW-16700423105');
+        gtag('config', 'G-2ZF6RFN9MX');
+        const tag = document.createElement('script');
+        tag.async = true;
+        tag.src = 'https://www.googletagmanager.com/gtag/js?id=AW-16700423105';
+        document.head.appendChild(tag);
+        window.gtagFormConversion = function () {
+          gtag('event', 'conversion', {
+            send_to: 'AW-16700423105/UFUECLuEnJkbEMH3sJs-',
+          });
+        };
+      }
     </script>
   </head>
   <body>

@@ -19,6 +19,7 @@ import {
   type FormState,
 } from '../types/form'
 import { fireConversion, submitLead } from '../lib/formSubmit'
+import { trackFunnelEvent } from '../lib/funnelAnalytics'
 import { getStoredUtms, readUtmsFromLocation } from '../lib/utm'
 import { MAIN_SITE, PHONE_DISPLAY } from '../lib/constants'
 import { Header } from './Header'
@@ -61,6 +62,29 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
   const stepHeading = useRef<HTMLHeadingElement>(null)
   const previousStep = useRef(step)
   const submissionPending = useRef(false)
+  const formStarted = useRef(false)
+  const viewedSteps = useRef(new Set<number>())
+
+  useEffect(() => {
+    if (step === 1 || viewedSteps.current.has(step)) return
+    viewedSteps.current.add(step)
+    trackFunnelEvent(step === 2 ? 'ajs_step_2' : 'ajs_step_3', step)
+  }, [step])
+
+  const startForm = () => {
+    if (formStarted.current) return
+    formStarted.current = true
+    trackFunnelEvent('ajs_form_start', 1)
+  }
+
+  const trackLink = (event: React.MouseEvent<HTMLDivElement>) => {
+    const target = event.target instanceof Element ? event.target.closest('a') : null
+    if (!target) return
+    const placement = target.closest('header') ? 'header' : target.closest('footer') ? 'footer' : 'content'
+    if (target.protocol === 'tel:') trackFunnelEvent('ajs_phone_click', undefined, placement)
+    else if (target.hash === '#lead-form') trackFunnelEvent('ajs_walkthrough_click', undefined, placement)
+    else if (target.hostname === 'www.alljanitorialservice.com' || target.hostname === 'alljanitorialservice.com') trackFunnelEvent('ajs_main_site_click', undefined, placement)
+  }
 
   useEffect(() => {
     if (previousStep.current === step) return
@@ -75,6 +99,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
   const showErrors = (nextErrors: Partial<Record<keyof FormState, string>>) => {
     setErrors(nextErrors)
     if (!Object.keys(nextErrors).length) return
+    trackFunnelEvent('ajs_validation_error', step)
     requestAnimationFrame(() => {
       const invalid = formContainer.current?.querySelector<HTMLElement>('[aria-invalid="true"]')
       const control = invalid?.matches('fieldset') ? invalid.querySelector<HTMLInputElement>('input') : invalid
@@ -164,6 +189,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
     submissionPending.current = true
     setSubmitting(true)
     setSubmitError('')
+    trackFunnelEvent('ajs_submit_attempt', 3)
     try {
       const utms = getStoredUtms()
       await submitLead({
@@ -183,9 +209,11 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
         variant: 'office',
         utms,
       })
+      trackFunnelEvent('ajs_submit_accepted', 3)
       fireConversion()
       navigate('/thank-you', { replace: true, state: { company: data.company } })
     } catch (err) {
+      trackFunnelEvent('ajs_submit_error', 3)
       setSubmitError(err instanceof Error ? err.message : 'Something went wrong. Please call us.')
     } finally {
       submissionPending.current = false
@@ -232,7 +260,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
   const progressPct = Math.round((step / TOTAL_STEPS) * 100)
 
   return (
-    <div className="min-h-screen flex flex-col font-sans bg-navy-900">
+    <div className="min-h-screen flex flex-col font-sans bg-navy-900" onClickCapture={trackLink}>
       {/* Stage: navy slab with subtle radial depth (AFHC craft) */}
       <div
         className="relative isolate"
@@ -301,6 +329,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
 
                   <form
                     onSubmit={onSubmit}
+                    onChange={startForm}
                     className="px-5 sm:px-6 lg:px-7 pb-5 sm:pb-6 pt-5 space-y-5"
                     noValidate
                   >

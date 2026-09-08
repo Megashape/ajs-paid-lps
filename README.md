@@ -72,19 +72,39 @@ Do **not** add or restore:
 
 Hero angle: weekly office cleaning; commercial specialist vs house-cleaner city pages; local vs franchise. Not Mon–Fri only. No 10,000 sq ft gate.
 
-## Deploy (Vercel preview)
+## Production publication
 
-1. Push this repo to GitHub/GitLab/Bitbucket.
-2. Import in Vercel → Framework Preset **Vite**.
-3. Set env `VITE_FORM_ENDPOINT` for the preview/production project.
-4. `vercel.json` rewrites all routes to `/index.html` for SPA routing.
+The verified production host is `offices.alljanitorialservice.com`, served by
+GitHub Pages from `Megashape/ajs-paid-lps`, branch `gh-pages`, root directory.
+Source lives on `master`. `static-prod` is a legacy branch, not the current host.
+Do not deploy this funnel to the Megawebvision CHIEF Vercel project.
 
-```bash
-npx vercel          # preview
-npx vercel --prod   # production
-```
+Build with the existing AJS `VITE_FORM_ENDPOINT` in `.env.example`; verify it
+against the currently published bundle before each release. Preserve `CNAME`
+and city-route indexes. Publish the reviewed source and generated static build
+with normal fast-forward pushes, then verify Pages build status, asset hashes,
+root/city routes, and mobile/desktop behavior.
 
-Ad destinations should use `/office` or `/recurring` directly (not `/`).
+## Funnel measurement
+
+Production loads the existing Ads tag and AJS Analytics stream `G-2ZF6RFN9MX`
+(property `465155029`). Local and preview hostnames do not load either tag.
+No form answers, contact details, or notes are sent in diagnostic event payloads.
+
+- `ajs_form_start`: first change to the form, once per mounted form.
+- `ajs_step_2`, `ajs_step_3`: first arrival at that step, once per mounted form.
+- `ajs_validation_error`: invalid attempt, with the step number only.
+- `ajs_submit_attempt`: valid final submission attempt.
+- `ajs_submit_accepted`: webhook returned an HTTP success; NOT independently verified CRM creation or qualification.
+- `ajs_submit_error`: delivery missing, rejected, or uncertain.
+- `ajs_phone_click`: intent to call; NOT a connected or qualified phone call.
+- `ajs_walkthrough_click`, `ajs_main_site_click`: navigation intent, with header/footer/content placement.
+
+Ads conversion remains the existing `AW-16700423105/UFUECLuEnJkbEMH3sJs-`
+after successful submission. Diagnostic events are sent only to Analytics and
+are not new Ads goals. Report unique users by event and hostname for funnel
+progress; event counts can include retries. CRM records and Chris's disposition
+remain the source for qualified leads, walkthroughs, proposals, and wins.
 
 ## Brand tokens
 
