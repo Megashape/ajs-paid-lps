@@ -11,28 +11,32 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>All Janitorial Service — Bay Area Commercial Cleaning</title>
+    <title>All Janitorial Service, Bay Area Commercial Cleaning</title>
     <meta
       name="description"
       content="Professional commercial janitorial for Peninsula offices. Weekly cleaning, local Redwood City team. Call 650-261-0723."
     />
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16700423105"></script>
+    <!-- AJS production tags only. Local previews never pollute live reporting. -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'AW-16700423105');
+      if (window.location.hostname === 'offices.alljanitorialservice.com') {
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () { window.dataLayer.push(arguments); };
+        gtag('js', new Date());
+        gtag('config', 'AW-16700423105');
+        gtag('config', 'G-2ZF6RFN9MX');
+        const tag = document.createElement('script');
+        tag.async = true;
+        tag.src = 'https://www.googletagmanager.com/gtag/js?id=AW-16700423105';
+        document.head.appendChild(tag);
+        window.gtagFormConversion = function () {
+          gtag('event', 'conversion', {
+            send_to: 'AW-16700423105/UFUECLuEnJkbEMH3sJs-',
+          });
+        };
+      }
     </script>
-    <script>
-      window.gtagFormConversion = function () {
-        gtag('event', 'conversion', {
-          send_to: 'AW-16700423105/UFUECLuEnJkbEMH3sJs-',
-        });
-      };
-    </script>
-    <script type="module" crossorigin src="/assets/index-CdzZuz8G.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-DokH40ug.css">
+    <script type="module" crossorigin src="/assets/index-D6iph3-N.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-uMkksc0l.css">
   </head>
   <body>
     <div id="root"></div>
