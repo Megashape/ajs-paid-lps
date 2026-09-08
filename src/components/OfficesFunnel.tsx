@@ -25,9 +25,8 @@ import { MAIN_SITE, PHONE_DISPLAY } from '../lib/constants'
 import { Header } from './Header'
 import { Footer } from './Footer'
 import { assetUrl } from '../lib/assetUrl'
-import { officePhotoForCity } from '../data/trustAssets'
+import { officePhotoForCity, REVIEW_LOGOS } from '../data/trustAssets'
 import { TrustMarquee } from './TrustMarquee'
-import { StarRow } from './StarRow'
 
 interface OfficesFunnelProps {
   /** Display city name; prefills city select and localizes hero. */
@@ -599,7 +598,17 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                 </div>
                 {/* Compact proof beneath the form */}
                 <div className="mt-4 flex flex-col items-center gap-2.5 text-center">
-                  <StarRow size={14} className="text-amber-400" />
+                  <div className="inline-flex max-w-full items-center justify-center gap-5 rounded-xl bg-white px-5 py-2.5" aria-label="Google and Yelp">
+                    {REVIEW_LOGOS.map((logo) => (
+                      <img
+                        key={logo.src}
+                        src={assetUrl(logo.src)}
+                        alt={logo.alt}
+                        className="h-9 w-24 min-w-0 object-contain"
+                        decoding="async"
+                      />
+                    ))}
+                  </div>
                   <p className="text-[0.6875rem] sm:text-xs text-white/55 leading-none">
                     Peninsula commercial cleaning
                   </p>

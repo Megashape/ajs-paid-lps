@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { Pause, Play } from 'lucide-react'
 import { assetUrl } from '../lib/assetUrl'
-import { CITY_SEALS, PROUD_MEMBER_BADGES } from '../data/trustAssets'
-import { SERVICE_CITIES } from '../data/cities'
+import { PROUD_MEMBER_BADGES } from '../data/trustAssets'
 
 /**
  * Continuous leftward logo strip with a hidden duplicate for a seamless loop.
@@ -12,10 +11,6 @@ const LOGOS = [
     src: l.src,
     alt: l.alt,
   })),
-  ...SERVICE_CITIES.map((city) => ({
-    src: CITY_SEALS[city].src,
-    alt: CITY_SEALS[city].alt,
-  })),
 ]
 
 export function TrustMarquee() {
@@ -23,12 +18,13 @@ export function TrustMarquee() {
   return (
     <section
       className="bg-white border-y border-slate-200"
-      aria-label="Proud Member badges and Peninsula service cities"
+      aria-label="Professional memberships and accreditations"
     >
-      <div className="ajs-container py-[20px] sm:py-[24px] lg:py-[28px]">
+      <div className="py-[20px] sm:py-[24px] lg:py-[28px]">
+        <div className="ajs-container">
         <div className="relative mb-4 sm:mb-5 px-10">
-          <p className="text-center text-[0.625rem] sm:text-[0.6875rem] font-bold uppercase tracking-[0.18em] text-slate-400">
-            Proud Member of · Peninsula service cities
+          <p className="wrap-anywhere text-center text-[0.625rem] sm:text-[0.6875rem] font-bold uppercase tracking-[0.18em] text-slate-400">
+            Professional memberships &amp; accreditations
           </p>
           <button
             type="button"
@@ -39,6 +35,7 @@ export function TrustMarquee() {
             {paused ? <Play size={15} aria-hidden /> : <Pause size={15} aria-hidden />}
           </button>
         </div>
+        </div>
         <div className="ajs-logo-window">
           <div className="ajs-logo-track" style={{ animationPlayState: paused ? 'paused' : 'running' }}>
             {[0, 1].map((copy) => (
@@ -46,12 +43,12 @@ export function TrustMarquee() {
                 {LOGOS.map((l) => (
                   <div
                     key={l.src}
-                    className="flex shrink-0 items-center justify-center h-20"
+                    className="flex shrink-0 items-center justify-center h-22"
                   >
                     <img
                       src={assetUrl(l.src)}
                       alt={l.alt}
-                      className="h-20 w-auto max-w-56 object-contain"
+                      className="ajs-trust-logo h-22 w-auto max-w-60 object-contain"
                       decoding="async"
                     />
                   </div>

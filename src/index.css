@@ -47,9 +47,24 @@
 .ajs-logo-group {
   display: flex;
   flex-shrink: 0;
+  min-width: 100vw;
   align-items: center;
-  gap: 1rem;
-  padding-right: 1rem;
+  justify-content: space-around;
+  gap: clamp(2rem, 8vw, 10rem);
+  padding-inline: clamp(1rem, 4vw, 5rem);
+}
+
+.ajs-trust-logo {
+  filter: grayscale(1);
+  transition: filter 200ms ease;
+}
+
+.ajs-trust-logo:hover {
+  filter: grayscale(0);
+}
+
+@media (hover: none) {
+  .ajs-trust-logo { filter: none; }
 }
 
 @keyframes ajs-logos-left {
@@ -62,7 +77,8 @@
   }
   .ajs-logo-window { mask-image: none; }
   .ajs-logo-track { width: auto; animation: none; }
-  .ajs-logo-group { flex-wrap: wrap; justify-content: center; flex-shrink: 1; padding-right: 0; }
+  .ajs-logo-group { flex-wrap: wrap; justify-content: center; flex-shrink: 1; min-width: 0; width: 100%; gap: 2rem; }
+  .ajs-trust-logo { transition: none; }
   .ajs-logo-group[aria-hidden="true"],
   .ajs-logo-motion-control { display: none; }
 }
