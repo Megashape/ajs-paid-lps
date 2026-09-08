@@ -44,8 +44,8 @@
   display: flex;
   flex-shrink: 0;
   align-items: center;
-  gap: 1.75rem;
-  padding-right: 1.75rem;
+  gap: 1rem;
+  padding-right: 1rem;
 }
 
 @keyframes ajs-logos-left {

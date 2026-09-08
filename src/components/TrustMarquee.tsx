@@ -11,13 +11,10 @@ const LOGOS = [
   ...PROUD_MEMBER_BADGES.map((l) => ({
     src: l.src,
     alt: l.alt,
-    className: l.className,
   })),
   ...SERVICE_CITIES.map((city) => ({
     src: CITY_SEALS[city].src,
     alt: CITY_SEALS[city].alt,
-    className:
-      'h-10 sm:h-12 w-auto max-w-[3.5rem] sm:max-w-[4rem] object-contain',
   })),
 ]
 
@@ -53,13 +50,12 @@ export function TrustMarquee() {
                 {LOGOS.map((l) => (
                   <div
                     key={l.src}
-                    className="flex shrink-0 items-center justify-center h-16 w-28 sm:w-36"
+                    className="flex shrink-0 items-center justify-center h-16"
                   >
                     <img
                       src={assetUrl(l.src)}
                       alt={l.alt}
-                      className={`${l.className} ${MONO}`}
-                      style={{ maxWidth: '100%' }}
+                      className={`h-16 w-auto max-w-48 object-contain ${MONO}`}
                       decoding="async"
                     />
                   </div>
