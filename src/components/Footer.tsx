@@ -47,14 +47,6 @@ export function Footer({ hideCallCta = false }: FooterProps) {
                 Call {PHONE_DISPLAY}
               </a>
             )}
-            {hideCallCta && (
-              <a
-                href={`tel:${PHONE_TEL}`}
-                className="text-sm text-white/60 hover:text-white font-semibold tabular-nums"
-              >
-                Or call {PHONE_DISPLAY}
-              </a>
-            )}
           </div>
         </div>
 

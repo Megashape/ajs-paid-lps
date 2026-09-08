@@ -2,19 +2,12 @@ import { cloneElement, useEffect, useRef, useState, type FormEvent, type ReactEl
 import { useNavigate } from 'react-router-dom'
 import {
   ArrowLeft,
-  Building2,
   Calendar,
   CheckCircle2,
   ClipboardCheck,
-  FileText,
   Headset,
-  Leaf,
   Loader2,
-  MapPin,
-  Phone,
   ShieldCheck,
-  UserCheck,
-  Wrench,
   type LucideIcon,
 } from 'lucide-react'
 import { CITY_OTHER, SERVICE_CITIES } from '../data/cities'
@@ -27,7 +20,7 @@ import {
 } from '../types/form'
 import { fireConversion, submitLead } from '../lib/formSubmit'
 import { getStoredUtms, readUtmsFromLocation } from '../lib/utm'
-import { MAIN_SITE, PHONE_DISPLAY, PHONE_TEL } from '../lib/constants'
+import { MAIN_SITE, PHONE_DISPLAY } from '../lib/constants'
 import { Header } from './Header'
 import { Footer } from './Footer'
 import { assetUrl } from '../lib/assetUrl'
@@ -213,31 +206,26 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
     'Local Peninsula team coordinated from Redwood City',
   ]
 
-  const benefits: { icon: LucideIcon; text: string }[] = [
+  const benefits: { icon: LucideIcon; title: string; text: string }[] = [
+    {
+      icon: ClipboardCheck,
+      title: 'Consistent cleaning, clearly defined',
+      text: 'A walkthrough and written scope set expectations for your restrooms, kitchens, workstations, and common areas.',
+    },
     {
       icon: Calendar,
-      text: 'Recurring plans that fit how offices actually run (weekly+; multi-day/weekends when needed)',
+      title: 'A schedule that fits your office',
+      text: 'Start with weekly service. Add multi-day or weekend cleaning around your facility’s needs.',
     },
-    { icon: ClipboardCheck, text: 'Facility walkthrough before you commit' },
-    { icon: FileText, text: 'Written scope of work, not a vague verbal quote' },
-    { icon: MapPin, text: 'Local Peninsula team coordinated from Redwood City' },
-    { icon: ShieldCheck, text: 'Licensed & insured commercial cleaning' },
-    {
-      icon: UserCheck,
-      text: 'Background checks available on request when your building requires them',
-    },
-    { icon: Leaf, text: 'Eco-friendly / EPA-conscious products' },
     {
       icon: Headset,
-      text: "Dedicated point of contact (issues don't disappear into a call center)",
+      title: 'One contact who owns the follow-through',
+      text: 'A dedicated point of contact makes it clear who to reach when priorities change or something needs attention.',
     },
     {
-      icon: Building2,
-      text: 'Built for mid-size offices & corporate suites, not homes or events',
-    },
-    {
-      icon: Wrench,
-      text: "Responsive when something's off. We fix it, we don't argue",
+      icon: ShieldCheck,
+      title: 'Confidence in who enters your building',
+      text: 'Licensed and insured commercial cleaning, with background checks available on request when your building requires them.',
     },
   ]
 
@@ -273,13 +261,6 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                 <p className="mt-3 sm:mt-4 text-white/70 text-sm sm:text-base leading-relaxed max-w-lg mx-auto sm:mx-0">
                   {subhead}
                 </p>
-                <a
-                  href={`tel:${PHONE_TEL}`}
-                  className="mt-5 inline-flex items-center justify-center gap-2 rounded-xl border-2 border-white bg-transparent hover:bg-white/10 text-white font-bold text-sm sm:text-[15px] px-4 sm:px-5 py-2.5 sm:py-3 transition-colors"
-                >
-                  <Phone className="w-4 h-4" aria-hidden />
-                  Call {PHONE_DISPLAY}
-                </a>
                 <ul className="mt-6 hidden lg:block space-y-3 text-[15px] text-white/85">
                   {bullets.map((line) => (
                     <li key={line} className="flex items-start gap-2.5">
@@ -583,19 +564,12 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                     </p>
                   </form>
                 </div>
-                {/* Under form: 5★ + Peninsula line + phone CTA (no Google/Yelp/BBB brand wording) */}
+                {/* Compact proof beneath the form */}
                 <div className="mt-4 flex flex-col items-center gap-2.5 text-center">
                   <StarRow size={14} className="text-amber-400" />
                   <p className="text-[11px] sm:text-xs text-white/55 leading-none">
                     Peninsula commercial cleaning
                   </p>
-                  <a
-                    href={`tel:${PHONE_TEL}`}
-                    className="lg:hidden inline-flex items-center justify-center gap-2 rounded-xl border-2 border-white bg-transparent hover:bg-white/10 text-white font-bold text-sm px-4 py-2.5 transition-colors"
-                  >
-                    <Phone className="w-4 h-4" aria-hidden />
-                    Call {PHONE_DISPLAY}
-                  </a>
                 </div>
               </div>
             </div>
@@ -603,11 +577,8 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
         </section>
       </div>
 
-      {/* Proud Member carrier — directly under intro/form fold (white mono row) */}
-      <TrustMarquee />
-
       <main className="flex-1 bg-white">
-        {/* Chris square crop + short copy + Tess benefits — AFTER logo strip */}
+        {/* Local team and four office-focused benefits */}
         <section className="py-10 sm:py-12 lg:py-14 bg-white" aria-label="Chris Ramirez and team">
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
             <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 lg:items-start">
@@ -645,23 +616,25 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                   Local Peninsula team
                 </p>
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight leading-tight">
-                  Real oversight, without a franchise script
+                  A cleaner office, with less to manage
                 </h2>
                 <p className="mt-3 sm:mt-4 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl">
-                  Mid-size offices get a walkthrough, a written scope, and a dedicated point of contact.
-                  Big enough to staff your suite reliably, small enough that Chris&apos;s team still
-                  walks the floor before you sign.
+                  Chris&apos;s team walks your facility before you commit, then builds a recurring
+                  cleaning plan around your space, schedule, and priorities. Smaller offices welcome.
                 </p>
                 <ul className="mt-6 sm:mt-7 space-y-3 sm:space-y-3.5">
-                  {benefits.map(({ icon: Icon, text: line }) => (
+                  {benefits.map(({ icon: Icon, title, text: line }) => (
                     <li
-                      key={line}
+                      key={title}
                       className="flex items-start gap-3 text-[15px] sm:text-base text-slate-800 leading-snug"
                     >
                       <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-red-50 text-ajs-red shrink-0 mt-0.5">
                         <Icon className="w-[18px] h-[18px]" aria-hidden />
                       </span>
-                      <span className="font-medium pt-1">{line}</span>
+                      <div className="pt-1">
+                        <h3 className="font-bold text-navy-900">{title}</h3>
+                        <p className="mt-1 text-sm sm:text-[15px] text-slate-600 leading-relaxed">{line}</p>
+                      </div>
                     </li>
                   ))}
                 </ul>
@@ -670,6 +643,8 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
           </div>
         </section>
 
+
+        <TrustMarquee />
 
         {/* Why-us — commercial office photo + prose (no schools/homes) */}
         <section className="py-12 sm:py-16 lg:py-20 bg-slate-50">
