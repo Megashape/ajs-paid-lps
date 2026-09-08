@@ -39,7 +39,7 @@ This app POSTs JSON to **`VITE_FORM_ENDPOINT`** (Formspree or compatible):
 VITE_FORM_ENDPOINT=https://formspree.io/f/YOUR_FORM_ID
 ```
 
-If unset, submit succeeds in UI for local/preview testing and logs the payload to the console (no network send).
+If unset, submission fails with a call fallback. It never reports success, logs contact details, or fires a conversion. For local delivery testing, use an intercepted local endpoint; never use the production webhook for preview fixtures.
 
 ### Form fields (3 steps)
 

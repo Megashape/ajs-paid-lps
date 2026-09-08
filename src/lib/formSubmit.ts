@@ -55,13 +55,7 @@ export async function submitLead(payload: LeadPayload): Promise<void> {
   const endpoint = import.meta.env.VITE_FORM_ENDPOINT
 
   if (!endpoint) {
-    // Dev / preview without endpoint: succeed locally so UX and conversion wiring can be tested
-    console.warn(
-      '[AJS] VITE_FORM_ENDPOINT is not set. Lead logged to console only.',
-      payload,
-    )
-    await new Promise((r) => setTimeout(r, 600))
-    return
+    throw new Error('Online requests are temporarily unavailable. Please call 650-261-0723 to arrange a walkthrough.')
   }
 
   const { first, last } = splitName(payload.fullName)
@@ -86,18 +80,22 @@ export async function submitLead(payload: LeadPayload): Promise<void> {
     City: payload.city,
   }
 
-  const res = await fetch(endpoint, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    },
-    body: JSON.stringify(body),
-  })
+  let res: Response
+  try {
+    res = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(body),
+    })
+  } catch {
+    throw new Error('We could not confirm your request. Please call 650-261-0723 before sending it again.')
+  }
 
   if (!res.ok) {
-    const text = await res.text().catch(() => '')
-    throw new Error(`Form submit failed (${res.status}): ${text || res.statusText}`)
+    throw new Error('We could not confirm your request. Please call 650-261-0723 before sending it again.')
   }
 }
 

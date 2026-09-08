@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent, type ReactNode } from 'react'
+import { cloneElement, useEffect, useRef, useState, type FormEvent, type ReactElement } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   ArrowLeft,
@@ -64,6 +64,30 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({})
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState('')
+  const formContainer = useRef<HTMLDivElement>(null)
+  const stepHeading = useRef<HTMLHeadingElement>(null)
+  const previousStep = useRef(step)
+  const submissionPending = useRef(false)
+
+  useEffect(() => {
+    if (previousStep.current === step) return
+    previousStep.current = step
+    stepHeading.current?.focus({ preventScroll: true })
+    formContainer.current?.scrollIntoView({
+      block: 'start',
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
+    })
+  }, [step])
+
+  const showErrors = (nextErrors: Partial<Record<keyof FormState, string>>) => {
+    setErrors(nextErrors)
+    if (!Object.keys(nextErrors).length) return
+    requestAnimationFrame(() => {
+      const invalid = formContainer.current?.querySelector<HTMLElement>('[aria-invalid="true"]')
+      const control = invalid?.matches('fieldset') ? invalid.querySelector<HTMLInputElement>('input') : invalid
+      control?.focus()
+    })
+  }
 
   useEffect(() => {
     readUtmsFromLocation()
@@ -97,7 +121,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
   const validateStep1 = () => {
     const e: Partial<Record<keyof FormState, string>> = {}
     if (!data.company.trim()) e.company = 'Company name is required'
-    setErrors(e)
+    showErrors(e)
     return Object.keys(e).length === 0
   }
 
@@ -108,7 +132,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
     if (!data.city) e.city = 'Select a city'
     if (!data.facilityType) e.facilityType = 'Select a facility type'
     if (!data.frequency) e.frequency = 'Select a frequency'
-    setErrors(e)
+    showErrors(e)
     return Object.keys(e).length === 0
   }
 
@@ -120,7 +144,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
       e.email = 'Valid work email is required'
     }
     if (!data.preferredTime) e.preferredTime = 'Select a preferred time'
-    setErrors(e)
+    showErrors(e)
     return Object.keys(e).length === 0
   }
 
@@ -130,12 +154,21 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
   }
 
   const back = () => {
+    if (submissionPending.current) return
+    setErrors({})
+    setSubmitError('')
     if (step > 1) setStep((s) => s - 1)
   }
 
   const onSubmit = async (ev: FormEvent) => {
     ev.preventDefault()
+    if (submissionPending.current) return
+    if (step < TOTAL_STEPS) {
+      next()
+      return
+    }
     if (!validateStep3()) return
+    submissionPending.current = true
     setSubmitting(true)
     setSubmitError('')
     try {
@@ -162,6 +195,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
     } catch (err) {
       setSubmitError(err instanceof Error ? err.message : 'Something went wrong. Please call us.')
     } finally {
+      submissionPending.current = false
       setSubmitting(false)
     }
   }
@@ -257,7 +291,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
               </div>
 
               {/* RIGHT — white form card (proof OUTSIDE card) */}
-              <div id="lead-form" className="order-2 relative z-10">
+              <div id="lead-form" ref={formContainer} className="order-2 relative z-10 scroll-mt-4">
                 <div className="w-full bg-white rounded-2xl shadow-2xl border border-white/10 overflow-hidden text-slate-800">
                   <div className="pt-5 sm:pt-6 px-5 sm:px-6 lg:px-7">
                     {/* AFHC progress: STEP X OF 3 + % + thin bar */}
@@ -272,6 +306,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                     <div
                       className="h-1 w-full rounded-full bg-slate-100 overflow-hidden"
                       role="progressbar"
+                      aria-label="Walkthrough request progress"
                       aria-valuenow={progressPct}
                       aria-valuemin={0}
                       aria-valuemax={100}
@@ -293,21 +328,20 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                     {step === 1 && (
                       <div className="space-y-4">
                         <div>
-                          <h2 className="text-lg sm:text-xl font-bold text-navy-900 leading-snug tracking-tight">
+                          <h2 ref={stepHeading} tabIndex={-1} className="text-lg sm:text-xl font-bold text-navy-900 leading-snug tracking-tight focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ajs-red">
                             What&apos;s your company name?
                           </h2>
                           <p className="mt-1.5 text-sm text-slate-500 leading-snug">
                             We&apos;ll use this to prepare your facility walkthrough request.
                           </p>
                         </div>
-                        <Field label="Company name *" error={errors.company}>
+                        <Field name="company" label="Company name *" error={errors.company}>
                           <input
                             className={inputClass(errors.company)}
                             value={data.company}
                             onChange={(e) => set('company')(e.target.value)}
                             autoComplete="organization"
                             placeholder="Acme Corp"
-                            autoFocus
                           />
                         </Field>
                       </div>
@@ -316,7 +350,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                     {step === 2 && (
                       <div className="space-y-4">
                         <div>
-                          <h2 className="text-lg sm:text-xl font-bold text-navy-900 leading-snug tracking-tight">
+                          <h2 ref={stepHeading} tabIndex={-1} className="text-lg sm:text-xl font-bold text-navy-900 leading-snug tracking-tight focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ajs-red">
                             Tell us about the facility
                           </h2>
                           <p className="mt-1.5 text-sm text-slate-500 leading-snug">
@@ -325,29 +359,33 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                          <Field label="Your role *" error={errors.role || errors.customRole}>
-                            <select
-                              className={inputClass(errors.role)}
-                              value={data.role}
-                              onChange={(e) => set('role')(e.target.value)}
-                            >
-                              {ROLES.map((r) => (
-                                <option key={r} value={r}>
-                                  {r}
-                                </option>
-                              ))}
-                            </select>
+                          <div className="space-y-3.5">
+                            <Field name="role" label="Your role *" error={errors.role}>
+                              <select
+                                className={inputClass(errors.role)}
+                                value={data.role}
+                                onChange={(e) => set('role')(e.target.value)}
+                              >
+                                {ROLES.map((r) => (
+                                  <option key={r} value={r}>
+                                    {r}
+                                  </option>
+                                ))}
+                              </select>
+                            </Field>
                             {data.role === 'Other' && (
-                              <input
-                                className={`mt-2 ${inputClass(errors.customRole)}`}
-                                value={data.customRole}
-                                onChange={(e) => set('customRole')(e.target.value)}
-                                placeholder="Your title"
-                              />
+                              <Field name="customRole" label="Your title *" error={errors.customRole}>
+                                <input
+                                  className={inputClass(errors.customRole)}
+                                  value={data.customRole}
+                                  onChange={(e) => set('customRole')(e.target.value)}
+                                  placeholder="Your title"
+                                />
+                              </Field>
                             )}
-                          </Field>
+                          </div>
 
-                          <Field label="City *" error={errors.city}>
+                          <Field name="city" label="City *" error={errors.city}>
                             <select
                               className={inputClass(errors.city)}
                               value={data.city}
@@ -365,7 +403,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                           </Field>
                         </div>
 
-                        <fieldset>
+                        <fieldset aria-invalid={Boolean(errors.facilityType)} aria-describedby={errors.facilityType ? "office-facility-error" : undefined}>
                           <legend className="text-sm font-semibold text-slate-800 mb-2">
                             Facility type *
                           </legend>
@@ -375,7 +413,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                               return (
                                 <label
                                   key={ft.value}
-                                  className={`relative flex items-start gap-2 rounded-xl border px-3 py-2.5 cursor-pointer text-sm transition ${
+                                  className={`has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-ajs-red relative flex items-start gap-2 rounded-xl border px-3 py-2.5 cursor-pointer text-sm transition ${
                                     selected
                                       ? 'border-ajs-red bg-red-50 ring-1 ring-ajs-red'
                                       : 'border-slate-200 hover:border-slate-300'
@@ -394,11 +432,11 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                             })}
                           </div>
                           {errors.facilityType && (
-                            <p className="text-xs text-ajs-red mt-1">{errors.facilityType}</p>
+                            <p id="office-facility-error" role="alert" className="text-xs text-ajs-red mt-1">{errors.facilityType}</p>
                           )}
                         </fieldset>
 
-                        <fieldset>
+                        <fieldset aria-invalid={Boolean(errors.frequency)} aria-describedby={errors.frequency ? "office-frequency-error" : undefined}>
                           <legend className="text-sm font-semibold text-slate-800 mb-2">
                             Cleaning frequency *
                           </legend>
@@ -408,7 +446,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                               return (
                                 <label
                                   key={f.value}
-                                  className={`rounded-xl border px-3 py-2.5 text-sm font-semibold cursor-pointer text-center transition ${
+                                  className={`has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-ajs-red rounded-xl border px-3 py-2.5 text-sm font-semibold cursor-pointer text-center transition ${
                                     selected
                                       ? 'border-ajs-red bg-red-50 text-ajs-red ring-1 ring-ajs-red'
                                       : 'border-slate-200 text-slate-700 hover:border-slate-300'
@@ -427,7 +465,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                             })}
                           </div>
                           {errors.frequency && (
-                            <p className="text-xs text-ajs-red mt-1">{errors.frequency}</p>
+                            <p id="office-frequency-error" role="alert" className="text-xs text-ajs-red mt-1">{errors.frequency}</p>
                           )}
                         </fieldset>
                       </div>
@@ -436,14 +474,14 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                     {step === 3 && (
                       <div className="space-y-4">
                         <div>
-                          <h2 className="text-lg sm:text-xl font-bold text-navy-900 leading-snug tracking-tight">
-                            Schedule the walkthrough
+                          <h2 ref={stepHeading} tabIndex={-1} className="text-lg sm:text-xl font-bold text-navy-900 leading-snug tracking-tight focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ajs-red">
+                            Request your office walkthrough
                           </h2>
                           <p className="mt-1.5 text-sm text-slate-500 leading-snug">
-                            How we reach you and when to visit.
+                            Our team will contact you to confirm the details and arrange a visit.
                           </p>
                         </div>
-                        <Field label="Full name *" error={errors.fullName}>
+                        <Field name="fullName" label="Full name *" error={errors.fullName}>
                           <input
                             className={inputClass(errors.fullName)}
                             value={data.fullName}
@@ -452,17 +490,18 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                           />
                         </Field>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                          <Field label="Phone *" error={errors.phone}>
+                          <Field name="phone" label="Phone *" error={errors.phone}>
                             <input
                               className={inputClass(errors.phone)}
                               value={data.phone}
                               onChange={(e) => set('phone')(e.target.value)}
                               autoComplete="tel"
                               inputMode="tel"
+                              type="tel"
                               placeholder="650-…"
                             />
                           </Field>
-                          <Field label="Work email *" error={errors.email}>
+                          <Field name="email" label="Work email *" error={errors.email}>
                             <input
                               className={inputClass(errors.email)}
                               type="email"
@@ -472,7 +511,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                             />
                           </Field>
                         </div>
-                        <Field label="Preferred walkthrough time *" error={errors.preferredTime}>
+                        <Field name="preferredTime" label="Preferred walkthrough time *" error={errors.preferredTime}>
                           <select
                             className={inputClass(errors.preferredTime)}
                             value={data.preferredTime}
@@ -485,7 +524,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                             ))}
                           </select>
                         </Field>
-                        <Field label="Notes (optional)">
+                        <Field name="notes" label="Notes (optional)">
                           <textarea
                             className={`${inputClass()} min-h-[72px]`}
                             value={data.notes}
@@ -494,7 +533,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                           />
                         </Field>
                         {submitError && (
-                          <p className="text-sm text-ajs-red bg-red-50 border border-red-100 rounded-xl px-3 py-2">
+                          <p role="alert" className="text-sm text-ajs-red bg-red-50 border border-red-100 rounded-xl px-3 py-2">
                             {submitError}
                           </p>
                         )}
@@ -506,6 +545,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                         <button
                           type="button"
                           onClick={back}
+                          disabled={submitting}
                           className="inline-flex items-center justify-center gap-1.5 w-[30%] h-12 rounded-xl border border-slate-300 text-slate-700 font-semibold text-sm hover:bg-slate-50"
                         >
                           <ArrowLeft className="w-4 h-4" /> Back
@@ -514,8 +554,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
 
                       {step < TOTAL_STEPS ? (
                         <button
-                          type="button"
-                          onClick={next}
+                          type="submit"
                           className={`${
                             step > 1 ? 'w-[70%]' : 'w-full'
                           } bg-ajs-red hover:bg-ajs-red-dark text-white font-bold h-12 rounded-xl text-[15px] sm:text-base tracking-wide uppercase shadow-lg shadow-red-900/15 inline-flex items-center justify-center`}
@@ -526,14 +565,14 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                         <button
                           type="submit"
                           disabled={submitting}
-                          className="w-[70%] bg-ajs-red hover:bg-ajs-red-dark disabled:opacity-70 text-white font-bold h-12 rounded-xl text-[15px] sm:text-base tracking-wide uppercase shadow-lg shadow-red-900/15 inline-flex items-center justify-center gap-2"
+                          className="w-[70%] bg-ajs-red hover:bg-ajs-red-dark disabled:opacity-70 text-white font-bold h-12 rounded-xl px-2 text-sm sm:text-base shadow-lg shadow-red-900/15 inline-flex items-center justify-center gap-2"
                         >
                           {submitting ? (
                             <>
                               <Loader2 className="w-4 h-4 animate-spin" /> Sending…
                             </>
                           ) : (
-                            'Submit request'
+                            'Request walkthrough'
                           )}
                         </button>
                       )}
@@ -696,19 +735,26 @@ function UtmHiddenFields() {
 }
 
 function Field({
+  name,
   label,
   error,
   children,
 }: {
+  name: keyof FormState
   label: string
   error?: string
-  children: ReactNode
+  children: ReactElement<{ id?: string; name?: string; 'aria-invalid'?: boolean; 'aria-describedby'?: string }>
 }) {
   return (
     <div className="space-y-1.5">
-      <label className="text-sm font-semibold text-slate-800 block">{label}</label>
-      {children}
-      {error && <p className="text-xs text-ajs-red">{error}</p>}
+      <label htmlFor={`office-${name}`} className="text-sm font-semibold text-slate-800 block">{label}</label>
+      {cloneElement(children, {
+        id: `office-${name}`,
+        name,
+        'aria-invalid': Boolean(error),
+        'aria-describedby': error ? `office-${name}-error` : undefined,
+      })}
+      {error && <p id={`office-${name}-error`} role="alert" className="text-xs text-ajs-red">{error}</p>}
     </div>
   )
 }

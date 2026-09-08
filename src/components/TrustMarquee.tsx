@@ -21,9 +21,9 @@ const LOGOS = [
   })),
 ]
 
-/** Charcoal mono on white — grayscale + crush to near-black. */
+/** Preserve light backgrounds inside raster badges so their details stay readable. */
 const MONO =
-  'grayscale brightness-0 opacity-[0.72] hover:opacity-90 transition-opacity'
+  'grayscale opacity-[0.85] hover:opacity-100 transition-opacity'
 
 export function TrustMarquee() {
   return (
