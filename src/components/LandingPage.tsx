@@ -47,10 +47,10 @@ export function LandingPage({ copy }: LandingPageProps) {
             }}
           />
         </div>
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative ajs-container">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
             <div className="pt-2 lg:pt-6 order-2 lg:order-1">
-              <span className="inline-flex items-center rounded-full border border-white/25 bg-white/12 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-red-200">
+              <span className="inline-flex items-center rounded-full border border-white/25 bg-white/12 px-3 py-1 text-[0.6875rem] font-semibold uppercase tracking-wider text-red-200">
                 {copy.badge}
               </span>
               <h1 className="mt-4 text-3xl sm:text-4xl lg:text-[2.75rem] font-semibold leading-[1.12] text-white tracking-tight">

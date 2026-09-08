@@ -17,7 +17,7 @@ export function Footer({ hideCallCta = false }: FooterProps) {
 
   return (
     <footer className="border-t border-white/10 bg-navy-900 text-white">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="ajs-container">
         <div className="flex flex-col gap-5 border-b border-white/15 py-8 sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:py-10">
           <div className="max-w-xl">
             <h2 className="text-xl font-bold tracking-tight sm:text-2xl">Let’s plan a cleaner workplace.</h2>

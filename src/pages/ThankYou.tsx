@@ -22,9 +22,9 @@ export function ThankYouPage() {
         <Header overHero={false} />
       </div>
       <main className="flex-1 mx-auto max-w-lg w-full px-4 py-16 text-center">
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-lg p-8">
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-lg p-5 sm:p-8">
           <CheckCircle2 className="w-14 h-14 text-green-600 mx-auto" aria-hidden />
-          <h1 className="mt-4 text-2xl font-bold text-navy-900">Thank you{company ? `, ${company}` : ''}</h1>
+          <h1 className="mt-4 text-2xl font-bold text-navy-900 break-words">Thank you{company ? `, ${company}` : ''}</h1>
           <p className="mt-3 text-slate-600 text-sm leading-relaxed">
             We received your walkthrough request. A member of our Peninsula team will follow up
             shortly. Same-day contact happens when we can. It is not a guarantee.

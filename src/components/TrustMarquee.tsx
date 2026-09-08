@@ -29,9 +29,9 @@ export function TrustMarquee() {
       className="bg-white border-y border-slate-200"
       aria-label="Proud Member badges and Peninsula service cities"
     >
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 py-5 sm:py-6 lg:py-7">
+      <div className="ajs-container py-[20px] sm:py-[24px] lg:py-[28px]">
         <div className="relative mb-4 sm:mb-5 px-10">
-          <p className="text-center text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.18em] text-slate-400">
+          <p className="text-center text-[0.625rem] sm:text-[0.6875rem] font-bold uppercase tracking-[0.18em] text-slate-400">
             Proud Member of · Peninsula service cities
           </p>
           <button

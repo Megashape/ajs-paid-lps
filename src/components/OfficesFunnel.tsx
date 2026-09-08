@@ -273,23 +273,23 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
 
         {/* HERO + FORM first — priority above Chris / trust strip */}
         <section className="text-white pb-10 sm:pb-12 lg:pb-16">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-4 sm:pt-6 lg:pt-8">
-            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 lg:items-start">
+          <div className="ajs-container pt-4 sm:pt-6 lg:pt-8">
+            <div className="ajs-hero-grid">
               {/* LEFT — display-weight hero */}
               <div className="text-center sm:text-left lg:pt-4 order-1">
                 <p className="inline-flex flex-col items-center sm:items-start gap-1.5">
-                  <span className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.14em] text-[#f3e6d8]">
+                  <span className="text-[0.6875rem] sm:text-xs font-bold uppercase tracking-[0.14em] text-[#f3e6d8]">
                     Businesses only · Recurring office &amp; corporate
                   </span>
                   <span className="block h-px w-14 bg-ajs-red/90" aria-hidden />
                 </p>
-                <h1 className="mt-3 sm:mt-4 text-[2rem] sm:text-4xl lg:text-[2.75rem] xl:text-[3.15rem] font-extrabold leading-[1.08] tracking-tight text-white">
+                <h1 className="mt-3 sm:mt-4 ajs-hero-title font-extrabold leading-[1.08] tracking-tight text-white">
                   {headline}
                 </h1>
                 <p className="mt-3 sm:mt-4 text-white/70 text-sm sm:text-base leading-relaxed max-w-lg mx-auto sm:mx-0">
                   {subhead}
                 </p>
-                <ul className="mt-6 hidden lg:block space-y-3 text-[15px] text-white/85">
+                <ul className="mt-6 hidden lg:block space-y-3 text-[0.9375rem] text-white/85">
                   {bullets.map((line) => (
                     <li key={line} className="flex items-start gap-2.5">
                       <CheckCircle2 className="w-5 h-5 text-ajs-red shrink-0 mt-0.5" aria-hidden />
@@ -300,15 +300,15 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
               </div>
 
               {/* RIGHT — white form card (proof OUTSIDE card) */}
-              <div id="lead-form" ref={formContainer} className="order-2 relative z-10 scroll-mt-4">
+              <div id="lead-form" ref={formContainer} className="ajs-form-shell order-2 relative z-10 scroll-mt-4">
                 <div className="w-full bg-white rounded-2xl shadow-2xl border border-white/10 overflow-hidden text-slate-800">
-                  <div className="pt-5 sm:pt-6 px-5 sm:px-6 lg:px-7">
+                  <div className="pt-5 sm:pt-6 px-5 sm:px-7 lg:px-8">
                     {/* AFHC progress: STEP X OF 3 + % + thin bar */}
                     <div className="flex items-center justify-between gap-3 mb-2">
-                      <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+                      <span className="text-[0.6875rem] sm:text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
                         Step {step} of {TOTAL_STEPS}
                       </span>
-                      <span className="text-[11px] sm:text-xs font-semibold tabular-nums text-slate-400">
+                      <span className="text-[0.6875rem] sm:text-xs font-semibold tabular-nums text-slate-400">
                         {progressPct}%
                       </span>
                     </div>
@@ -330,7 +330,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                   <form
                     onSubmit={onSubmit}
                     onChange={startForm}
-                    className="px-5 sm:px-6 lg:px-7 pb-5 sm:pb-6 pt-5 space-y-5"
+                    className="px-5 sm:px-7 lg:px-8 pb-5 sm:pb-6 pt-5 space-y-5"
                     noValidate
                   >
                     <UtmHiddenFields />
@@ -338,7 +338,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                     {step === 1 && (
                       <div className="space-y-4">
                         <div>
-                          <h2 ref={stepHeading} tabIndex={-1} className="text-lg sm:text-xl font-bold text-navy-900 leading-snug tracking-tight focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ajs-red">
+                          <h2 ref={stepHeading} tabIndex={-1} className="ajs-form-heading font-bold text-navy-900 leading-snug tracking-tight focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ajs-red">
                             What&apos;s your company name?
                           </h2>
                           <p className="mt-1.5 text-sm text-slate-500 leading-snug">
@@ -360,7 +360,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                     {step === 2 && (
                       <div className="space-y-4">
                         <div>
-                          <h2 ref={stepHeading} tabIndex={-1} className="text-lg sm:text-xl font-bold text-navy-900 leading-snug tracking-tight focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ajs-red">
+                          <h2 ref={stepHeading} tabIndex={-1} className="ajs-form-heading font-bold text-navy-900 leading-snug tracking-tight focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ajs-red">
                             Tell us about the facility
                           </h2>
                           <p className="mt-1.5 text-sm text-slate-500 leading-snug">
@@ -368,7 +368,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                           </p>
                         </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                        <div className="ajs-form-grid gap-3.5">
                           <div className="space-y-3.5">
                             <Field name="role" label="Your role *" error={errors.role}>
                               <select
@@ -417,13 +417,13 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                           <legend className="text-sm font-semibold text-slate-800 mb-2">
                             Facility type *
                           </legend>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          <div className="ajs-form-grid gap-2">
                             {FACILITY_TYPES.map((ft) => {
                               const selected = data.facilityType === ft.value
                               return (
                                 <label
                                   key={ft.value}
-                                  className={`has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-ajs-red relative flex items-start gap-2 rounded-xl border px-3 py-2.5 cursor-pointer text-sm transition ${
+                                  className={`has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-ajs-red relative flex min-h-11 items-start gap-2 rounded-xl border px-3 py-2.5 cursor-pointer text-sm transition ${
                                     selected
                                       ? 'border-ajs-red bg-red-50 ring-1 ring-ajs-red'
                                       : 'border-slate-200 hover:border-slate-300'
@@ -456,7 +456,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                               return (
                                 <label
                                   key={f.value}
-                                  className={`has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-ajs-red rounded-xl border px-3 py-2.5 text-sm font-semibold cursor-pointer text-center transition ${
+                                  className={`has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-ajs-red flex min-h-11 items-center justify-center rounded-xl border px-3 py-2.5 text-sm font-semibold cursor-pointer text-center transition ${
                                     selected
                                       ? 'border-ajs-red bg-red-50 text-ajs-red ring-1 ring-ajs-red'
                                       : 'border-slate-200 text-slate-700 hover:border-slate-300'
@@ -484,7 +484,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                     {step === 3 && (
                       <div className="space-y-4">
                         <div>
-                          <h2 ref={stepHeading} tabIndex={-1} className="text-lg sm:text-xl font-bold text-navy-900 leading-snug tracking-tight focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ajs-red">
+                          <h2 ref={stepHeading} tabIndex={-1} className="ajs-form-heading font-bold text-navy-900 leading-snug tracking-tight focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ajs-red">
                             Request your office walkthrough
                           </h2>
                           <p className="mt-1.5 text-sm text-slate-500 leading-snug">
@@ -499,7 +499,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                             autoComplete="name"
                           />
                         </Field>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                        <div className="ajs-form-grid gap-3.5">
                           <Field name="phone" label="Phone *" error={errors.phone}>
                             <input
                               className={inputClass(errors.phone)}
@@ -536,7 +536,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                         </Field>
                         <Field name="notes" label="Notes (optional)">
                           <textarea
-                            className={`${inputClass()} min-h-[72px]`}
+                            className={`${inputClass()} min-h-[4.5rem]`}
                             value={data.notes}
                             onChange={(e) => set('notes')(e.target.value)}
                             placeholder="Hours, access, current vendor…"
@@ -556,7 +556,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                           type="button"
                           onClick={back}
                           disabled={submitting}
-                          className="inline-flex items-center justify-center gap-1.5 w-[30%] h-12 rounded-xl border border-slate-300 text-slate-700 font-semibold text-sm hover:bg-slate-50"
+                          className="inline-flex items-center justify-center gap-1.5 w-[30%] min-h-12 py-3 rounded-xl border border-slate-300 text-slate-700 font-semibold text-sm hover:bg-slate-50"
                         >
                           <ArrowLeft className="w-4 h-4" /> Back
                         </button>
@@ -567,7 +567,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                           type="submit"
                           className={`${
                             step > 1 ? 'w-[70%]' : 'w-full'
-                          } bg-ajs-red hover:bg-ajs-red-dark text-white font-bold h-12 rounded-xl text-[15px] sm:text-base tracking-wide uppercase shadow-lg shadow-red-900/15 inline-flex items-center justify-center`}
+                          } bg-ajs-red hover:bg-ajs-red-dark text-white font-bold min-h-12 py-3 rounded-xl text-[0.9375rem] sm:text-base tracking-wide uppercase shadow-lg shadow-red-900/15 inline-flex items-center justify-center`}
                         >
                           Continue
                         </button>
@@ -575,7 +575,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                         <button
                           type="submit"
                           disabled={submitting}
-                          className="w-[70%] bg-ajs-red hover:bg-ajs-red-dark disabled:opacity-70 text-white font-bold h-12 rounded-xl px-2 text-sm sm:text-base shadow-lg shadow-red-900/15 inline-flex items-center justify-center gap-2"
+                          className="w-[70%] bg-ajs-red hover:bg-ajs-red-dark disabled:opacity-70 text-white font-bold min-h-12 py-3 rounded-xl px-2 text-sm sm:text-base shadow-lg shadow-red-900/15 inline-flex items-center justify-center gap-2"
                         >
                           {submitting ? (
                             <>
@@ -588,7 +588,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                       )}
                     </div>
 
-                    <p className="text-[11px] text-slate-500 text-center leading-snug">
+                    <p className="text-[0.6875rem] text-slate-500 text-center leading-snug">
                       Background checks available on request when your building requires them.
                     </p>
                   </form>
@@ -596,7 +596,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                 {/* Compact proof beneath the form */}
                 <div className="mt-4 flex flex-col items-center gap-2.5 text-center">
                   <StarRow size={14} className="text-amber-400" />
-                  <p className="text-[11px] sm:text-xs text-white/55 leading-none">
+                  <p className="text-[0.6875rem] sm:text-xs text-white/55 leading-none">
                     Peninsula commercial cleaning
                   </p>
                 </div>
@@ -609,10 +609,10 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
       <main className="flex-1 bg-white">
         {/* Local team and four office-focused benefits */}
         <section className="py-10 sm:py-12 lg:py-14 bg-white" aria-label="Chris Ramirez and team">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="ajs-container">
             <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 lg:items-start">
               <figure className="lg:col-span-4 flex flex-col items-center lg:items-start gap-3">
-                <div className="relative w-[16.5rem] h-[16.5rem] sm:w-[19.5rem] sm:h-[19.5rem] lg:w-[21rem] lg:h-[21rem] max-w-full shrink-0 overflow-hidden rounded-2xl border border-slate-200 shadow-lg bg-slate-100">
+                <div className="relative w-full max-w-[21rem] aspect-square shrink-0 overflow-hidden rounded-2xl border border-slate-200 shadow-lg bg-slate-100">
                   <img
                     src={assetUrl('chris-truck-crop.jpg')}
                     alt="Chris Ramirez, Owner, All Janitorial Service Inc."
@@ -634,17 +634,17 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                   href={MAIN_SITE}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.14em] text-ajs-red hover:text-ajs-red-dark transition-colors"
+                  className="text-[0.6875rem] sm:text-xs font-bold uppercase tracking-[0.14em] text-ajs-red hover:text-ajs-red-dark transition-colors"
                 >
                   Read more about AJS
                 </a>
               </figure>
 
               <div className="lg:col-span-8">
-                <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.14em] text-ajs-red mb-2">
+                <p className="text-[0.6875rem] sm:text-xs font-bold uppercase tracking-[0.14em] text-ajs-red mb-2">
                   Local Peninsula team
                 </p>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight leading-tight">
+                <h2 className="ajs-section-title font-extrabold text-navy-900 tracking-tight leading-tight">
                   A cleaner office, with less to manage
                 </h2>
                 <p className="mt-3 sm:mt-4 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl">
@@ -655,14 +655,14 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                   {benefits.map(({ icon: Icon, title, text: line }) => (
                     <li
                       key={title}
-                      className="flex items-start gap-3 text-[15px] sm:text-base text-slate-800 leading-snug"
+                      className="flex items-start gap-3 text-[0.9375rem] sm:text-base text-slate-800 leading-snug"
                     >
                       <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-red-50 text-ajs-red shrink-0 mt-0.5">
-                        <Icon className="w-[18px] h-[18px]" aria-hidden />
+                        <Icon className="w-[1.125rem] h-[1.125rem]" aria-hidden />
                       </span>
                       <div className="pt-1">
                         <h3 className="font-bold text-navy-900">{title}</h3>
-                        <p className="mt-1 text-sm sm:text-[15px] text-slate-600 leading-relaxed">{line}</p>
+                        <p className="mt-1 text-sm sm:text-[0.9375rem] text-slate-600 leading-relaxed">{line}</p>
                       </div>
                     </li>
                   ))}
@@ -677,7 +677,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
 
         {/* Why-us — commercial office photo + prose (no schools/homes) */}
         <section className="py-12 sm:py-16 lg:py-20 bg-slate-50">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="ajs-container">
             <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 lg:items-center">
               <figure className="lg:col-span-5">
                 <div className="relative overflow-hidden rounded-2xl border border-slate-200 shadow-lg bg-slate-100 aspect-[4/3]">
@@ -700,10 +700,10 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                 </figcaption>
               </figure>
               <div className="lg:col-span-7 max-w-2xl">
-                <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.14em] text-ajs-red mb-3">
+                <p className="text-[0.6875rem] sm:text-xs font-bold uppercase tracking-[0.14em] text-ajs-red mb-3">
                   Why us
                 </p>
-                <h2 className="text-2xl sm:text-3xl lg:text-[1.85rem] xl:text-[2.05rem] font-extrabold text-navy-900 leading-tight tracking-tight">
+                <h2 className="ajs-section-title font-extrabold text-navy-900 leading-tight tracking-tight">
                   {city
                     ? `The mid-size ${city} office specialist`
                     : 'The mid-size Peninsula office specialist'}
@@ -764,7 +764,7 @@ function Field({
 }
 
 function inputClass(error?: string) {
-  return `w-full rounded-xl border bg-slate-50 px-3.5 py-3 text-[15px] outline-none focus:ring-2 focus:ring-ajs-red/30 focus:border-ajs-red focus:bg-white transition ${
+  return `w-full min-w-0 rounded-xl border bg-slate-50 px-3.5 py-3 text-base outline-none focus:ring-2 focus:ring-ajs-red/30 focus:border-ajs-red focus:bg-white transition ${
     error ? 'border-ajs-red' : 'border-slate-200'
   }`
 }
