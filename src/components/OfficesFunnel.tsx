@@ -116,8 +116,8 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
       meta.setAttribute(
         'content',
         city
-          ? `Recurring office & corporate cleaning for businesses in ${city}. Weekly qualifies. Call ${PHONE_DISPLAY}.`
-          : `Recurring office & corporate cleaning for Peninsula businesses. Weekly qualifies. Call ${PHONE_DISPLAY}.`,
+          ? `Office, commercial & janitorial cleaning for offices in ${city}. Call ${PHONE_DISPLAY}.`
+          : `Office, commercial & janitorial cleaning for Peninsula offices. Call ${PHONE_DISPLAY}.`,
       )
     }
   }, [city])
@@ -225,11 +225,11 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
     ? `Office cleaning in ${city}`
     : 'Office cleaning for Peninsula businesses'
   const subhead = city
-    ? `Recurring commercial cleaning for offices in ${city}. Businesses only. No homes or events.`
-    : 'Recurring commercial cleaning for Peninsula offices. Businesses only. No homes or events.'
+    ? `Office, commercial & janitorial services for ${city} offices — presentation-ready workplaces.`
+    : 'Office, commercial & janitorial services for Peninsula offices — presentation-ready workplaces.'
 
   const bullets = [
-    'Weekly qualifies. Add multi-day or weekends when needed',
+    'Custom schedule that fits how your office actually runs',
     'Commercial offices & corporate suites, not residential or events',
     'Local Peninsula team coordinated from Redwood City',
   ]
@@ -245,7 +245,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
       id: 'office-cleaning-schedule',
       icon: Calendar,
       title: 'A schedule that fits your office',
-      text: 'Start with weekly service. Add multi-day or weekend cleaning around your facility’s needs.',
+      text: 'Custom schedules that fit how your office runs, including multi-day or weekend cleaning when needed.',
     },
     {
       id: 'office-cleaning-contact',
@@ -283,7 +283,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
               <div className="text-center sm:text-left lg:pt-4 order-1">
                 <p className="inline-flex flex-col items-center sm:items-start gap-1.5">
                   <span className="text-[0.6875rem] sm:text-xs font-bold uppercase tracking-[0.14em] text-[#f3e6d8]">
-                    Businesses only · Recurring office &amp; corporate
+                    Office · Commercial · Janitorial
                   </span>
                   <span className="block h-px w-14 bg-ajs-red/90" aria-hidden />
                 </p>
@@ -765,7 +765,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                   National franchises run a script. Solo cleaners disappear when you need coverage.
                   We&apos;re the middle that facility managers actually want, big enough to staff your
                   suite reliably, small enough that Chris&apos;s team still walks the floor before you
-                  sign. Walkthrough → written scope → recurring cadence you can defend to ownership.
+                  sign. Walkthrough → written scope → a cleaning schedule you can defend to ownership.
                 </p>
               </div>
             </div>

@@ -34,29 +34,29 @@ export const OFFICE_COPY: LandingCopy = {
   variant: 'office',
   metaTitle: 'Commercial Office Cleaning, Peninsula Businesses | AJS',
   metaDescription:
-    'We specialize in supporting businesses with recurring office and corporate facility cleaning on the Peninsula. Weekly qualifies. Call 650-261-0723.',
-  badge: 'For businesses, office & corporate facilities',
+    'Office, commercial & janitorial cleaning for Peninsula offices and corporate facilities. Call 650-261-0723.',
+  badge: 'Office · Commercial · Janitorial',
   headline: 'Commercial office cleaning built for businesses',
   subhead:
-    'All Janitorial Service specializes in supporting businesses, recurring cleaning for offices and corporate facilities across the Peninsula. Not residential homes, not events, not one-off cleans. Weekly service qualifies. Smaller offices welcome.',
+    'All Janitorial Service provides office, commercial, and janitorial cleaning for Peninsula offices and corporate facilities. Custom schedules that fit how your workplace runs. Smaller offices welcome.',
   bullets: [
-    'Recurring programs so your workplace looks presentation-ready when your team arrives',
-    'Weekly qualifies; add multi-day or weekend / 7-day when your facility needs it',
+    'Office & commercial cleaning so your workplace looks presentation-ready when your team arrives',
+    'Custom schedule — add multi-day or weekend coverage when your facility needs it',
     'Commercial scope for suites and corporate facilities, not house-cleaner city pages',
   ],
   formTitle: 'Request a business facility walkthrough',
   formSubtitle: 'For office and corporate accounts. We will follow up to schedule when it works for you.',
   whyTitle: 'Why Peninsula businesses choose AJS',
   whyIntro:
-    'We specialize in commercial accounts: offices and corporate facilities with recurring needs. Franchise scripts and residential cleaners rarely fit business hours, tenants, and finish standards, including weekends when the building needs it.',
+    'We specialize in commercial accounts: offices and corporate facilities. Franchise scripts and residential cleaners rarely fit business hours, tenants, and finish standards, including weekends when the building needs it.',
   whyCards: [
     {
-      title: 'Businesses only, not homes or events',
+      title: 'Office & commercial, not homes or events',
       body: 'Restrooms, kitchens, workstations, and common areas scoped like a commercial facility, not a residential clean or a one-off event tidy.',
     },
     {
-      title: 'Weekly is enough to start',
-      body: 'Weekly qualifies. Add 2-3×, five-day, or weekend / 7-day coverage when your facility needs it, not as a higher bar to talk to us.',
+      title: 'Schedules that fit your facility',
+      body: 'Custom schedules from weekly through multi-day or weekend coverage when your facility needs it, not a higher bar to talk to us.',
     },
     {
       title: 'Local hub, real oversight',
