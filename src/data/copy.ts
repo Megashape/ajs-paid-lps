@@ -82,11 +82,11 @@ export const OFFICE_COPY: LandingCopy = {
     },
     {
       q: 'Do weekends or 7-day programs qualify me?',
-      a: 'No. Qualification is office + at least weekly. Weekends and 7-day are availability options when your facility needs them, not the entry requirement.',
+      a: 'No. This page is for office and commercial cleaning. Custom schedules are common; weekends and 7-day are options when your facility needs them, not the entry requirement.',
     },
     {
       q: 'Do you clean homes or host events?',
-      a: 'No. This page is for businesses, office and corporate facilities on a recurring schedule. Residential and event cleaning are outside this service.',
+      a: 'No. This page is for office and corporate facilities — commercial cleaning, not residential homes or events.',
     },
     {
       q: 'Are Live Scan / background checks included by default?',

@@ -700,8 +700,8 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                   A cleaner office, with less to manage
                 </h2>
                 <p className="mt-3 sm:mt-4 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl">
-                  Chris&apos;s team walks your facility before you commit, then builds a recurring
-                  cleaning plan around your space, schedule, and priorities. Smaller offices welcome.
+                  Chris&apos;s team walks your facility before you commit, then builds a custom
+                  cleaning schedule around your space, hours, and priorities. Smaller offices welcome.
                 </p>
                 <ul className="mt-6 sm:mt-7 space-y-3 sm:space-y-3.5">
                   {benefits.map(({ id, icon: Icon, title, text: line }) => (
