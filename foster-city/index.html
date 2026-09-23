@@ -28,6 +28,10 @@
         tag.async = true;
         tag.src = 'https://www.googletagmanager.com/gtag/js?id=AW-16700423105';
         document.head.appendChild(tag);
+        const clarity = document.createElement('script');
+        clarity.async = true;
+        clarity.src = 'https://www.clarity.ms/tag/x9ffwwn878';
+        document.head.appendChild(clarity);
         window.gtagFormConversion = function () {
           gtag('event', 'conversion', {
             send_to: 'AW-16700423105/UFUECLuEnJkbEMH3sJs-',
