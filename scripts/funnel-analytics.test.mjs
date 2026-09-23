@@ -40,7 +40,8 @@ test('tag bootstrap is restricted to the production hostname and preserves Ads c
       assert.equal(appended.length, 0)
       assert.equal(context.gtagFormConversion, undefined)
     } else {
-      assert.equal(appended.length, 1)
+      assert.equal(appended.length, 2)
+      assert.ok(appended.some((s) => String(s.src || '').includes('clarity.ms/tag/x9ffwwn878')))
       context.gtagFormConversion()
       const last = context.dataLayer.at(-1)
       assert.equal(last[1], 'conversion')
