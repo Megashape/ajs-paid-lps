@@ -24,6 +24,15 @@
         gtag('js', new Date());
         gtag('config', 'AW-16700423105');
         gtag('config', 'G-2ZF6RFN9MX');
+        // Google Ads "Calls from website": ad visitors see a Google forwarding number;
+        // calls of 60 seconds or more count as conversions. The app renders the number it receives.
+        gtag('config', 'AW-16700423105/ezdvCLj-8YgdEMH3sJs-', {
+          phone_conversion_number: '650-261-0723',
+          phone_conversion_callback: function (formatted, mobile) {
+            window.ajsForwardingNumber = { formatted: formatted, mobile: mobile };
+            window.dispatchEvent(new Event('ajs-forwarding-number'));
+          },
+        });
         const tag = document.createElement('script');
         tag.async = true;
         tag.src = 'https://www.googletagmanager.com/gtag/js?id=AW-16700423105';
@@ -39,8 +48,8 @@
         };
       }
     </script>
-    <script type="module" crossorigin src="/assets/index-D6qai09L.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-DcFUZhOx.css">
+    <script type="module" crossorigin src="/assets/index-CmDkvNCn.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DGHbyFfH.css">
   </head>
   <body>
     <div id="root"></div>
