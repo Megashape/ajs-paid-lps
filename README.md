@@ -41,11 +41,10 @@ VITE_FORM_ENDPOINT=https://formspree.io/f/YOUR_FORM_ID
 
 If unset, submission fails with a call fallback. It never reports success, logs contact details, or fires a conversion. For local delivery testing, use an intercepted local endpoint; never use the production webhook for preview fixtures.
 
-### Form fields (3 steps)
+### Form fields (2 steps, lead-first since 2026-09-28)
 
-1. **Company** — company, role, city (10 approved + “Other — we may not serve this area”), facility type (Office/Corporate is the win; school/MF marked for routing only)
-2. **Scope** — frequency (`weekly` / `2-3x` / `5-day` / `not-sure`), optional sq ft (no 10k hard-gate), notes
-3. **Walkthrough** — name, phone, email, preferred time
+1. **Walkthrough request** — full name, company, phone, work email. Submitting sends the lead (`stage: "contact"`), fires the Ads form conversion and creates the CRM contact + opportunity. City is prefilled on city routes.
+2. **Optional details** — role, city, facility type, frequency, best walkthrough time, notes. "Send details" posts again with `stage: "details"`; "Skip" goes straight to thank-you. Verified 2026-09-28: the details post updates the same HighLevel contact and does not create a second opportunity.
 
 UTM params (`utm_*`, `gclid`, `fbclid`, `msclkid`) are captured from the URL, kept in `sessionStorage`, included as hidden inputs, and sent with the JSON body.
 
@@ -55,7 +54,14 @@ On successful submit, fires `gtag` conversion:
 
 `AW-16700423105/UFUECLuEnJkbEMH3sJs-`
 
-(configured in `index.html` via `window.gtagFormConversion`).
+(configured in `index.html` via `window.gtagFormConversion`), on the step-1 lead submit only.
+
+### Call tracking
+
+Google Ads "Calls from website (office funnel)" (`AW-16700423105/ezdvCLj-8YgdEMH3sJs-`, calls of 60 s or more,
+counted in Conversions). Ad visitors get a Google forwarding number through `phone_conversion_callback` in
+`index.html`; `usePhoneNumber()` renders it in the header, sticky mobile bar, footer and thank-you page. Everyone
+else sees 650-261-0723. The mobile Call / Walkthrough bar appears only once the form scrolls out of view.
 
 ## Copy exclusions (hard rules)
 
@@ -92,13 +98,14 @@ Production loads the existing Ads tag and AJS Analytics stream `G-2ZF6RFN9MX`
 No form answers, contact details, or notes are sent in diagnostic event payloads.
 
 - `ajs_form_start`: first change to the form, once per mounted form.
-- `ajs_step_2`, `ajs_step_3`: first arrival at that step, once per mounted form.
+- `ajs_step_2`: first arrival at the optional details step, once per mounted form.
 - `ajs_validation_error`: invalid attempt, with the step number only.
-- `ajs_submit_attempt`: valid final submission attempt.
+- `ajs_submit_attempt`: valid step-1 lead submission attempt.
+- `ajs_details_accepted`, `ajs_details_skipped`, `ajs_details_error`: outcome of the optional step 2.
 - `ajs_submit_accepted`: webhook returned an HTTP success; NOT independently verified CRM creation or qualification.
 - `ajs_submit_error`: delivery missing, rejected, or uncertain.
 - `ajs_phone_click`: intent to call; NOT a connected or qualified phone call.
-- `ajs_walkthrough_click`, `ajs_main_site_click`: navigation intent, with header/footer/content placement.
+- `ajs_walkthrough_click`, `ajs_main_site_click`: navigation intent, with header/footer/content/sticky placement.
 
 Ads conversion remains the existing `AW-16700423105/UFUECLuEnJkbEMH3sJs-`
 after successful submission. Diagnostic events are sent only to Analytics and
