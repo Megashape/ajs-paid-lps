@@ -43,6 +43,15 @@ test('tag bootstrap is restricted to the production hostname and preserves Ads c
       assert.equal(appended.length, 2)
       assert.ok(appended.some((s) => String(s.src || '').includes('clarity.ms/tag/x9ffwwn878')))
       context.gtagFormConversion()
+      const callConfig = context.dataLayer.find((args) => args[0] === 'config' && args[1] === 'AW-16700423105/ezdvCLj-8YgdEMH3sJs-')
+      assert.ok(callConfig, 'website call conversion is configured')
+      assert.equal(callConfig[2].phone_conversion_number, '650-261-0723')
+      let dispatched
+      context.dispatchEvent = (event) => { dispatched = event.type }
+      context.Event = class { constructor(type) { this.type = type } }
+      callConfig[2].phone_conversion_callback('(650) 555-0100', '+16505550100')
+      assert.deepEqual({ ...context.ajsForwardingNumber }, { formatted: '(650) 555-0100', mobile: '+16505550100' })
+      assert.equal(dispatched, 'ajs-forwarding-number')
       const last = context.dataLayer.at(-1)
       assert.equal(last[1], 'conversion')
       assert.equal(last[2].send_to, 'AW-16700423105/UFUECLuEnJkbEMH3sJs-')

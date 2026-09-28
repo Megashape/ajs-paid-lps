@@ -3,10 +3,11 @@ import { Link, useLocation } from 'react-router-dom'
 import { CheckCircle2, Phone } from 'lucide-react'
 import { Header } from '../components/Header'
 import { Footer } from '../components/Footer'
-import { PHONE_DISPLAY, PHONE_TEL } from '../lib/constants'
+import { usePhoneNumber } from '../lib/usePhoneNumber'
 
 export function ThankYouPage() {
   const location = useLocation()
+  const phone = usePhoneNumber()
   const company =
     location.state && typeof location.state === 'object' && 'company' in location.state
       ? String((location.state as { company?: string }).company ?? '')
@@ -30,10 +31,10 @@ export function ThankYouPage() {
             shortly. Same-day contact happens when we can. It is not a guarantee.
           </p>
           <a
-            href={`tel:${PHONE_TEL}`}
+            href={`tel:${phone.tel}`}
             className="mt-6 inline-flex items-center justify-center gap-2 rounded-xl bg-ajs-red hover:bg-ajs-red-dark text-white font-bold px-5 h-12 w-full"
           >
-            <Phone className="w-4 h-4" /> Call {PHONE_DISPLAY}
+            <Phone className="w-4 h-4" /> Call {phone.display}
           </a>
           <div className="mt-6 flex flex-col sm:flex-row gap-2 justify-center text-sm">
             <Link to="/" className="text-ajs-red font-semibold hover:underline">

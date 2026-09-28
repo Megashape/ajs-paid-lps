@@ -1,5 +1,6 @@
 import { ArrowUpRight, MapPin, Phone } from 'lucide-react'
-import { PHONE_DISPLAY, PHONE_TEL, MAIN_SITE } from '../lib/constants'
+import { MAIN_SITE } from '../lib/constants'
+import { usePhoneNumber } from '../lib/usePhoneNumber'
 import { assetUrl } from '../lib/assetUrl'
 
 interface FooterProps {
@@ -13,6 +14,7 @@ const companyLinks = [
 ]
 
 export function Footer({ hideCallCta = false }: FooterProps) {
+  const phone = usePhoneNumber()
   const linkClass = 'inline-flex items-center gap-1.5 py-1 text-sm text-slate-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white'
 
   return (
@@ -49,7 +51,7 @@ export function Footer({ hideCallCta = false }: FooterProps) {
 
           <div>
             <h3 className="mb-3 text-xs font-bold uppercase tracking-[0.14em] text-white">Talk to our team</h3>
-            <a href={`tel:${PHONE_TEL}`} className={`${linkClass} font-semibold tabular-nums ${hideCallCta ? '' : 'rounded-lg border border-white/25 px-3 py-2'}`}><Phone className="h-4 w-4 text-slate-400" aria-hidden />{PHONE_DISPLAY}</a>
+            <a href={`tel:${phone.tel}`} className={`${linkClass} font-semibold tabular-nums ${hideCallCta ? '' : 'rounded-lg border border-white/25 px-3 py-2'}`}><Phone className="h-4 w-4 text-slate-400" aria-hidden />{phone.display}</a>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-slate-300">Weekly, multi-day, and weekend cleaning plans. Smaller offices welcome.</p>
           </div>
         </div>

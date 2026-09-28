@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Phone } from 'lucide-react'
-import { PHONE_DISPLAY, PHONE_TEL } from '../lib/constants'
+import { usePhoneNumber } from '../lib/usePhoneNumber'
 import { assetUrl } from '../lib/assetUrl'
 
 interface HeaderProps {
@@ -15,6 +15,7 @@ export function Header({
   overHero = true,
   compact = false,
 }: HeaderProps) {
+  const phone = usePhoneNumber()
   return (
     <header
       className={`relative z-40 ${
@@ -42,7 +43,7 @@ export function Header({
           </Link>
 
           <a
-            href={`tel:${PHONE_TEL}`}
+            href={`tel:${phone.tel}`}
             className={`min-h-11 max-w-full min-w-0 inline-flex items-center justify-center gap-2 rounded-xl border-2 border-white bg-transparent hover:bg-white/10 text-white font-bold transition-colors tabular-nums wrap-anywhere ${
               compact
                 ? 'text-xs sm:text-sm px-3 sm:px-4 py-2 sm:py-2.5'
@@ -53,8 +54,8 @@ export function Header({
               className={compact ? 'w-3.5 h-3.5 sm:w-4 sm:h-4' : 'w-4 h-4'}
               aria-hidden
             />
-            <span className="sm:hidden">{PHONE_DISPLAY}</span>
-            <span className="hidden sm:inline">Call {PHONE_DISPLAY}</span>
+            <span className="sm:hidden">{phone.display}</span>
+            <span className="hidden sm:inline">Call {phone.display}</span>
           </a>
         </div>
       </div>

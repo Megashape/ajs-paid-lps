@@ -16,6 +16,8 @@ export interface LeadPayload {
   page: string
   variant: string
   utms: UtmFields
+  /** contact = first submit (the lead); details = optional qualifying follow-up for the same person. */
+  stage?: 'contact' | 'details'
 }
 
 function splitName(fullName: string): { first: string; last: string } {
@@ -70,7 +72,7 @@ export async function submitLead(payload: LeadPayload): Promise<void> {
     frequency,
     Facility: facilityType,
     Frequency: frequency,
-    _subject: `AJS Lead — ${payload.variant} — ${payload.company}`,
+    _subject: `${payload.stage === 'details' ? 'AJS Lead details' : 'AJS Lead'} — ${payload.variant} — ${payload.company}`,
     Email: payload.email,
     'First Name': first,
     'Last Name': last,

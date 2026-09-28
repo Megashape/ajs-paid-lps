@@ -1,7 +1,6 @@
 import { cloneElement, useEffect, useRef, useState, type FormEvent, type ReactElement } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
-  ArrowLeft,
   Calendar,
   CheckCircle2,
   ClipboardCheck,
@@ -24,6 +23,7 @@ import { getStoredUtms, readUtmsFromLocation } from '../lib/utm'
 import { MAIN_SITE, PHONE_DISPLAY } from '../lib/constants'
 import { Header } from './Header'
 import { Footer } from './Footer'
+import { MobileCallBar } from './MobileCallBar'
 import { assetUrl } from '../lib/assetUrl'
 import { officePhotoForCity, REVIEW_LOGOS } from '../data/trustAssets'
 import { TrustMarquee } from './TrustMarquee'
@@ -34,7 +34,8 @@ interface OfficesFunnelProps {
   city?: string
 }
 
-const TOTAL_STEPS = 3
+/** Step 1 sends the lead (contact details). Step 2 is an optional qualifying follow-up. */
+const TOTAL_STEPS = 2
 
 const initial = (city?: string): FormState => ({
   company: '',
@@ -80,7 +81,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
   const trackLink = (event: React.MouseEvent<HTMLDivElement>) => {
     const target = event.target instanceof Element ? event.target.closest('a') : null
     if (!target) return
-    const placement = target.closest('header') ? 'header' : target.closest('footer') ? 'footer' : 'content'
+    const placement = target.closest('[data-placement="sticky"]') ? 'sticky' : target.closest('header') ? 'header' : target.closest('footer') ? 'footer' : 'content'
     if (target.protocol === 'tel:') trackFunnelEvent('ajs_phone_click', undefined, placement)
     else if (target.hash === '#lead-form') trackFunnelEvent('ajs_walkthrough_click', undefined, placement)
     else if (target.hostname === 'www.alljanitorialservice.com' || target.hostname === 'alljanitorialservice.com') trackFunnelEvent('ajs_main_site_click', undefined, placement)
@@ -135,90 +136,93 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
       setErrors((e) => ({ ...e, [key]: undefined }))
     }
 
-  /** Step 1 = company only */
+  /** Step 1 = the lead: who to contact. */
   const validateStep1 = () => {
     const e: Partial<Record<keyof FormState, string>> = {}
-    if (!data.company.trim()) e.company = 'Company name is required'
-    showErrors(e)
-    return Object.keys(e).length === 0
-  }
-
-  /** Step 2 = role, city, facility, frequency */
-  const validateStep2 = () => {
-    const e: Partial<Record<keyof FormState, string>> = {}
-    if (data.role === 'Other' && !data.customRole.trim()) e.customRole = 'Please specify your role'
-    if (!data.city) e.city = 'Select a city'
-    if (!data.facilityType) e.facilityType = 'Select a facility type'
-    if (!data.frequency) e.frequency = 'Select a frequency'
-    showErrors(e)
-    return Object.keys(e).length === 0
-  }
-
-  const validateStep3 = () => {
-    const e: Partial<Record<keyof FormState, string>> = {}
     if (!data.fullName.trim()) e.fullName = 'Name is required'
+    if (!data.company.trim()) e.company = 'Company name is required'
     if (!data.phone.trim()) e.phone = 'Phone is required'
     if (!data.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
       e.email = 'Valid work email is required'
     }
-    if (!data.preferredTime) e.preferredTime = 'Select a preferred time'
     showErrors(e)
     return Object.keys(e).length === 0
   }
 
-  const next = () => {
-    if (step === 1 && validateStep1()) setStep(2)
-    else if (step === 2 && validateStep2()) setStep(3)
+  /** Step 2 is optional; only a custom role needs its title. */
+  const validateStep2 = () => {
+    const e: Partial<Record<keyof FormState, string>> = {}
+    if (data.role === 'Other' && !data.customRole.trim()) e.customRole = 'Please specify your role'
+    showErrors(e)
+    return Object.keys(e).length === 0
   }
 
-  const back = () => {
+  const payload = (stage: 'contact' | 'details') => ({
+    company: data.company.trim(),
+    role: data.role === 'Other' ? data.customRole.trim() : data.role,
+    customRole: data.customRole,
+    city: data.city,
+    facilityType: data.facilityType,
+    frequency: data.frequency,
+    sqFt: data.sqFt.trim() || undefined,
+    fullName: data.fullName.trim(),
+    phone: data.phone.trim(),
+    email: data.email.trim(),
+    preferredTime: data.preferredTime,
+    notes: data.notes.trim() || undefined,
+    page: window.location.pathname,
+    variant: 'office',
+    utms: getStoredUtms(),
+    stage,
+  })
+
+  const finish = () => navigate('/thank-you', { replace: true, state: { company: data.company } })
+
+  const skipDetails = () => {
     if (submissionPending.current) return
-    setErrors({})
-    setSubmitError('')
-    if (step > 1) setStep((s) => s - 1)
+    trackFunnelEvent('ajs_details_skipped', 2)
+    finish()
   }
 
   const onSubmit = async (ev: FormEvent) => {
     ev.preventDefault()
     if (submissionPending.current) return
-    if (step < TOTAL_STEPS) {
-      next()
+
+    if (step === 1) {
+      if (!validateStep1()) return
+      submissionPending.current = true
+      setSubmitting(true)
+      setSubmitError('')
+      trackFunnelEvent('ajs_submit_attempt', 1)
+      try {
+        await submitLead(payload('contact'))
+        trackFunnelEvent('ajs_submit_accepted', 1)
+        fireConversion()
+        setStep(2)
+      } catch (err) {
+        trackFunnelEvent('ajs_submit_error', 1)
+        setSubmitError(err instanceof Error ? err.message : 'Something went wrong. Please call us.')
+      } finally {
+        submissionPending.current = false
+        setSubmitting(false)
+      }
       return
     }
-    if (!validateStep3()) return
+
+    if (!validateStep2()) return
     submissionPending.current = true
     setSubmitting(true)
-    setSubmitError('')
-    trackFunnelEvent('ajs_submit_attempt', 3)
     try {
-      const utms = getStoredUtms()
-      await submitLead({
-        company: data.company.trim(),
-        role: data.role === 'Other' ? data.customRole.trim() : data.role,
-        customRole: data.customRole,
-        city: data.city,
-        facilityType: data.facilityType,
-        frequency: data.frequency,
-        sqFt: data.sqFt.trim() || undefined,
-        fullName: data.fullName.trim(),
-        phone: data.phone.trim(),
-        email: data.email.trim(),
-        preferredTime: data.preferredTime,
-        notes: data.notes.trim() || undefined,
-        page: window.location.pathname,
-        variant: 'office',
-        utms,
-      })
-      trackFunnelEvent('ajs_submit_accepted', 3)
-      fireConversion()
-      navigate('/thank-you', { replace: true, state: { company: data.company } })
-    } catch (err) {
-      trackFunnelEvent('ajs_submit_error', 3)
-      setSubmitError(err instanceof Error ? err.message : 'Something went wrong. Please call us.')
+      await submitLead(payload('details'))
+      trackFunnelEvent('ajs_details_accepted', 2)
+    } catch {
+      // The lead itself was already received on step 1; never block the visitor on the optional details.
+      trackFunnelEvent('ajs_details_error', 2)
     } finally {
       submissionPending.current = false
       setSubmitting(false)
     }
+    finish()
   }
 
   const headline = city
@@ -264,7 +268,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
   const progressPct = Math.round((step / TOTAL_STEPS) * 100)
 
   return (
-    <div className="min-h-screen flex flex-col font-sans bg-navy-900" onClickCapture={trackLink}>
+    <div className="min-h-screen flex flex-col font-sans bg-navy-900 pb-[calc(4.5rem+env(safe-area-inset-bottom))] lg:pb-0" onClickCapture={trackLink}>
       {/* Stage: navy slab with subtle radial depth (AFHC craft) */}
       <div
         className="relative isolate"
@@ -343,21 +347,57 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                       <div className="space-y-4">
                         <div>
                           <h2 ref={stepHeading} tabIndex={-1} className="ajs-form-heading font-bold text-navy-900 leading-snug tracking-tight focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ajs-red">
-                            What&apos;s your company name?
+                            Request your office walkthrough
                           </h2>
                           <p className="mt-1.5 text-sm text-slate-500 leading-snug">
-                            We&apos;ll use this to prepare your facility walkthrough request.
+                            Tell us who to contact. We&apos;ll call to confirm the details and arrange a visit.
                           </p>
                         </div>
-                        <Field name="company" label="Company name *" error={errors.company}>
-                          <input
-                            className={inputClass(errors.company)}
-                            value={data.company}
-                            onChange={(e) => set('company')(e.target.value)}
-                            autoComplete="organization"
-                            placeholder="Acme Corp"
-                          />
-                        </Field>
+                        <div className="ajs-form-grid gap-3.5">
+                          <Field name="fullName" label="Full name *" error={errors.fullName}>
+                            <input
+                              className={inputClass(errors.fullName)}
+                              value={data.fullName}
+                              onChange={(e) => set('fullName')(e.target.value)}
+                              autoComplete="name"
+                            />
+                          </Field>
+                          <Field name="company" label="Company *" error={errors.company}>
+                            <input
+                              className={inputClass(errors.company)}
+                              value={data.company}
+                              onChange={(e) => set('company')(e.target.value)}
+                              autoComplete="organization"
+                            />
+                          </Field>
+                        </div>
+                        <div className="ajs-form-grid gap-3.5">
+                          <Field name="phone" label="Phone *" error={errors.phone}>
+                            <input
+                              className={inputClass(errors.phone)}
+                              value={data.phone}
+                              onChange={(e) => set('phone')(e.target.value)}
+                              autoComplete="tel"
+                              inputMode="tel"
+                              type="tel"
+                              placeholder="650-…"
+                            />
+                          </Field>
+                          <Field name="email" label="Work email *" error={errors.email}>
+                            <input
+                              className={inputClass(errors.email)}
+                              type="email"
+                              value={data.email}
+                              onChange={(e) => set('email')(e.target.value)}
+                              autoComplete="email"
+                            />
+                          </Field>
+                        </div>
+                        {submitError && (
+                          <p role="alert" className="text-sm text-ajs-red bg-red-50 border border-red-100 rounded-xl px-3 py-2">
+                            {submitError}
+                          </p>
+                        )}
                       </div>
                     )}
 
@@ -365,16 +405,16 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                       <div className="space-y-4">
                         <div>
                           <h2 ref={stepHeading} tabIndex={-1} className="ajs-form-heading font-bold text-navy-900 leading-snug tracking-tight focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ajs-red">
-                            Tell us about the facility
+                            Request received. Two quick details?
                           </h2>
                           <p className="mt-1.5 text-sm text-slate-500 leading-snug">
-                            Role, city, facility type, and how often you need cleaning.
+                            Optional. It helps us prepare your walkthrough.
                           </p>
                         </div>
 
                         <div className="ajs-form-grid gap-3.5">
                           <div className="space-y-3.5">
-                            <Field name="role" label="Your role *" error={errors.role}>
+                            <Field name="role" label="Your role" error={errors.role}>
                               <select
                                 className={inputClass(errors.role)}
                                 value={data.role}
@@ -399,7 +439,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                             )}
                           </div>
 
-                          <Field name="city" label="City *" error={errors.city}>
+                          <Field name="city" label="City" error={errors.city}>
                             <select
                               className={inputClass(errors.city)}
                               value={data.city}
@@ -419,7 +459,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
 
                         <fieldset aria-invalid={Boolean(errors.facilityType)} aria-describedby={errors.facilityType ? "office-facility-error" : undefined}>
                           <legend className="text-sm font-semibold text-slate-800 mb-2">
-                            Facility type *
+                            Facility type
                           </legend>
                           <div className="ajs-form-grid gap-2">
                             {FACILITY_TYPES.map((ft) => {
@@ -452,7 +492,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
 
                         <fieldset aria-invalid={Boolean(errors.frequency)} aria-describedby={errors.frequency ? "office-frequency-error" : undefined}>
                           <legend className="text-sm font-semibold text-slate-800 mb-2">
-                            Cleaning frequency *
+                            Cleaning frequency
                           </legend>
                           <div className="grid grid-cols-2 gap-2">
                             {FREQUENCIES.map((f) => {
@@ -482,114 +522,62 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
                             <p id="office-frequency-error" role="alert" className="text-xs text-ajs-red mt-1">{errors.frequency}</p>
                           )}
                         </fieldset>
-                      </div>
-                    )}
 
-                    {step === 3 && (
-                      <div className="space-y-4">
-                        <div>
-                          <h2 ref={stepHeading} tabIndex={-1} className="ajs-form-heading font-bold text-navy-900 leading-snug tracking-tight focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ajs-red">
-                            Request your office walkthrough
-                          </h2>
-                          <p className="mt-1.5 text-sm text-slate-500 leading-snug">
-                            Our team will contact you to confirm the details and arrange a visit.
-                          </p>
-                        </div>
-                        <Field name="fullName" label="Full name *" error={errors.fullName}>
-                          <input
-                            className={inputClass(errors.fullName)}
-                            value={data.fullName}
-                            onChange={(e) => set('fullName')(e.target.value)}
-                            autoComplete="name"
-                          />
-                        </Field>
                         <div className="ajs-form-grid gap-3.5">
-                          <Field name="phone" label="Phone *" error={errors.phone}>
-                            <input
-                              className={inputClass(errors.phone)}
-                              value={data.phone}
-                              onChange={(e) => set('phone')(e.target.value)}
-                              autoComplete="tel"
-                              inputMode="tel"
-                              type="tel"
-                              placeholder="650-…"
-                            />
+                          <Field name="preferredTime" label="Best time for a walkthrough">
+                            <select
+                              className={inputClass()}
+                              value={data.preferredTime}
+                              onChange={(e) => set('preferredTime')(e.target.value)}
+                            >
+                              {PREFERRED_TIMES.map((t) => (
+                                <option key={t} value={t}>
+                                  {t.replaceAll('–', ' to ')}
+                                </option>
+                              ))}
+                            </select>
                           </Field>
-                          <Field name="email" label="Work email *" error={errors.email}>
-                            <input
-                              className={inputClass(errors.email)}
-                              type="email"
-                              value={data.email}
-                              onChange={(e) => set('email')(e.target.value)}
-                              autoComplete="email"
+                          <Field name="notes" label="Notes">
+                            <textarea
+                              className={`${inputClass()} min-h-[2.875rem]`}
+                              value={data.notes}
+                              onChange={(e) => set('notes')(e.target.value)}
+                              placeholder="Hours, access, current vendor…"
                             />
                           </Field>
                         </div>
-                        <Field name="preferredTime" label="Preferred walkthrough time *" error={errors.preferredTime}>
-                          <select
-                            className={inputClass(errors.preferredTime)}
-                            value={data.preferredTime}
-                            onChange={(e) => set('preferredTime')(e.target.value)}
-                          >
-                            {PREFERRED_TIMES.map((t) => (
-                              <option key={t} value={t}>
-                                {t.replaceAll('\u2013', ' to ')}
-                              </option>
-                            ))}
-                          </select>
-                        </Field>
-                        <Field name="notes" label="Notes (optional)">
-                          <textarea
-                            className={`${inputClass()} min-h-[4.5rem]`}
-                            value={data.notes}
-                            onChange={(e) => set('notes')(e.target.value)}
-                            placeholder="Hours, access, current vendor…"
-                          />
-                        </Field>
-                        {submitError && (
-                          <p role="alert" className="text-sm text-ajs-red bg-red-50 border border-red-100 rounded-xl px-3 py-2">
-                            {submitError}
-                          </p>
-                        )}
                       </div>
                     )}
 
                     <div className="flex items-center gap-3 pt-1">
-                      {step > 1 ? (
+                      {step === 2 ? (
                         <button
                           type="button"
-                          onClick={back}
+                          onClick={skipDetails}
                           disabled={submitting}
-                          className="inline-flex items-center justify-center gap-1.5 w-[30%] min-h-12 py-3 rounded-xl border border-slate-300 text-slate-700 font-semibold text-sm hover:bg-slate-50"
+                          className="inline-flex items-center justify-center w-[30%] min-h-12 py-3 rounded-xl border border-slate-300 text-slate-700 font-semibold text-sm hover:bg-slate-50"
                         >
-                          <ArrowLeft className="w-4 h-4" /> Back
+                          Skip
                         </button>
                       ) : null}
 
-                      {step < TOTAL_STEPS ? (
-                        <button
-                          type="submit"
-                          className={`${
-                            step > 1 ? 'w-[70%]' : 'w-full'
-                          } bg-ajs-red hover:bg-ajs-red-dark text-white font-bold min-h-12 py-3 rounded-xl text-[0.9375rem] sm:text-base tracking-wide uppercase shadow-lg shadow-red-900/15 inline-flex items-center justify-center`}
-                        >
-                          Continue
-                        </button>
-                      ) : (
-                        <button
-                          type="submit"
-                          disabled={submitting}
-                          className="w-[70%] bg-ajs-red hover:bg-ajs-red-dark disabled:opacity-70 text-white font-bold min-h-12 py-3 rounded-xl px-2 text-sm sm:text-base shadow-lg shadow-red-900/15 inline-flex items-center justify-center gap-2"
-                        >
-                          {submitting ? (
-                            <>
-                              <Loader2 className="w-4 h-4 animate-spin" /> Sending…
-                            </>
-                          ) : (
-                            'Request walkthrough'
-                          )}
-                        </button>
-                      )}
+                      <button
+                        type="submit"
+                        disabled={submitting}
+                        className={`${
+                          step === 2 ? 'w-[70%]' : 'w-full'
+                        } bg-ajs-red hover:bg-ajs-red-dark disabled:opacity-70 text-white font-bold min-h-12 py-3 rounded-xl px-2 text-[0.9375rem] sm:text-base tracking-wide uppercase shadow-lg shadow-red-900/15 inline-flex items-center justify-center gap-2`}
+                      >
+                        {submitting ? (
+                          <>
+                            <Loader2 className="w-4 h-4 animate-spin" /> Sending…
+                          </>
+                        ) : step === 1 ? (
+                          'Request walkthrough'
+                        ) : (
+                          'Send details'
+                        )}
+                      </button>
                     </div>
 
                     <p className="text-[0.6875rem] text-slate-500 text-center leading-snug">
@@ -775,6 +763,7 @@ export function OfficesFunnel({ city }: OfficesFunnelProps) {
 
 
       <Footer hideCallCta />
+      <MobileCallBar />
     </div>
   )
 }

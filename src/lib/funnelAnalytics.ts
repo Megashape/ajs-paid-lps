@@ -4,8 +4,9 @@ export type FunnelEvent =
   | 'ajs_submit_attempt' | 'ajs_submit_accepted' | 'ajs_submit_error'
   | 'ajs_validation_error' | 'ajs_phone_click'
   | 'ajs_walkthrough_click' | 'ajs_main_site_click'
+  | 'ajs_details_accepted' | 'ajs_details_skipped' | 'ajs_details_error'
 
-export function trackFunnelEvent(event: FunnelEvent, step?: number, placement?: 'header' | 'footer' | 'content'): void {
+export function trackFunnelEvent(event: FunnelEvent, step?: number, placement?: 'header' | 'footer' | 'content' | 'sticky'): void {
   if (window.location.hostname !== 'offices.alljanitorialservice.com') return
   try {
     window.gtag?.('event', event, {

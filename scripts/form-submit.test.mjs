@@ -72,3 +72,19 @@ test('network ambiguity does not report success or encourage duplicate submissio
   globalThis.fetch = async () => { throw new TypeError('Failed to fetch') }
   await assert.rejects(submitLead(lead), /could not confirm.*before sending it again/)
 })
+
+test('contact and details stages reach the CRM with distinct subjects and the same contact keys', async () => {
+  globalThis.ajsTestEndpoint = 'https://example.invalid/lead'
+  const sent = []
+  globalThis.fetch = async (_url, init) => { sent.push(JSON.parse(init.body)); return new Response('{}', { status: 200 }) }
+  await submitLead({ ...lead, frequency: '', stage: 'contact' })
+  await submitLead({ ...lead, stage: 'details' })
+  assert.equal(sent[0].stage, 'contact')
+  assert.match(sent[0]._subject, /^AJS Lead — office — /)
+  assert.equal(sent[1].stage, 'details')
+  assert.match(sent[1]._subject, /^AJS Lead details — office — /)
+  for (const body of sent) {
+    assert.equal(body.Email, lead.email)
+    assert.equal(body.Phone, lead.phone)
+  }
+})
