@@ -6,3 +6,4 @@ Proud Member / main-site trust badges — scraped from https://alljanitorialserv
 - bbb-accredited.png <- /wp-content/uploads/2025/09/BBB-Acredited.png
 - chamber.png      <- /wp-content/uploads/2025/09/San-Mateo-Area-Chamber-of-Commerce.png
 - issa.avif/png    <- /wp-content/uploads/2025/03/ISSA-1.avif (converted to PNG)
+- ifma-silicon-valley.png <- https://ifmasv.org/images/Silicon_Chapter.png (official IFMA Silicon Valley Chapter logo, 2026-09-29)

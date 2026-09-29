@@ -24,6 +24,12 @@ export const PROUD_MEMBER_BADGES = [
     alt: 'ISSA, The Association for Cleaning and Facility Solutions',
     className: 'h-9 sm:h-11 w-auto max-w-[8rem] object-contain',
   },
+  {
+    // Chris joined 2026-09 (email 2026-09-28). Official chapter artwork: https://ifmasv.org/images/Silicon_Chapter.png
+    src: 'badges/ifma-silicon-valley.png',
+    alt: 'IFMA Silicon Valley Chapter, International Facility Management Association',
+    className: 'h-9 sm:h-11 w-auto max-w-[11rem] object-contain',
+  },
 ] as const
 
 /** Review platform logos — stars bake under Google + Yelp only. No brand text labels. */
