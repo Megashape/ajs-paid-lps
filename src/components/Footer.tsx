@@ -5,6 +5,8 @@ import { assetUrl } from '../lib/assetUrl'
 
 interface FooterProps {
   hideCallCta?: boolean
+  ctaHref?: string
+  ctaLabel?: string
 }
 
 const companyLinks = [
@@ -13,7 +15,7 @@ const companyLinks = [
   { label: 'Contact our team', path: '/contact-us/' },
 ]
 
-export function Footer({ hideCallCta = false }: FooterProps) {
+export function Footer({ hideCallCta = false, ctaHref = '#lead-form', ctaLabel = 'Request a walkthrough' }: FooterProps) {
   const phone = usePhoneNumber()
   const linkClass = 'inline-flex items-center gap-1.5 py-1 text-sm text-slate-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white'
 
@@ -25,8 +27,8 @@ export function Footer({ hideCallCta = false }: FooterProps) {
             <h2 className="text-xl font-bold tracking-tight sm:text-2xl">Let’s plan a cleaner workplace.</h2>
             <p className="mt-2 text-sm leading-relaxed text-slate-300">Start with a facility walkthrough and a cleaning plan built around your office.</p>
           </div>
-          <a href="#lead-form" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-ajs-red px-5 py-3 text-sm font-bold transition-colors hover:bg-ajs-red-dark focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
-            Request a walkthrough <ArrowUpRight className="h-4 w-4" aria-hidden />
+          <a href={ctaHref} className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-ajs-red px-5 py-3 text-sm font-bold transition-colors hover:bg-ajs-red-dark focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
+            {ctaLabel} <ArrowUpRight className="h-4 w-4" aria-hidden />
           </a>
         </div>
 

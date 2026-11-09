@@ -3,6 +3,7 @@ import { OfficesHome } from './pages/OfficesHome'
 import { CityPage } from './pages/CityPage'
 import { RecurringPage } from './pages/Recurring'
 import { ThankYouPage } from './pages/ThankYou'
+import { TourPage, TourBookedPage } from './pages/Tour'
 
 export default function App() {
   return (
@@ -10,6 +11,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<OfficesHome />} />
         <Route path="/thank-you" element={<ThankYouPage />} />
+        <Route path="/tour" element={<TourPage />} />
+        <Route path="/tour/booked" element={<TourBookedPage />} />
         <Route path="/recurring" element={<RecurringPage />} />
         <Route path="/office" element={<Navigate to="/" replace />} />
         {/* City slugs last so static routes win */}
