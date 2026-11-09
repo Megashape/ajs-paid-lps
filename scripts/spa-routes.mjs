@@ -39,7 +39,7 @@ for (const city of SERVICE_CITIES) {
 }
 
 // Tour booking pages: own title, description and share cover (Google Business Profile booking link).
-const TOUR_URL = 'https://offices.alljanitorialservice.com/tour'
+const TOUR_URL = 'https://offices.alljanitorialservice.com/tour/'
 const TOUR_TITLE = 'Book a free office tour | All Janitorial Service'
 const TOUR_DESC =
   'Pick a time for a free 30-minute office tour in the Peninsula. We walk your space and plan recurring office cleaning.'
